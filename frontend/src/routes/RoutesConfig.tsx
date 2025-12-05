@@ -1,3 +1,4 @@
+import BackgroundRemove from "../pages/BackgroundRemove"
 import Community from "../pages/Community"
 import Dashboard from "../pages/Dashboard"
 import GenerateBlogTitle from "../pages/GenerateBlogTitle"
@@ -12,4 +13,5 @@ export const routesConfig: RouteItem[] = [
     { path: path.REVIEW_RESUME, element: <ReviewResume /> },
     { path: path.COMMUNITY, element: <Community /> },
     { path: path.GENERATE_BLOG_TITLES, element: <GenerateBlogTitle /> },
+    { path: path.BACKGROUND_REMOVE, element: <BackgroundRemove /> },
 ]
