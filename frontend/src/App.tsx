@@ -2,11 +2,12 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Layout from "./layout/Layout"
 import { routesConfig } from "./routes/RoutesConfig"
+import { path } from "./routes/paths"
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path={path.HOME} element={<Home />} />
 
       <Route element={<Layout />}>
         {routesConfig.map((route, index) => (
