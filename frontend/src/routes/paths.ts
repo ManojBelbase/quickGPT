@@ -5,8 +5,9 @@ export const path = {
     REVIEW_RESUME: "review-resume",
     COMMUNITY: "community",
     GENERATE_BLOG_TITLES: "generate-blog-titles",
-    BACKGROUND_REMOVE: "/background-remove",
-    GENERATE_IMAGES: "/generate-images"
+    REMOVE_BACKGROUND: "/remove-background",
+    GENERATE_IMAGES: "/generate-images",
+    REMOVE_OBJECT: "/remove-object"
 } as const
 
 export type PathType = typeof path[keyof typeof path]

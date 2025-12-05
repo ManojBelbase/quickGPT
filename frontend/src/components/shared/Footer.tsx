@@ -81,7 +81,7 @@ export const FooterSection = () => {
                 {/* Bottom Bar: Copyright */}
                 <div className="mt-12 pt-6 border-t border-gray-100 text-center">
                     <p className="text-sm text-gray-500">
-                        Copyright © 2025 Quickai. All Right Reserved.
+                        Copyright © 2025 QuickGPT. All Right Reserved.
                     </p>
                 </div>
             </div>
