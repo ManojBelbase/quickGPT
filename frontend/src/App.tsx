@@ -1,10 +1,24 @@
+import { Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import Layout from "./layout/Layout"
+import { routesConfig } from "./routes/RoutesConfig"
 
 function App() {
-
   return (
-    <>
-      <h1 className='bg-amber-500'>Hello world</h1>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+
+      <Route element={<Layout />}>
+        {routesConfig.map((route, index) => (
+          <Route
+            key={index}
+            index={route.path === ""}
+            path={route.path}
+            element={route.element}
+          />
+        ))}
+      </Route>
+    </Routes>
   )
 }
 
