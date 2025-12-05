@@ -1,18 +1,12 @@
-// src/components/Sidebar.tsx
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sidebarLinks, type SidebarLink } from '../../const/sidebarLinks';
-import { useUser } from '@clerk/clerk-react';
-import { X } from 'lucide-react'; // Import the close icon
+import { useUser, UserButton } from '@clerk/clerk-react';
+import { X } from 'lucide-react';
 import { assets } from '../../assets/assets';
 import { path } from '../../routes/paths';
+import type { SidebarProps } from '../../types';
 
-interface SidebarProps {
-    currentPath: string;
-    // New props for responsiveness
-    isOpen: boolean;
-    onClose: () => void;
-}
+
 
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
     const navigate = useNavigate();
@@ -20,7 +14,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
 
     const handleNavigation = (path: string) => {
         navigate(path);
-        // Automatically close sidebar on mobile after navigating
         onClose();
     };
 
@@ -79,18 +72,16 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
             </nav>
 
             {/* Footer User Info (Bottom Left) */}
-            <div className="p-4 border-t border-gray-200">
-                <div className="flex items-center text-sm">
-                    <img
-                        src={user?.imageUrl}
-                        alt={user?.fullName || "User Profile"}
-                        className="w-6 h-6 rounded-full object-cover mr-2"
-                    />
+            <div className="p-4 border-t border-gray-200 flex items-center justify-between">
+                <div className="flex items-center text-sm gap-2">
+
+                    <UserButton />
                     <div>
                         <div className="font-medium">{user?.fullName || "Guest User"}</div>
                         <div className="text-xs text-gray-500">Premium Plan</div>
                     </div>
                 </div>
+
             </div>
         </div>
     );
