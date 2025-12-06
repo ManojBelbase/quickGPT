@@ -9,7 +9,7 @@ const Layout: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-50">
 
             {/* 1. Sidebar Component (Always Rendered) */}
             <Sidebar
@@ -42,15 +42,13 @@ const Layout: React.FC = () => {
                     </button>
 
                     {/* Logo (Visible on all screen sizes) */}
-                    <div className="flex items-center justify-start">
-                        {/* Replace with your actual logo component or image */}
+                    {/* <div className="flex items-center justify-start">
                         <span className="text-xl font-bold text-gray-800">QuickGPT</span>
-                    </div>
+                    </div> */}
 
 
                 </header>
 
-                {/* Page Content (Outlet) */}
                 <main className="flex-1 overflow-y-auto p-4 md:p-8 max-w-[1800px] mx-auto w-full">
                     <Outlet />
                 </main>

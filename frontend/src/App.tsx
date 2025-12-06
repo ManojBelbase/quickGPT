@@ -8,7 +8,6 @@ function App() {
   return (
     <Routes>
       <Route path={path.HOME} element={<Home />} />
-
       <Route element={<Layout />}>
         {routesConfig.map((route, index) => (
           <Route
