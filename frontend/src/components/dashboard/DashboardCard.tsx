@@ -1,12 +1,7 @@
-// src/components/DashboardCard.tsx
 import React from 'react';
 import { Sparkles, Zap } from 'lucide-react';
+import type { DashboardCardProps } from '../../types';
 
-interface DashboardCardProps {
-    title: string;
-    value: string | number;
-    iconType: 'creations' | 'plan';
-}
 
 const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, iconType }) => {
     const icon = iconType === 'creations' ? <Sparkles className="w-6 h-6 text-blue-500" /> : <Zap className="w-6 h-6 text-purple-500" />;

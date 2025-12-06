@@ -1,17 +1,15 @@
-// src/Layout.tsx (Parent component managing state)
 import { Outlet, useLocation } from "react-router-dom";
 import React, { useState } from 'react';
-import { Menu } from 'lucide-react'; // Import icons
+import { Menu } from 'lucide-react';
 import Sidebar from "../components/shared/Sidebar";
 
 const Layout: React.FC = () => {
     const location = useLocation();
     const currentPath = location.pathname;
-    // State to control sidebar visibility on mobile
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-gray-100">
 
             {/* 1. Sidebar Component (Always Rendered) */}
             <Sidebar
@@ -29,7 +27,7 @@ const Layout: React.FC = () => {
             )}
 
             {/* Main Content Area */}
-            <div className="flex flex-col flex-1 overflow-hidden md:ml-0">
+            <div className="flex flex-col flex-1 overflow-hidden md:ml-0 ">
 
                 {/* Top Header/Navigation */}
                 <header className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200 shadow-sm">
@@ -46,17 +44,14 @@ const Layout: React.FC = () => {
                     {/* Logo (Visible on all screen sizes) */}
                     <div className="flex items-center justify-start">
                         {/* Replace with your actual logo component or image */}
-                        <span className="text-xl font-bold text-gray-800">Quickai</span>
+                        <span className="text-xl font-bold text-gray-800">QuickGPT</span>
                     </div>
 
-                    {/* Placeholder for other header content (e.g., notifications, actions) */}
-                    <div>
-                        {/* Add your right-side header elements here if needed */}
-                    </div>
+
                 </header>
 
                 {/* Page Content (Outlet) */}
-                <main className="flex-1 overflow-y-auto p-4 md:p-8">
+                <main className="flex-1 overflow-y-auto p-4 md:p-8 max-w-[1800px] mx-auto w-full">
                     <Outlet />
                 </main>
             </div>
