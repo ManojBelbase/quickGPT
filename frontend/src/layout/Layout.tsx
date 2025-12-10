@@ -41,10 +41,7 @@ const Layout: React.FC = () => {
                         <Menu className="w-6 h-6" />
                     </button>
 
-                    {/* Logo (Visible on all screen sizes) */}
-                    {/* <div className="flex items-center justify-start">
-                        <span className="text-xl font-bold text-gray-800">QuickGPT</span>
-                    </div> */}
+
 
 
                 </header>
