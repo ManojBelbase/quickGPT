@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import type { CreationItem } from '../../types';
+import { AIResponseParser } from 'ai-response-parser';
 
 interface RecentCreationItemProps {
     creation: CreationItem;
 }
+
 
 const RecentCreationItem: React.FC<RecentCreationItemProps> = ({ creation }) => {
     const [expanded, setExpanded] = useState(false)
@@ -25,16 +27,20 @@ const RecentCreationItem: React.FC<RecentCreationItemProps> = ({ creation }) => 
                     {creation.type === 'article' ? (
                         "Navigating the Technological Frontier: Trends Shaping Our Future"
                     ) : creation.type === 'blog-title' ? (
-                        creation.prompt // Use the prompt for blog titles
+                        creation.prompt || "AI-Generated Blog Title"
                     ) : (
-                        "Background removed from an image." // Use a generic description for image types
+                        "Background removed from an image."
                     )}
                 </div>
 
                 <div className="text-sm text-gray-500 mt-0.5">
                     {isImage ? 'image' : 'article'} - {date}
                 </div>
-                {expanded && <span className='text-sm'>{creation.content}</span>}
+                {expanded && <span className='text-sm'>
+
+                    <AIResponseParser content={creation.content} className='reset-tw' /></span>}
+                {!expanded && <span className='text-sm truncate max-w-xl'>
+                    {creation.content}</span>}
             </div>
             <span
                 className={`px-3 py-1 text-xs font-semibold rounded-full
