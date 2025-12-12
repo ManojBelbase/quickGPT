@@ -1,4 +1,4 @@
-import { LayoutDashboard, FileText, Image, PenTool, Crop, User } from "lucide-react";
+import { LayoutDashboard, FileText, Image, PenTool, Crop, User, Group } from "lucide-react";
 import { path } from "../routes/paths";
 
 export interface SidebarLink {
@@ -51,4 +51,10 @@ export const sidebarLinks: SidebarLink[] = [
         path: path.REVIEW_RESUME,
         Icon: User,
     },
+    {
+        id: 8,
+        name: "Community",
+        path: path.COMMUNITY,
+        Icon: Group
+    }
 ];
