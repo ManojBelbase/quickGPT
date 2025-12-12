@@ -60,7 +60,7 @@ const GenerateBlogTitle: React.FC = () => {
     };
 
     return (
-        <div className=" flex flex-col lg:flex-row gap-8 min-h-full">
+        <div className=" flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
 
             {/* Left Panel: Controls */}
             <BlogTitleForm
