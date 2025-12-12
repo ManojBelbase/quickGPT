@@ -1,4 +1,3 @@
-// src/components/image_editor/ProcessedImageResultObject.tsx
 import React from 'react';
 import { Scissors, Loader2 } from 'lucide-react';
 

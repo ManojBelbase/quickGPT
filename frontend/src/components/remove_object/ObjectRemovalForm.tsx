@@ -1,4 +1,3 @@
-// src/components/image_editor/ObjectRemovalForm.tsx
 import React from 'react';
 import { Sparkles, Scissors, Loader2 } from 'lucide-react';
 import { Input } from '../ui/Input';
