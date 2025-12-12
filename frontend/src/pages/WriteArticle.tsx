@@ -1,36 +1,57 @@
-// src/pages/WriteArticle.tsx (Main container)
+// src/pages/WriteArticle.tsx
 import React, { useState } from 'react';
 import ArticleForm from '../components/article/ArticleForm';
 import ArticleResult from '../components/article/ArticleResult';
 
 const WriteArticle: React.FC = () => {
-    // State management remains in the parent container
     const [topic, setTopic] = useState<string>('The future of artificial intelligence');
-    const [length, setLength] = useState<'short' | 'long'>('short');
+    const [selectedWordCount, setSelectedWordCount] = useState<number>(800);
     const [articleContent, setArticleContent] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // Function to simulate the AI generation process
     const handleGenerateArticle = () => {
-        if (!topic.trim()) return;
+        if (!topic.trim()) {
+            console.warn('Topic is empty – generation blocked');
+            return;
+        }
 
+        // THIS IS THE DATA THAT WOULD GO TO YOUR BACKEND
+        console.log('🚀 GENERATE ARTICLE REQUEST');
+        console.log('Topic:', topic.trim());
+        console.log('Target word count:', selectedWordCount);
+
+        // Map number to readable label
+        const lengthLabel = selectedWordCount === 800 ? 'Short' :
+            selectedWordCount === 1200 ? 'Medium' : 'Long';
+        console.log('Length:', `${lengthLabel} (${selectedWordCount} words)`);
+        console.log('Full payload:', {
+            topic: topic.trim(),
+            wordCount: selectedWordCount,
+            length: lengthLabel
+        });
+
+        // Start loading
         setIsLoading(true);
-        setArticleContent(''); // Clear previous content
+        setArticleContent('');
 
+        // Simulate generation delay
         setTimeout(() => {
+            console.log('✅ Simulated article generated successfully!');
+
             const simulatedContent = `
-## The Future of Artificial Intelligence: A Double-Edged Sword
+# ${topic.trim()}
 
-(Content for a ${length} article on "${topic}" goes here.)
+**Target length:** ~${selectedWordCount} words (${lengthLabel})
 
-Artificial Intelligence (AI) is no longer a concept confined to science fiction; it is rapidly becoming the defining technology of the 21st century. The continued advancement of deep learning and neural networks suggests AGI could be achievable within decades.
+This is a simulated article generated for testing.
 
-This breakthrough will lead to hyper-automation, where AI handles routine, complex, and creative tasks, leading to unprecedented gains in productivity and the creation of entirely new industries.
+Artificial Intelligence continues to evolve rapidly. With your selected length of **${lengthLabel}** (~${selectedWordCount} words), 
+here would be the full AI-generated content based on the topic.
 
-The two primary concerns are: Job Displacement and Bias and Ethics. Establishing robust, transparent, and ethical guidelines for AI development is paramount to ensuring its benefits are shared equitably.
+(Replace this simulation with real API response later)
 
-In conclusion, the future of AI is bright with innovation, offering solutions to global challenges. Our success hinges on our ability to govern its development wisely.
-            `;
+Generated on: ${new Date().toLocaleString()}
+            `.trim();
 
             setArticleContent(simulatedContent);
             setIsLoading(false);
@@ -38,24 +59,22 @@ In conclusion, the future of AI is bright with innovation, offering solutions to
     };
 
     return (
-        <div className=" flex flex-col lg:flex-row gap-4 min-h-full">
-
-            {/* Left Panel: Controls */}
+        <div className="flex flex-col lg:flex-row gap-4 min-h-full">
+            {/* Left Panel: Form */}
             <ArticleForm
                 topic={topic}
                 onTopicChange={setTopic}
-                length={length}
-                onLengthChange={setLength}
+                selectedWordCount={selectedWordCount}
+                onWordCountChange={setSelectedWordCount}
                 onGenerate={handleGenerateArticle}
                 isLoading={isLoading}
             />
 
-            {/* Right Panel: Results */}
+            {/* Right Panel: Result */}
             <ArticleResult
                 content={articleContent}
                 isLoading={isLoading}
             />
-
         </div>
     );
 };
