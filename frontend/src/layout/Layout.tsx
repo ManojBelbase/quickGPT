@@ -46,7 +46,7 @@ const Layout: React.FC = () => {
 
                 </header>
 
-                <main className="flex-1 overflow-y-auto p-4 md:p-8 max-w-[1800px] mx-auto w-full">
+                <main className="flex-1 overflow-y-auto p-2 md:p-4 max-w-[1800px] mx-auto w-full">
                     <Outlet />
                 </main>
             </div>
