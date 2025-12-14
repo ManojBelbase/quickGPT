@@ -2,7 +2,8 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { clerkMiddleware, requireAuth } from '@clerk/express'
-import articleRouter from './routes/generate-title.route';
+import articleRouter from './routes/article.route';
+import blogTitleRouter from './routes/blog-title.route'
 
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(requireAuth())
 
 // routes
 app.use('/api', articleRouter)
+app.use('/api', blogTitleRouter)
 
 app.get('/', (req, res) => res.send("server is live"))
 

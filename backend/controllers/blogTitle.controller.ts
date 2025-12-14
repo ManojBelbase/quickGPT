@@ -4,15 +4,13 @@ import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
 
-export const generateArticle = async (req: Request, res: Response): Promise<void> => {
+export const generateBlogTitle = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId: string = req.auth().userId;
-        console.log(userId, "userid");
 
-        const { prompt, length }: { prompt: string; length: number } = req.body;
+        const { prompt } = req.body;
         const plan: string | undefined = req.plan;
         const free_usage: number | undefined = req.free_usage;
-        console.log(free_usage, "free");
 
         // Free users limit
         if (plan !== "premium" && (free_usage ?? 0) >= 10) {
@@ -25,19 +23,17 @@ export const generateArticle = async (req: Request, res: Response): Promise<void
             model: "tngtech/deepseek-r1t-chimera:free",
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7,
-            max_tokens: length,
+            max_tokens: 100,
         });
 
         const content: string =
             aiResponse.data.choices?.[0]?.message?.content ?? "";
 
-        // Save to DB (assuming sql is tagged template with proper typing, e.g., sql-tagged from 'pgsql')
         await sql`
             INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${prompt}, ${content}, 'article')
+            VALUES (${userId}, ${prompt}, ${content}, 'blog-title')
         `;
 
-        // Update free usage for non-premium users
         if (plan !== "premium") {
             await clerkClient.users.updateUserMetadata(userId, {
                 privateMetadata: {
