@@ -35,6 +35,6 @@ export const upload = multer({
     storage: memoryStorage, // Use memoryStorage for Clipdrop API
     fileFilter,
     limits: {
-        fileSize: 30 * 1024 * 1024, // 30MB limit (Clipdrop's max)
+        fileSize: 10 * 1024 * 1024, // 10MB limit (Clipdrop's max)
     }
 });
