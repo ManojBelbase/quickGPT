@@ -41,7 +41,7 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
 
         // 4. Upload to Cloudinary
         const uploadResult = await cloudinary.uploader.upload(dataUri, {
-            folder: "quickgpt"
+            folder: "quickGPT/generated_images"
         });
 
         // 5. Save record to your database
@@ -51,7 +51,7 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
         `;
 
         // 6. Send success response
-        response(res, 200, "Success", { imageUrl: uploadResult.secure_url });
+        response(res, 200, "Success", { content: uploadResult.secure_url });
 
     } catch (error: any) {
 
