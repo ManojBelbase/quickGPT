@@ -1,0 +1,74 @@
+import { Request, Response } from "express";
+import sql from "../config/db";
+import { response } from "../utils/responseHandler";
+import axios from "axios";
+import { cloudinary } from "../config/cloudinary";
+import dotenv from 'dotenv';
+dotenv.config();
+
+const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
+
+export const generateImage = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+        const { prompt, publish } = req.body;
+        const plan: string | undefined = req.plan;
+
+        // Premium user check
+        if (plan !== "premium") {
+            response(res, 403, "This feature is only available for premium users.");
+            return;
+        }
+        // 1. Create FormData exactly like the documentation
+        const form = new FormData();
+        form.append('prompt', prompt);
+
+        // 2. Use axios.post with the correct configuration
+        const apiResponse = await axios.post(
+            'https://clipdrop-api.co/text-to-image/v1',
+            form,
+            {
+                headers: {
+                    'x-api-key': CLIPDROP_API_KEY!,
+                },
+                responseType: 'arraybuffer'
+            }
+        );
+
+        // 3. Convert the ArrayBuffer to a Base64 Data URI for Cloudinary
+        const base64Image = Buffer.from(apiResponse.data).toString('base64');
+        const dataUri = `data:image/png;base64,${base64Image}`;
+
+        // 4. Upload to Cloudinary
+        const uploadResult = await cloudinary.uploader.upload(dataUri, {
+            folder: "quickgpt"
+        });
+
+        // 5. Save record to your database
+        await sql`
+            INSERT INTO creations (user_id, prompt, content, type, publish)
+            VALUES (${userId}, ${prompt}, ${uploadResult.secure_url}, 'image', ${publish ?? false})
+        `;
+
+        // 6. Send success response
+        response(res, 200, "Success", { imageUrl: uploadResult.secure_url });
+
+    } catch (error: any) {
+
+        // Provide more specific error messages
+        if (error.response) {
+            // Clipdrop API returned an error status (4xx, 5xx)
+            const errorData = error.response.data instanceof Buffer
+                ? error.response.data.toString()
+                : error.response.data;
+
+            response(res, error.response.status, "Clipdrop API Error", errorData);
+        } else if (error.request) {
+            // Request was made but no response received
+            response(res, 503, "Service Unavailable", "No response received from Clipdrop API.");
+        } else {
+            // Something else went wrong
+            response(res, 500, "Internal Server Error", error.message);
+        }
+    }
+};
