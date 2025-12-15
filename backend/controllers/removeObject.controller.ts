@@ -10,6 +10,7 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
     try {
         const userId: string = req.auth().userId;
         const plan: string | undefined = req.plan;
+        const prompt: string = req.body.prompt.trim();
 
         if (plan !== "premium") {
             response(res, 403, "This feature is only available for premium users.");
@@ -21,14 +22,12 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
             return;
         }
 
-        const uploadedFile = req.file;
-        const prompt: string = req.body.prompt.trim();
 
         if (!prompt) {
             response(res, 400, "Prompt cannot be empty.");
             return;
         }
-
+        const uploadedFile = req.file;
         // Validate file type
         const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
         if (!allowedMimeTypes.includes(uploadedFile.mimetype)) {
@@ -66,7 +65,7 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
         // Save to DB
         await sql`
             INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${prompt}, ${uploadResult.secure_url}, 'image-replace-bg')
+            VALUES (${userId}, ${prompt}, ${`Remove ${uploadResult.secure_url} from image`}, 'image-replace-bg')
         `;
 
         response(res, 200, "Background replaced successfully", {
