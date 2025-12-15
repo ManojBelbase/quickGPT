@@ -56,7 +56,7 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
 
         // Convert to base64 for Cloudinary
         const base64Image = Buffer.from(apiResponse.data).toString('base64');
-        const dataUri = `data:image/jpeg;base64,${base64Image}`; // Usually JPEG output
+        const dataUri = `data:image/jpeg;base64,${base64Image}`;
 
         // Upload to Cloudinary
         const uploadResult = await cloudinary.uploader.upload(dataUri, {
