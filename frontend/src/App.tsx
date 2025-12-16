@@ -3,16 +3,9 @@ import Home from "./pages/Home"
 import Layout from "./layout/Layout"
 import { routesConfig } from "./routes/RoutesConfig"
 import { path } from "./routes/paths"
-import { useAuth } from "@clerk/clerk-react"
-import { useEffect } from "react"
 
 function App() {
-  const { getToken } = useAuth()
-  useEffect(() => {
-    getToken().then(token => {
-      console.log("Clerk Token:", token)
-    })
-  })
+
   return (
     <Routes>
       <Route path={path.HOME} element={<Home />} />
