@@ -1,9 +1,11 @@
 import express from 'express';
 import { auth } from '../middlewares/auth';
-import { generateImage } from '../controllers/image.controller';
+import { generateImage, getPublishImages, toggleLikeImages } from '../controllers/image.controller';
 
 const imageRouter = express.Router();
 
-imageRouter.post('/generate-image', auth, generateImage);
+imageRouter.post('/', auth, generateImage);
+imageRouter.get('/published', auth, getPublishImages);
+imageRouter.post('/toggle-like', auth, toggleLikeImages)
 
 export default imageRouter;
