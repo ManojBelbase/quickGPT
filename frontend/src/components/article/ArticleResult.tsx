@@ -18,12 +18,12 @@ const ArticleResult: React.FC<GeneratedArticleResultProps> = ({ content, isLoadi
             <div className="min-h-[400px] border border-gray-200 rounded-sm p-2 relative">
                 {content ? (
                     // Display generated content
-                    <AIResponseParser content={content} themeName='light' />
+                    <AIResponseParser content={content} themeName='light' textColor='#000000' />
                 ) : isLoading ? (
                     // Loading state overlay
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90">
                         <Loader2 className="h-8 w-8 text-blue-600 animate-spin" />
-                        <p className="mt-4 text-gray-600 font-medium"> Please wait... ,AI is writing your masterpiece...</p>
+                        <p className="mt-4 text-gray-600 font-medium"> Please wait... , AI is writing your masterpiece...</p>
                     </div>
                 ) : (
                     // Initial state / Placeholder

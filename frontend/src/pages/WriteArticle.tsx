@@ -1,46 +1,30 @@
-import React, { useState, useCallback } from 'react';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { useAuth } from '@clerk/clerk-react';
+import React, { useState, useCallback } from "react";
+import toast from "react-hot-toast";
 
-import ArticleForm from '../components/article/ArticleForm';
-import ArticleResult from '../components/article/ArticleResult';
-
-// Create instance instead of mutating defaults
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5005',
-});
+import ArticleForm from "../components/article/ArticleForm";
+import ArticleResult from "../components/article/ArticleResult";
+import api from "../api/axiosInstance";
 
 const WriteArticle: React.FC = () => {
-    const { getToken } = useAuth();
-
-    const [prompt, setPrompt] = useState('The future of artificial intelligence');
+    const [prompt, setPrompt] = useState("The future of artificial intelligence");
     const [selectedLength, setSelectedLength] = useState(300);
-    const [articleContent, setArticleContent] = useState('');
+    const [articleContent, setArticleContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleGenerateArticle = useCallback(async () => {
         if (!prompt.trim()) {
-            toast.error('Please enter an article prompt');
+            toast.error("Please enter an article prompt");
             return;
         }
 
         setIsLoading(true);
 
         try {
-            const token = await getToken();
 
-            const promptText = `Write an article  "${prompt}" in  ${selectedLength}`;
-
-            const { data } = await api.post(
-                "/api/article",
-                { prompt: promptText, length: selectedLength },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const { data } = await api.post("/article", {
+                prompt: prompt,
+                length: selectedLength,
+            });
 
             if (data?.status !== "success") {
                 toast.error(data?.message || "Failed to generate article");
@@ -49,12 +33,12 @@ const WriteArticle: React.FC = () => {
 
             setArticleContent(data.data);
         } catch (error) {
-            console.error('❌ Error generating article:', error);
-            toast.error('An error occurred while generating the article');
+            console.error(error);
+            toast.error("An error occurred while generating the article");
         } finally {
             setIsLoading(false);
         }
-    }, [prompt, selectedLength, getToken]);
+    }, [prompt, selectedLength]);
 
     return (
         <div className="flex flex-col lg:flex-row gap-4 min-h-full">
@@ -67,10 +51,7 @@ const WriteArticle: React.FC = () => {
                 isLoading={isLoading}
             />
 
-            <ArticleResult
-                content={articleContent}
-                isLoading={isLoading}
-            />
+            <ArticleResult content={articleContent} isLoading={isLoading} />
         </div>
     );
 };

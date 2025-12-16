@@ -50,7 +50,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 {/* Article prompt Input */}
                 <div>
                     <label htmlFor="article-prompt" className="block text-sm font-medium text-gray-700 mb-2">
-                        Article prompt
+                        Article Topic
                     </label>
                     <Input
                         id="article-prompt"
@@ -75,7 +75,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                                 type="button" // Important: button inside form should be type="button" to avoid submitting
                                 onClick={() => onLenghtChange(option.length)}
                                 disabled={isLoading}
-                                className={`py-3 px-4 text-sm font-medium rounded-md transition-colors border ${selectedLenght === option.length
+                                className={`py-3 px-4 cursor-pointer text-sm font-medium rounded-md transition-colors border ${selectedLenght === option.length
                                     ? 'bg-purple-600 text-white border-purple-600 shadow-md'
                                     : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                     }`}
