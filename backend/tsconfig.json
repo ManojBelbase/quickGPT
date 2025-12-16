@@ -8,7 +8,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+        "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,  // ✅ Allows default imports
+
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["dist"]

@@ -10,7 +10,6 @@ export const generateArticle = async (req: Request, res: Response): Promise<void
         const { prompt, length } = req.body;
         const plan: string | undefined = req.plan;
         const free_usage: number | undefined = req.free_usage;
-        console.log(free_usage, "free");
 
         // Free users limit
         if (plan !== "premium" && (free_usage ?? 0) >= 10) {
@@ -24,6 +23,7 @@ export const generateArticle = async (req: Request, res: Response): Promise<void
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7,
             max_tokens: length,
+            length: length
         });
 
         const content: string =

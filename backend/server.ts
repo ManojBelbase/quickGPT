@@ -7,7 +7,7 @@ import blogTitleRouter from './routes/blog-title.route'
 import imageRouter from './routes/image.route'
 import removeBackgroundRouter from './routes/removeBg.route'
 import replaceObjectFromImage from './routes/removeObject.route'
-
+import resumeRouter from './routes/reviewResume.route';
 
 dotenv.config();
 const app = express()
@@ -23,6 +23,7 @@ app.use('/api', blogTitleRouter)
 app.use('/api', imageRouter)
 app.use('/api', removeBackgroundRouter)
 app.use('/api', replaceObjectFromImage)
+app.use('/api', resumeRouter)
 
 app.get('/', (req, res) => res.send("server is live"))
 
