@@ -64,7 +64,7 @@ export const removeImageBackground = async (req: Request, res: Response): Promis
         // 5. Save to database
         await sql`
             INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${`Remove background from image`}, ${uploadResult.secure_url}, 'image')
+            VALUES (${userId}, ${`Remove background from image`}, ${uploadResult.secure_url}, 'remove-image-bg')
         `;
 
         // 6. Send response

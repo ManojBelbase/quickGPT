@@ -18,9 +18,9 @@ app.use(clerkMiddleware())
 app.use(requireAuth())
 
 // routes
-app.use('/api', articleRouter)
+app.use('/api/article', articleRouter)
 app.use('/api', blogTitleRouter)
-app.use('/api', imageRouter)
+app.use('/api/image', imageRouter)
 app.use('/api', removeBackgroundRouter)
 app.use('/api', replaceObjectFromImage)
 app.use('/api', resumeRouter)

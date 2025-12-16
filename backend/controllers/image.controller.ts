@@ -72,3 +72,64 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
         }
     }
 };
+
+export const getPublishImages = async (req: Request, res: Response): Promise<void> => {
+    try {
+
+        const publishedImages = await sql`SELECT * FROM creations WHERE type = 'image' AND publish = true ORDER BY created_at DESC`
+
+        response(res, 200, "Publish Images fetched successfully", publishedImages);
+
+    } catch (error) {
+        response(res, 500, "Failed to feath published images");
+
+    }
+}
+
+export const toggleLikeImages = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const userId = req.auth().userId;
+        const { id } = req.body;
+
+        if (!id) {
+            response(res, 400, "Image id is required");
+            return;
+        }
+
+        const [image] = await sql`
+      SELECT likes
+      FROM creations
+      WHERE id = ${id} AND type = 'image'
+    `;
+
+        if (!image) {
+            response(res, 404, "Image not found");
+            return;
+        }
+
+        const currentLikes: string[] = image.likes ?? [];
+        const userIdStr = String(userId);
+
+        let updatedLikes: string[];
+        let message: string;
+
+        if (currentLikes.includes(userIdStr)) {
+            updatedLikes = currentLikes.filter(uid => uid !== userIdStr);
+            message = "Unliked";
+        } else {
+            updatedLikes = [...currentLikes, userIdStr];
+            message = "Liked";
+        }
+
+        await sql`UPDATE creations SET likes = ${updatedLikes} WHERE id = ${id}`;
+
+        response(res, 200, message, { likes: updatedLikes, likesCount: updatedLikes.length });
+
+    } catch (error: any) {
+        console.error(error.message);
+        response(res, 500, "Failed to toggle like");
+    }
+};

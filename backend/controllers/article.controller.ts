@@ -50,3 +50,21 @@ export const generateArticle = async (req: Request, res: Response): Promise<void
         response(res, 500, "Something went wrong", error.response?.data ?? error.message);
     }
 };
+
+
+
+export const getArticles = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = req.auth().userId;
+
+        const articles = await sql`
+            SELECT id, prompt, content, created_at FROM creations WHERE user_id = ${userId} AND type = 'article'
+            ORDER BY created_at DESC
+        `;
+
+        response(res, 200, "Articles fetched successfully", articles);
+    } catch (error: any) {
+        console.error(error.message);
+        response(res, 500, "Failed to fetch articles");
+    }
+};
