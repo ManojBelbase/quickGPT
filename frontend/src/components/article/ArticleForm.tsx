@@ -9,31 +9,31 @@ interface ArticleLengthOption {
 }
 
 const articleLengths: ArticleLengthOption[] = [
-    { length: 800, text: 'Short (500-800 words)' },
-    { length: 1200, text: 'Medium (800-1200 words)' },
+    { length: 300, text: 'Short (250-300 words)' },
+    { length: 600, text: 'Medium (550-600 words)' },
 ];
 
 interface ArticleFormProps {
-    topic: string;
-    onTopicChange: (value: string) => void;
-    selectedWordCount: number;
-    onWordCountChange: (count: number) => void;
+    prompt: string;
+    onpromptChange: (value: string) => void;
+    selectedLenght: number;
+    onLenghtChange: (count: number) => void;
     onGenerate: () => void;
     isLoading: boolean;
 }
 
 const ArticleForm: React.FC<ArticleFormProps> = ({
-    topic,
-    onTopicChange,
-    selectedWordCount,
-    onWordCountChange,
+    prompt,
+    onpromptChange,
+    selectedLenght,
+    onLenghtChange,
     onGenerate,
     isLoading,
 }) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!topic.trim()) return;
+        if (!prompt.trim()) return;
 
         onGenerate();
     };
@@ -47,16 +47,16 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
 
             {/* Proper <form> with onSubmit */}
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Article Topic Input */}
+                {/* Article prompt Input */}
                 <div>
-                    <label htmlFor="article-topic" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="article-prompt" className="block text-sm font-medium text-gray-700 mb-2">
                         Article Topic
                     </label>
                     <Input
-                        id="article-topic"
+                        id="article-prompt"
                         placeholder="The future of artificial intelligence"
-                        value={topic}
-                        onChange={(e) => onTopicChange(e.target.value)}
+                        value={prompt}
+                        onChange={(e) => onpromptChange(e.target.value)}
                         className="w-full h-10 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
                         disabled={isLoading}
                         required // Optional: HTML validation
@@ -73,9 +73,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                             <button
                                 key={option.length}
                                 type="button" // Important: button inside form should be type="button" to avoid submitting
-                                onClick={() => onWordCountChange(option.length)}
+                                onClick={() => onLenghtChange(option.length)}
                                 disabled={isLoading}
-                                className={`py-3 px-4 text-sm font-medium rounded-md transition-colors border ${selectedWordCount === option.length
+                                className={`py-3 px-4 cursor-pointer text-sm font-medium rounded-md transition-colors border ${selectedLenght === option.length
                                     ? 'bg-purple-600 text-white border-purple-600 shadow-md'
                                     : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                     }`}
@@ -89,7 +89,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 {/* Generate Button - now type="submit" */}
                 <Button
                     type="submit" // This triggers form onSubmit
-                    disabled={!topic.trim() || isLoading}
+                    disabled={!prompt.trim() || isLoading}
                     className="w-full py-2 h-12 text-lg font-medium bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {isLoading ? (

@@ -5,14 +5,15 @@ import { routesConfig } from "./routes/RoutesConfig"
 import { path } from "./routes/paths"
 import { useAuth } from "@clerk/clerk-react"
 import { useEffect } from "react"
+import { setAuthTokenGetter } from "./api/axiosInstance"
 
 function App() {
-  const { getToken } = useAuth()
+  const { getToken } = useAuth();
+
   useEffect(() => {
-    getToken().then(token => {
-      console.log("Clerk Token:", token)
-    })
-  })
+    setAuthTokenGetter(getToken);
+  }, [getToken]);
+
   return (
     <Routes>
       <Route path={path.HOME} element={<Home />} />

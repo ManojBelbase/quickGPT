@@ -1,80 +1,57 @@
-// src/pages/WriteArticle.tsx
-import React, { useState } from 'react';
-import ArticleForm from '../components/article/ArticleForm';
-import ArticleResult from '../components/article/ArticleResult';
+import React, { useState, useCallback } from "react";
+import toast from "react-hot-toast";
+
+import ArticleForm from "../components/article/ArticleForm";
+import ArticleResult from "../components/article/ArticleResult";
+import api from "../api/axiosInstance";
 
 const WriteArticle: React.FC = () => {
-    const [topic, setTopic] = useState<string>('The future of artificial intelligence');
-    const [selectedWordCount, setSelectedWordCount] = useState<number>(800);
-    const [articleContent, setArticleContent] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [prompt, setPrompt] = useState("The future of artificial intelligence");
+    const [selectedLength, setSelectedLength] = useState(300);
+    const [articleContent, setArticleContent] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleGenerateArticle = () => {
-        if (!topic.trim()) {
-            console.warn('Topic is empty – generation blocked');
+    const handleGenerateArticle = useCallback(async () => {
+        if (!prompt.trim()) {
+            toast.error("Please enter an article prompt");
             return;
         }
 
-        // THIS IS THE DATA THAT WOULD GO TO YOUR BACKEND
-        console.log('🚀 GENERATE ARTICLE REQUEST');
-        console.log('Topic:', topic.trim());
-        console.log('Target word count:', selectedWordCount);
-
-        // Map number to readable label
-        const lengthLabel = selectedWordCount === 800 ? 'Short' :
-            selectedWordCount === 1200 ? 'Medium' : 'Long';
-        console.log('Length:', `${lengthLabel} (${selectedWordCount} words)`);
-        console.log('Full payload:', {
-            topic: topic.trim(),
-            wordCount: selectedWordCount,
-            length: lengthLabel
-        });
-
-        // Start loading
         setIsLoading(true);
-        setArticleContent('');
 
-        // Simulate generation delay
-        setTimeout(() => {
-            console.log('✅ Simulated article generated successfully!');
+        try {
 
-            const simulatedContent = `
-# ${topic.trim()}
+            const { data } = await api.post("/article", {
+                prompt: prompt,
+                length: selectedLength,
+            });
 
-**Target length:** ~${selectedWordCount} words (${lengthLabel})
+            if (data?.status !== "success") {
+                toast.error(data?.message || "Failed to generate article");
+                return;
+            }
 
-This is a simulated article generated for testing.
-
-Artificial Intelligence continues to evolve rapidly. With your selected length of **${lengthLabel}** (~${selectedWordCount} words), 
-here would be the full AI-generated content based on the topic.
-
-(Replace this simulation with real API response later)
-
-Generated on: ${new Date().toLocaleString()}
-            `.trim();
-
-            setArticleContent(simulatedContent);
+            setArticleContent(data.data);
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred while generating the article");
+        } finally {
             setIsLoading(false);
-        }, 2500);
-    };
+        }
+    }, [prompt, selectedLength]);
 
     return (
         <div className="flex flex-col lg:flex-row gap-4 min-h-full">
-            {/* Left Panel: Form */}
             <ArticleForm
-                topic={topic}
-                onTopicChange={setTopic}
-                selectedWordCount={selectedWordCount}
-                onWordCountChange={setSelectedWordCount}
+                prompt={prompt}
+                onpromptChange={setPrompt}
+                selectedLenght={selectedLength}
+                onLenghtChange={setSelectedLength}
                 onGenerate={handleGenerateArticle}
                 isLoading={isLoading}
             />
 
-            {/* Right Panel: Result */}
-            <ArticleResult
-                content={articleContent}
-                isLoading={isLoading}
-            />
+            <ArticleResult content={articleContent} isLoading={isLoading} />
         </div>
     );
 };
