@@ -61,7 +61,7 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
                     <div
                         key={title.id}
                         className="flex items-center justify-between cursor-pointer border p-3 rounded-md hover:bg-gray-50 transition"
-                        onClick={() => onSelectTitle?.(title.prompt)}
+                        onClick={() => onSelectTitle?.(title.content)}
                     >
                         <div className="flex items-center gap-2 min-w-0">
                             <FileText className="w-4 h-4 text-blue-600 shrink-0" />

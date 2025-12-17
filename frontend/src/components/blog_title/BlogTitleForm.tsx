@@ -20,7 +20,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
         if (!keyword.trim() || isLoading) return;
 
         const prompt = selectedCategory
-            ? `${keyword} (Category: ${selectedCategory.name})`
+            ? `${keyword} Category ${selectedCategory.name})`
             : keyword;
 
         onGenerate(prompt);

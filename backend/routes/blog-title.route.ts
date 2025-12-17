@@ -6,6 +6,6 @@ const blogTitleRouter = express.Router();
 
 blogTitleRouter.post('/', auth, generateBlogTitle);
 blogTitleRouter.get('/', auth, getBlogTitles);
-blogTitleRouter.delete('/', auth, deleteBlogTitle);
+blogTitleRouter.delete('/:id', auth, deleteBlogTitle);
 
 export default blogTitleRouter;
