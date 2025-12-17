@@ -59,8 +59,6 @@ export const generateArticle = async (
 
 
 
-
-
 export const getArticles = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = req.auth().userId;
@@ -74,5 +72,43 @@ export const getArticles = async (req: Request, res: Response): Promise<void> =>
     } catch (error: any) {
         console.error(error.message);
         response(res, 500, "Failed to fetch articles");
+    }
+};
+
+export const deleteArticle = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const userId = req.auth().userId;
+        const { id } = req.params;
+
+        if (!id) {
+            response(res, 400, "Article ID is required");
+            return;
+        }
+
+        // Ensure article belongs to user
+        const [article] = await sql`
+            SELECT id FROM creations
+            WHERE id = ${id}
+            AND user_id = ${userId}
+            AND type = 'article'
+        `;
+
+        if (!article) {
+            response(res, 404, "Article not found or unauthorized");
+            return;
+        }
+
+        await sql`
+            DELETE FROM creations
+            WHERE id = ${id}
+        `;
+
+        response(res, 200, "Article deleted successfully");
+    } catch (error: any) {
+        console.error(error.message);
+        response(res, 500, "Failed to delete article");
     }
 };
