@@ -88,3 +88,24 @@ export const removeImageBackground = async (req: Request, res: Response): Promis
         }
     }
 };
+
+export const getRemovedBackgroundImages = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+
+        const images = await sql`
+            SELECT id, content, created_at
+            FROM creations
+            WHERE user_id = ${userId}
+              AND type = 'remove-image-bg'
+            ORDER BY created_at DESC
+        `;
+
+        response(res, 200, "Success", images);
+    } catch (error: any) {
+        response(res, 500, "Failed to fetch images", error.message);
+    }
+};
