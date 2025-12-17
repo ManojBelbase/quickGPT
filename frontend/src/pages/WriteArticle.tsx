@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 import ArticleForm from "../components/article/ArticleForm";
 import ArticleResult from "../components/article/ArticleResult";
+import ArticleList from "../components/article/ArticleList";
 import api from "../api/axiosInstance";
 
 const WriteArticle: React.FC = () => {
@@ -20,9 +21,8 @@ const WriteArticle: React.FC = () => {
         setIsLoading(true);
 
         try {
-
             const { data } = await api.post("/article", {
-                prompt: prompt,
+                prompt,
                 length: selectedLength,
             });
 
@@ -33,7 +33,6 @@ const WriteArticle: React.FC = () => {
 
             setArticleContent(data.data);
         } catch (error) {
-            console.error(error);
             toast.error("An error occurred while generating the article");
         } finally {
             setIsLoading(false);
@@ -41,19 +40,57 @@ const WriteArticle: React.FC = () => {
     }, [prompt, selectedLength]);
 
     return (
-        <div className="flex flex-col lg:flex-row gap-4 min-h-full">
-            <ArticleForm
-                prompt={prompt}
-                onpromptChange={setPrompt}
-                selectedLenght={selectedLength}
-                onLenghtChange={setSelectedLength}
-                onGenerate={handleGenerateArticle}
-                isLoading={isLoading}
-            />
+        <div className="min-h-screen p-2">
+            <div className="
+                grid
+                grid-cols-1
+                md:grid-cols-2
+                lg:grid-cols-5
+                gap-2
+                h-full
+            ">
+                {/* LEFT SIDE */}
+                <div className="
+                    col-span-1
+                    md:col-span-1
+                    lg:col-span-2
+                    flex
+                    flex-col
+                    gap-2
+                ">
+                    <ArticleForm
+                        prompt={prompt}
+                        onpromptChange={setPrompt}
+                        selectedLenght={selectedLength}
+                        onLenghtChange={setSelectedLength}
+                        onGenerate={handleGenerateArticle}
+                        isLoading={isLoading}
+                    />
 
-            <ArticleResult content={articleContent} isLoading={isLoading} />
+                    {/* Scroll-safe container */}
+                    <div className="flex-1 overflow-hidden">
+                        <ArticleList onSelectArticle={setArticleContent} />
+                    </div>
+                </div>
+
+                {/* RIGHT SIDE */}
+                <div className="
+                    col-span-1
+                    md:col-span-1
+                    lg:col-span-3
+                    flex
+                    flex-col
+                ">
+                    <ArticleResult
+                        content={articleContent}
+                        isLoading={isLoading}
+                    />
+                </div>
+            </div>
         </div>
     );
 };
 
 export default WriteArticle;
+
+
