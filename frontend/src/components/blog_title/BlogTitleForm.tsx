@@ -1,19 +1,9 @@
-// src/components/BlogTitleForm.tsx
 import React from 'react';
 import { Sparkles, Hash, Loader2 } from 'lucide-react';
-import { Button } from '../ui/Button'; // Assuming you have Button
-import { Input } from '../ui/Input';   // Assuming you have Input
-import type { BlogCategory } from '../../pages/GenerateBlogTitle';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import type { BlogTitleFormProps } from '../../types';
 
-interface BlogTitleFormProps {
-    keyword: string;
-    onKeywordChange: (value: string) => void;
-    categories: BlogCategory[];
-    selectedCategory: BlogCategory;
-    onCategoryChange: (category: BlogCategory) => void;
-    onGenerate: () => void;
-    isLoading: boolean;
-}
 
 const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
     keyword,
@@ -29,12 +19,15 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
         event.preventDefault();
         if (!keyword.trim() || isLoading) return;
 
-        // The console logging is handled by the onGenerate function in the parent.
-        onGenerate();
+        const prompt = selectedCategory
+            ? `${keyword} (Category: ${selectedCategory.name})`
+            : keyword;
+
+        onGenerate(prompt);
     };
 
     return (
-        <div className="w-full lg:w-1/3 p-4 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full  p-4 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
                 AI Title Generator
@@ -57,7 +50,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
                     />
                 </div>
 
-                {/* Category Selection (Dynamic) */}
+                {/* Category Selection */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Category

@@ -45,9 +45,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 AI Article Writer
             </h2>
 
-            {/* Proper <form> with onSubmit */}
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Article prompt Input */}
                 <div>
                     <label htmlFor="article-prompt" className="block text-sm font-medium text-gray-700 mb-2">
                         Article Topic
@@ -59,7 +57,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                         onChange={(e) => onpromptChange(e.target.value)}
                         className="w-full h-10 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
                         disabled={isLoading}
-                        required // Optional: HTML validation
+                        required
                     />
                 </div>
 
@@ -88,9 +86,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
 
                 {/* Generate Button - now type="submit" */}
                 <Button
-                    type="submit" // This triggers form onSubmit
+                    type="submit"
                     disabled={!prompt.trim() || isLoading}
-                    className="w-full py-2 h-12 text-lg font-medium bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-2 h-12 text-lg cursor-pointer font-medium bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {isLoading ? (
                         <>

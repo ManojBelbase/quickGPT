@@ -86,7 +86,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                                     e.stopPropagation();
                                     handleDelete(article.id);
                                 }}
-                                className="text-red-500 hover:text-red-600 shrink-0 disabled:opacity-50"
+                                className="text-red-500 cursor-pointer hover:text-red-600 shrink-0 disabled:opacity-50"
                             >
                                 {deletingId === article.id ? "…" : <Trash2 className="w-4 h-4" />}
                             </button>
