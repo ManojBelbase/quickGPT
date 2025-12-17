@@ -10,7 +10,7 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
     const isInitialState = !imageUrl && !isLoading;
 
     return (
-        <div className="w-full p-4 bg-white rounded-xl shadow-md">
+        <div className="w-full p-4 bg-white rounded-xl shadow-xl">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
                 <Image className="w-5 h-5 mr-2 text-green-600" />
                 Image Preview

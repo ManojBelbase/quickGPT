@@ -56,6 +56,8 @@ export interface UserImage {
     content: string;
     publish: boolean;
     created_at: string;
+    likes: string
+
 }
 
 export export interface ImageStyle {
@@ -92,4 +94,40 @@ export interface RemovedImage {
 
 export interface Props {
     onSelectImage?: (url: string) => void;
+}
+
+export interface CommunityCardProps {
+    image: UserImage;
+    onLike: () => void;
+    currentUserId: string;
+}
+
+export export interface SidebarLink {
+    id: number;
+    name: string;
+    path: string;
+    Icon: React.ElementType;
+}
+
+export interface ObjectRemovalFormProps {
+    selectedFile: File | null;
+    onFileChange: (file: File | null) => void;
+    objectDescription: string;
+    onDescriptionChange: (description: string) => void;
+    onObjectRemoval: () => void;
+    isLoading: boolean;
+}
+
+export
+    interface ProcessedImageResultProps {
+    imageUrl: string | null;
+    isLoading: boolean;
+}
+
+export interface RemovedObjectImage {
+    id: number;
+    prompt: string;
+    content: string;
+    type: string;
+    created_at: string;
 }

@@ -1,12 +1,6 @@
-import { LayoutDashboard, FileText, Image, PenTool, Crop, User, Group } from "lucide-react";
+import { LayoutDashboard, FileText, Image, PenTool, Crop, Group } from "lucide-react";
 import { path } from "../routes/paths";
-
-export interface SidebarLink {
-    id: number;
-    name: string;
-    path: string;
-    Icon: React.ElementType;
-}
+import type { SidebarLink } from "../types";
 
 export const sidebarLinks: SidebarLink[] = [
     {
@@ -41,16 +35,16 @@ export const sidebarLinks: SidebarLink[] = [
     },
     {
         id: 6,
-        name: "Remove Object",
-        path: path.REMOVE_OBJECT,
+        name: "Replace Background",
+        path: path.REPLACE_BACKGROUND,
         Icon: PenTool,
     },
-    {
-        id: 7,
-        name: "Review Resume",
-        path: path.REVIEW_RESUME,
-        Icon: User,
-    },
+    // {
+    //     id: 7,
+    //     name: "Review Resume",
+    //     path: path.REVIEW_RESUME,
+    //     Icon: User,
+    // },
     {
         id: 8,
         name: "Community",

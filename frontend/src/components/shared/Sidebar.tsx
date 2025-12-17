@@ -1,13 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { sidebarLinks, type SidebarLink } from '../../const/sidebarLinks';
+import { sidebarLinks } from '../../const/sidebarLinks';
 import { useUser, UserButton } from '@clerk/clerk-react';
 import { X } from 'lucide-react';
 import { assets } from '../../assets/assets';
 import { path } from '../../routes/paths';
-import type { SidebarProps } from '../../types';
-
-
-
+import type { SidebarLink, SidebarProps } from '../../types';
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
     const navigate = useNavigate();
     const { user } = useUser();

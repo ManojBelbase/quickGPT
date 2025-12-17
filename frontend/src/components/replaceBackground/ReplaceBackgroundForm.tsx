@@ -2,17 +2,8 @@ import React from 'react';
 import { Sparkles, Scissors, Loader2 } from 'lucide-react';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-
-interface ObjectRemovalFormProps {
-    selectedFile: File | null;
-    onFileChange: (file: File | null) => void;
-    objectDescription: string;
-    onDescriptionChange: (description: string) => void;
-    onObjectRemoval: () => void;
-    isLoading: boolean;
-}
-
-const ObjectRemovalForm: React.FC<ObjectRemovalFormProps> = ({
+import type { ObjectRemovalFormProps } from '../../types';
+const ReplaceBackgroundForm: React.FC<ObjectRemovalFormProps> = ({
     selectedFile,
     onFileChange,
     objectDescription,
@@ -36,7 +27,7 @@ const ObjectRemovalForm: React.FC<ObjectRemovalFormProps> = ({
     };
 
     return (
-        <div className="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full p-4 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-indigo-500" />
                 Object Removal
@@ -108,7 +99,7 @@ const ObjectRemovalForm: React.FC<ObjectRemovalFormProps> = ({
                     ) : (
                         <>
                             <Scissors className="mr-2 h-5 w-5" />
-                            Remove object
+                            Replace object
                         </>
                     )}
                 </Button>
@@ -117,4 +108,4 @@ const ObjectRemovalForm: React.FC<ObjectRemovalFormProps> = ({
     );
 };
 
-export default ObjectRemovalForm;
+export default ReplaceBackgroundForm;

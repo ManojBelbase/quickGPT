@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
-import BackgroundRemovalForm from "../components/remove_background/BackgroundRemovalForm";
+import BackgroundRemovalForm from "../components/removeBackground/BackgroundRemovalForm";
 import api from "../api/axiosInstance";
-import RemovedBackgroundList from "../components/remove_background/RemovedBackgroundList";
-import { ProcessedImagePreview } from "../components/remove_background/ProcessedImagePreview";
+import RemovedBackgroundList from "../components/removeBackground/RemovedBackgroundList";
+import { ProcessedImagePreview } from "../components/removeBackground/ProcessedImagePreview";
 
 const RemoveBackground: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -41,7 +41,7 @@ const RemoveBackground: React.FC = () => {
     }, [selectedFile]);
 
     return (
-        <div className="min-h-screen p-2">
+        <div className="min-h-screen">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2"
             >
                 {/* LEFT */}

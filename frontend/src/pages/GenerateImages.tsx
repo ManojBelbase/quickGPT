@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
-import ImageGenerationForm from "../components/generate_image/ImageGenerationForm";
-import ImageList from "../components/generate_image/ImageList";
+import ImageGenerationForm from "../components/generateImage/ImageGenerationForm";
+import ImageList from "../components/generateImage/ImageList";
 import api from "../api/axiosInstance";
-import ImagePreview from "../components/generate_image/ImagePreview";
+import ImagePreview from "../components/generateImage/ImagePreview";
 import { imageStyles } from "../const/imageStyles";
 import type { ImageStyle } from "../types";
 const GenerateImages: React.FC = () => {
@@ -42,11 +42,11 @@ const GenerateImages: React.FC = () => {
     }, [prompt, selectedStyle, publish]);
 
     return (
-        <div className="min-h-screen p-2 bg-gray-50">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full max-w-[1600px] mx-auto">
+        <div className="min-h-screen  bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-full max-w-[1600px] mx-auto">
 
                 {/* LEFT SIDE: Controls & History */}
-                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-4">
+                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-2">
                     <ImageGenerationForm
                         prompt={prompt}
                         onPromptChange={setPrompt}

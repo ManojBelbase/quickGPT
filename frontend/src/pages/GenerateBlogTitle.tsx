@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import BlogTitleForm from '../components/blog_title/BlogTitleForm';
-import BlogTitleList from '../components/blog_title/BlogTitleList';
+import BlogTitleForm from '../components/blogTitle/BlogTitleForm';
+import BlogTitleList from '../components/blogTitle/BlogTitleList';
 import api from '../api/axiosInstance';
 import { blogCategories } from '../const/blogCategories';
-import { BlogTitlePreview } from '../components/blog_title/BlogTitlePreview';
+import { BlogTitlePreview } from '../components/blogTitle/BlogTitlePreview';
 
 const GenerateBlogTitle: React.FC = () => {
     const [keyword, setKeyword] = useState<string>('');

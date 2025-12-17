@@ -6,7 +6,7 @@ import { cloudinary } from "../config/cloudinary";
 
 const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
 
-export const removeObjectFromImage = async (req: Request, res: Response): Promise<void> => {
+export const ReplaceBackgroundFromImage = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId: string = req.auth().userId;
         const plan: string | undefined = req.plan;
@@ -59,13 +59,13 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
 
         // Upload to Cloudinary
         const uploadResult = await cloudinary.uploader.upload(dataUri, {
-            folder: "quickGPT/background-replaced"
+            folder: "quickGPT/remove-object"
         });
 
         // Save to DB
         await sql`
             INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${prompt}, ${`Remove ${uploadResult.secure_url} from image`}, 'image-replace-bg')
+            VALUES (${userId}, ${prompt}, ${`Remove ${uploadResult.secure_url} from image`}, 'remove-object')
         `;
 
         response(res, 200, "Background replaced successfully", {
@@ -83,5 +83,25 @@ export const removeObjectFromImage = async (req: Request, res: Response): Promis
         } else {
             response(res, 500, "Internal Server Error", error.message);
         }
+    }
+};
+
+
+export const getReplaceBackground = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+
+        const images = await sql`
+            SELECT id, prompt, content, type, created_at
+            FROM creations
+            WHERE user_id = ${userId}
+            AND type = 'remove-object'
+            ORDER BY created_at DESC
+        `;
+
+        response(res, 200, "Remove-object images fetched successfully", images);
+
+    } catch (error: any) {
+        response(res, 500, "Failed to fetch image list", error.message);
     }
 };

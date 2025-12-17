@@ -1,7 +1,7 @@
 // src/pages/ReviewResume.tsx
 import React, { useState } from 'react';
-import ResumeReviewForm from '../components/review_resume/ResumeReviewForm';
-import AnalysisResults from '../components/review_resume/AnalysisResults';
+import ResumeReviewForm from '../components/reviewResume/ResumeReviewForm';
+import AnalysisResults from '../components/reviewResume/AnalysisResults';
 
 // Define a structure for the analysis result
 export interface ResumeAnalysis {

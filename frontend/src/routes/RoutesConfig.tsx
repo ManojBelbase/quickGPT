@@ -2,12 +2,12 @@ import BackgroundRemove from "../pages/RemoveBackground"
 import Community from "../pages/Community"
 import Dashboard from "../pages/Dashboard"
 import GenerateBlogTitle from "../pages/GenerateBlogTitle"
-import RemoveObject from "../pages/RemoveObject"
 import ReviewResume from "../pages/ReviewResume"
 import WriteArticle from "../pages/WriteArticle"
 import type { RouteItem } from "../types"
 import { path } from "./paths"
 import GenerateImages from "../pages/GenerateImages"
+import ReplaceBackground from "../pages/ReplaceBackground"
 
 export const routesConfig: RouteItem[] = [
     { path: path.DASHBOARD, element: <Dashboard /> },
@@ -17,5 +17,5 @@ export const routesConfig: RouteItem[] = [
     { path: path.GENERATE_BLOG_TITLES, element: <GenerateBlogTitle /> },
     { path: path.GENERATE_IMAGES, element: <GenerateImages /> },
     { path: path.REMOVE_BACKGROUND, element: <BackgroundRemove /> },
-    { path: path.REMOVE_OBJECT, element: <RemoveObject /> },
+    { path: path.REPLACE_BACKGROUND, element: <ReplaceBackground /> },
 ]

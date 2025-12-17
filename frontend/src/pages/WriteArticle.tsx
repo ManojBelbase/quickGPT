@@ -39,7 +39,7 @@ const WriteArticle: React.FC = () => {
     }, [prompt, selectedLength]);
 
     return (
-        <div className="min-h-screen p-2">
+        <div className="min-h-screen ">
             <div className="
                 grid
                 grid-cols-1

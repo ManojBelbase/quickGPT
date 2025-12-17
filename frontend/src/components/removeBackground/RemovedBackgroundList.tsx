@@ -25,7 +25,6 @@ const RemovedBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
 
         fetchImages();
     }, []);
-    console.log(images, "img")
     return (
         <div className="bg-white p-4 rounded-xl shadow-sm border-gray-200 h-fit">
 

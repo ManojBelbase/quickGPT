@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, Wand2, Loader2 } from 'lucide-react';
-import type { ImageStyle } from '../../pages/GenerateImages';
 import { Button } from '../ui/Button';
 import { Switch } from '../ui/Switch';
+import type { ImageStyle } from '../../types';
 
 interface ImageGenerationFormProps {
     prompt: string;

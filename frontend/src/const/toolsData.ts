@@ -40,7 +40,7 @@ export const toolsData = [
         description: "Generate high-quality, engaging articles on any topic with our AI writing technology.",
         Icon: Palette,
         colorClass: "bg-orange-100 text-orange-500",
-        path: path.BACKGROUND_REMOVE
+        path: path.REMOVE_BACKGROUND
 
     },
     {
@@ -49,7 +49,7 @@ export const toolsData = [
         description: "Generate high-quality, engaging articles on any topic with our AI writing technology.",
         Icon: Focus,
         colorClass: "bg-indigo-100 text-indigo-500",
-        path: path.BACKGROUND_REMOVE
+        path: path.REMOVE_BACKGROUND
 
     },
     {
