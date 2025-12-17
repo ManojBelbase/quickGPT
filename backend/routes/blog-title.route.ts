@@ -4,6 +4,6 @@ import { generateBlogTitle } from '../controllers/blogTitle.controller';
 
 const blogTitleRouter = express.Router();
 
-blogTitleRouter.post('/generate-blog-title', auth, generateBlogTitle);
+blogTitleRouter.post('/', auth, generateBlogTitle);
 
 export default blogTitleRouter;
