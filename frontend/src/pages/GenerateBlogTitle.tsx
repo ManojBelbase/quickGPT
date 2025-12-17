@@ -1,15 +1,10 @@
-// src/pages/GenerateBlogTitle.tsx
 import React, { useState } from 'react';
 import BlogTitleForm from '../components/blog_title/BlogTitleForm';
 import BlogTitleResult from '../components/blog_title/BlogTitleResult';
+import api from '../api/axiosInstance'; // Your Axios instance
 
-// Define the Category structure
-export interface BlogCategory {
-    name: string;
-    value: string; // Used for API calls/unique identification
-}
-
-const blogCategories: BlogCategory[] = [
+// Define categories
+const blogCategories = [
     { name: 'General', value: 'general' },
     { name: 'Technology', value: 'technology' },
     { name: 'Business', value: 'business' },
@@ -22,54 +17,44 @@ const blogCategories: BlogCategory[] = [
 
 const GenerateBlogTitle: React.FC = () => {
     const [keyword, setKeyword] = useState<string>('');
-    const [selectedCategory, setSelectedCategory] = useState<BlogCategory>(blogCategories[0]); // Starts at 'General'
+    const [selectedCategory, setSelectedCategory] = useState<any>(blogCategories[0]);
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleGenerateTitles = () => {
-        const trimmedKeyword = keyword.trim();
-        if (!trimmedKeyword) return;
+    const handleGenerateTitles = async (prompt: string) => {
+        if (!prompt.trim()) return;
 
         setIsLoading(true);
         setGeneratedTitles([]); // Clear previous results
 
-        // ----------------------------------------------------
-        // --- UPDATED CONSOLE LOG FOR API INTEGRATION PAYLOAD ---
-        // ----------------------------------------------------
-        const payload = {
-            keyword: trimmedKeyword,
-            categoryValue: selectedCategory.value, // The unique, lowercase API identifier
-            categoryName: selectedCategory.name,   // The display name of the category
-        };
+        try {
+            // Send combined prompt to backend
+            const { data } = await api.post('/blog-title', { prompt });
 
-        console.log('Full payload:', payload);
-        // ----------------------------------------------------
-
-        // Simulate API call delay
-        setTimeout(() => {
-            const titles = [
-                `5 Ways AI Will Reshape ${selectedCategory.name} in the Next Decade`,
-                `${trimmedKeyword}: The Ultimate Guide to Understanding the Basics`,
-                `The Ethics of ${selectedCategory.name} AI: Where Do We Draw the Line?`,
-                `Beyond the Buzzwords: Practical Applications of AI in ${selectedCategory.name}`
-            ];
-
-            setGeneratedTitles(titles);
+            if (data?.status === 'success' && data.data) {
+                // If AI returns plain text with newlines, split into array
+                const titles = data.data.split(/\r?\n/).filter(Boolean);
+                setGeneratedTitles(titles);
+            } else {
+                console.error('Failed to generate titles', data);
+            }
+        } catch (err) {
+            console.error('API error:', err);
+        } finally {
             setIsLoading(false);
-        }, 2000);
+        }
     };
 
     return (
-        <div className=" flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
-
-            {/* Left Panel: Controls */}
+        <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
+            {/* Left Panel: Form */}
             <BlogTitleForm
                 keyword={keyword}
                 onKeywordChange={setKeyword}
                 categories={blogCategories}
                 selectedCategory={selectedCategory}
                 onCategoryChange={setSelectedCategory}
-                onGenerate={handleGenerateTitles}
+                onGenerate={handleGenerateTitles} // receives full prompt now
                 isLoading={isLoading}
             />
 
@@ -78,7 +63,6 @@ const GenerateBlogTitle: React.FC = () => {
                 titles={generatedTitles}
                 isLoading={isLoading}
             />
-
         </div>
     );
 };

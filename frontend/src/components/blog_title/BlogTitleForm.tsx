@@ -1,17 +1,15 @@
-// src/components/BlogTitleForm.tsx
 import React from 'react';
 import { Sparkles, Hash, Loader2 } from 'lucide-react';
-import { Button } from '../ui/Button'; // Assuming you have Button
-import { Input } from '../ui/Input';   // Assuming you have Input
-import type { BlogCategory } from '../../pages/GenerateBlogTitle';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
 
 interface BlogTitleFormProps {
     keyword: string;
     onKeywordChange: (value: string) => void;
-    categories: BlogCategory[];
-    selectedCategory: BlogCategory;
-    onCategoryChange: (category: BlogCategory) => void;
-    onGenerate: () => void;
+    categories: any[];
+    selectedCategory: any;
+    onCategoryChange: (category: any) => void;
+    onGenerate: (prompt: string) => void; // <- pass full prompt
     isLoading: boolean;
 }
 
@@ -29,8 +27,12 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
         event.preventDefault();
         if (!keyword.trim() || isLoading) return;
 
-        // The console logging is handled by the onGenerate function in the parent.
-        onGenerate();
+        // Combine keyword + category into a single prompt
+        const prompt = selectedCategory
+            ? `${keyword} (Category: ${selectedCategory.name})`
+            : keyword;
+
+        onGenerate(prompt);
     };
 
     return (
@@ -57,7 +59,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
                     />
                 </div>
 
-                {/* Category Selection (Dynamic) */}
+                {/* Category Selection */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Category
