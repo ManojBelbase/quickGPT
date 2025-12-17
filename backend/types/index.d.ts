@@ -17,3 +17,7 @@ export interface ArticlePromptOptions {
     title: string;
     length: number;
 }
+
+export interface BlogTitlePromptOptions {
+    prompt: string
+}
