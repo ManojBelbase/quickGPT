@@ -48,3 +48,63 @@ export const generateBlogTitle = async (req: Request, res: Response): Promise<vo
         response(res, 500, "Something went wrong", error.response?.data ?? error.message);
     }
 };
+
+export const getBlogTitles = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+
+        const blogTitles = await sql`
+            SELECT id, prompt, content, created_at
+            FROM creations
+            WHERE user_id = ${userId}
+              AND type = 'blog-title'
+            ORDER BY created_at DESC
+        `;
+
+        response(res, 200, "Blog titles fetched successfully", blogTitles);
+    } catch (error: any) {
+        console.error(error.message);
+        response(res, 500, "Failed to fetch blog titles");
+    }
+};
+
+export const deleteBlogTitle = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+        const { id } = req.params;
+
+        if (!id) {
+            response(res, 400, "Blog title ID is required");
+            return;
+        }
+
+        // Ownership check
+        const [blogTitle] = await sql`
+            SELECT id FROM creations
+            WHERE id = ${id}
+              AND user_id = ${userId}
+              AND type = 'blog-title'
+        `;
+
+        if (!blogTitle) {
+            response(res, 404, "Blog title not found or unauthorized");
+            return;
+        }
+
+        await sql`
+            DELETE FROM creations
+            WHERE id = ${id}
+        `;
+
+        response(res, 200, "Blog title deleted successfully");
+    } catch (error: any) {
+        console.error(error.message);
+        response(res, 500, "Failed to delete blog title");
+    }
+};
