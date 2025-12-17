@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { sidebarLinks } from '../../const/sidebarLinks';
 import { useUser, UserButton } from '@clerk/clerk-react';
 import { X } from 'lucide-react';
-import { assets } from '../../assets/assets';
 import { path } from '../../routes/paths';
 import type { SidebarLink, SidebarProps } from '../../types';
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
@@ -21,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
         return (
             <div
                 onClick={() => handleNavigation(path)}
-                className={`flex items-center space-x-3 p-3 text-base cursor-pointer transition-colors
+                className={`flex items-center space-x-3 p-3 text-base rounded-xs cursor-pointer transition-colors
                     ${isActive
                         ? 'bg-purple-600 text-white font-medium'
                         : 'text-gray-600 hover:bg-gray-100'
@@ -44,12 +43,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
             {/* User Profile Section (Top) */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
                 <div className="flex items-center">
-                    <img
-                        src={assets.logo}
-                        alt={user?.fullName || "User Profile"}
-                        className=" h-10 rounded-full object-contain mr-3 cursor-pointer"
-                        onClick={() => navigate(path.HOME)}
-                    />
+                    <Link to={path.HOME} className="text-purple-600 font-bold text-lg sm:text-3xl">
+
+                        QuickGPT
+                    </Link>
                 </div>
                 {/* Close Button for Mobile */}
                 <button

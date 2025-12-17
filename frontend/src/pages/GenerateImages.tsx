@@ -5,6 +5,7 @@ import api from "../api/axiosInstance";
 import ImagePreview from "../components/generateImage/ImagePreview";
 import { imageStyles } from "../const/imageStyles";
 import type { ImageStyle } from "../types";
+import toast from "react-hot-toast";
 const GenerateImages: React.FC = () => {
     const [prompt, setPrompt] = useState("A golden retriever wearing sunglasses on a neon city street");
     const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
@@ -34,8 +35,8 @@ const GenerateImages: React.FC = () => {
             if (data?.status === "success") {
                 setGeneratedImages([data.data.content]);
             }
-        } catch (error) {
-            console.error("Image generation failed", error);
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message)
         } finally {
             setIsLoading(false);
         }

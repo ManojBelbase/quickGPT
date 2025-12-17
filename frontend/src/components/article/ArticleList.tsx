@@ -73,7 +73,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                         <div className="flex items-center justify-between gap-2">
                             {/* LEFT */}
                             <div className="flex items-center gap-1 min-w-0">
-                                <FileText className="w-4 h-4 text-blue-600 shrink-0" />
+                                <FileText className="w-4 h-4 text-purple-600 shrink-0" />
                                 <p className="font-medium text-sm truncate" title={article.prompt}>
                                     {article.prompt}
                                 </p>

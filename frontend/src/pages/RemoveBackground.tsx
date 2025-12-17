@@ -3,6 +3,7 @@ import BackgroundRemovalForm from "../components/removeBackground/BackgroundRemo
 import api from "../api/axiosInstance";
 import RemovedBackgroundList from "../components/removeBackground/RemovedBackgroundList";
 import { ProcessedImagePreview } from "../components/removeBackground/ProcessedImagePreview";
+import toast from "react-hot-toast";
 
 const RemoveBackground: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -33,8 +34,8 @@ const RemoveBackground: React.FC = () => {
             if (data?.status === "success") {
                 setProcessedImageUrl(data.data.content);
             }
-        } catch (error) {
-            console.error("Background removal failed", error);
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message)
         } finally {
             setIsLoading(false);
         }

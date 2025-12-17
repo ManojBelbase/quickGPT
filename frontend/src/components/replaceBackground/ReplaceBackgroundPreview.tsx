@@ -11,7 +11,7 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
         <div className="w-full p-4 bg-white rounded-xl shadow-md">
             {/* Header */}
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Scissors className="w-5 h-5 mr-2 text-green-600" />
+                <Scissors className="w-5 h-5 mr-2 text-purple-600" />
                 Processed Image
             </h2>
 
@@ -35,7 +35,7 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
                 {/* Loading State */}
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 z-10">
-                        <Loader2 className="h-10 w-10 text-green-600 animate-spin" />
+                        <Loader2 className="h-10 w-10 text-purple-600 animate-spin" />
                         <p className="mt-4 text-gray-600 font-medium">Replacing Object, please wait...</p>
                         <p className="text-xs text-gray-400 mt-1">Our AI is cleaning up your image</p>
                     </div>

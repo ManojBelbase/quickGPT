@@ -41,7 +41,7 @@ const BackgroundRemovalForm: React.FC<BackgroundRemovalFormProps> = ({
                     <div className="flex items-center space-x-2">
                         <label
                             htmlFor="file-upload"
-                            className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors border border-blue-500"
+                            className="cursor-pointer bg-purple-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-purple-600 transition-colors border border-purple-500"
                         >
                             Choose File
                         </label>

@@ -30,13 +30,13 @@ const ImageList: React.FC<ImageListProps> = ({ onSelectImage }) => {
     return (
         <div className="w-full p-4 bg-white  border border-gray-200  rounded-xl shadow-md">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <Image className="w-5 h-5 mr-2 text-green-600" />
+                <Image className="w-5 h-5 mr-2 text-purple-600" />
                 My Gallery
             </h2>
 
             {loading && (
                 <div className="flex justify-center items-center h-64">
-                    <Loader2 className="h-8 w-8 animate-spin text-green-600" />
+                    <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
                 </div>
             )}
 
@@ -55,12 +55,12 @@ const ImageList: React.FC<ImageListProps> = ({ onSelectImage }) => {
                             onSelectImage(img.content);
                             setActiveId(img.id);
                         }}
-                        className={`relative group cursor-pointer rounded-xl overflow-hidden bg-white border-2 transition-all duration-300 ${activeId === img.id ? 'border-green-500 ring-2 ring-green-100' : 'border-transparent hover:border-gray-200 shadow-sm'
+                        className={`relative group cursor-pointer rounded-xl overflow-hidden bg-white border-2 transition-all duration-300 ${activeId === img.id ? 'border-purple-500 ring-2 ring-purple-100' : 'border-transparent hover:border-gray-200 shadow-sm'
                             }`}
                     >
                         {/* Status Badge - Top Right */}
                         {img.publish && (
-                            <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-green-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+                            <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-purple-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
                                 <CheckCircle2 className="w-3 h-3" />
                                 PUBLISHED
                             </div>

@@ -8,7 +8,7 @@ const StarRating = ({ count }: any) => {
         <div className="flex space-x-0.5 mb-4">
             {Array.from({ length: count }).map((_, index) => (
                 // Used fill and text colors to match the star style in the image
-                <Star key={index} className="w-5 h-5 fill-blue-600 text-blue-600" />
+                <Star key={index} className="w-5 h-5 fill-purple-600 text-purple-600" />
             ))}
         </div>
     );

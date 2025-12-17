@@ -20,7 +20,7 @@ export const FooterSection = () => {
                     {/* Column 1: Logo and Description */}
                     <div className="md:col-span-2">
                         {/* Logo - Matching the style and name from the image */}
-                        <div className="flex items-center space-x-2 text-blue-600 font-extrabold text-2xl">
+                        <div className="flex items-center space-x-2 text-purple-600 font-extrabold text-2xl">
                             <Send className="w-6 h-6 transform rotate-[-30deg]" />
                             <span>QuickGPT</span>
                         </div>
@@ -41,7 +41,7 @@ export const FooterSection = () => {
                                 <li key={link.name}>
                                     <a
                                         href={link.href}
-                                        className="text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                                        className="text-gray-600 hover:text-purple-600 transition-colors text-sm"
                                     >
                                         {link.name}
                                     </a>
@@ -64,12 +64,12 @@ export const FooterSection = () => {
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="w-full sm:flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                                className="w-full sm:flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500 text-sm"
                                 aria-label="Email address for subscription"
                             />
                             <button
                                 type="submit"
-                                className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors text-sm shadow-md"
+                                className="w-full sm:w-auto px-6 py-2 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 transition-colors text-sm shadow-md"
                             >
                                 Subscribe
                             </button>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axiosInstance";
 import { Loader2 } from "lucide-react";
-import { CommunityCard } from "../components/community/CommunityCard";
 import type { UserImage } from "../types";
 import { useAuth } from "@clerk/clerk-react";
 import toast from "react-hot-toast";
+import { CommunityCard } from "../components/community/CommunityCard";
 
 const Community: React.FC = () => {
     const [images, setImages] = useState<UserImage[]>([]);
@@ -55,7 +55,7 @@ const Community: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#fafafa] pb-20">
+        <div className=" bg-[#fafafa]">
             {/* Hero Header */}
             <div className="bg-white border-b border-gray-100 py-5 px-6 mb-6">
                 <div className="max-w-4xl mx-auto text-center">
@@ -71,14 +71,14 @@ const Community: React.FC = () => {
 
             {loading ? (
                 <div className="flex flex-col justify-center items-center h-64 gap-4">
-                    <Loader2 className="w-12 h-12 animate-spin text-green-600" />
+                    <Loader2 className="w-12 h-12 animate-spin text-purple-600" />
                     <p className="text-gray-400 font-medium animate-pulse">Curating gallery...</p>
                 </div>
             ) : (
-                <div className="max-w-[1500px] mx-auto px-6">
-                    <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-8">
+                <div className="mx-auto px-6">
+                    <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
                         {images.map((img) => (
-                            <div key={img.id} className="break-inside-avoid">
+                            <div key={img.id} className="">
                                 <CommunityCard
                                     image={img}
                                     onLike={() => handleToggleLike(img.id)}

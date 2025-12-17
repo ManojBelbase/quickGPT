@@ -24,7 +24,7 @@ export const CommunityCard: React.FC<CommunityCardProps> = ({ image, onLike, cur
     return (
         <div
             onClick={handleDoubleTap}
-            className="group relative bg-white rounded-4xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100 mb-8 cursor-pointer"
+            className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100  cursor-pointer"
         >
             {/* Image Section */}
             <div className="relative overflow-hidden aspect-auto">
@@ -32,7 +32,7 @@ export const CommunityCard: React.FC<CommunityCardProps> = ({ image, onLike, cur
                     src={image.content}
                     alt={image.prompt}
                     loading="lazy"
-                    className="w-full h-auto min-h-[400px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
 
                 {/* Visual Feedback for Double Tap */}

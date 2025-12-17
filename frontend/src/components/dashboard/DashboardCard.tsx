@@ -4,8 +4,8 @@ import type { DashboardCardProps } from '../../types';
 
 
 const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, iconType }) => {
-    const icon = iconType === 'creations' ? <Sparkles className="w-6 h-6 text-blue-500" /> : <Zap className="w-6 h-6 text-purple-500" />;
-    const iconBg = iconType === 'creations' ? 'bg-blue-50' : 'bg-purple-50';
+    const icon = iconType === 'creations' ? <Sparkles className="w-6 h-6 text-purple-500" /> : <Zap className="w-6 h-6 text-purple-500" />;
+    const iconBg = iconType === 'creations' ? 'bg-purple-50' : 'bg-purple-50';
 
     return (
         <div className="flex items-center justify-between p-6 bg-white rounded-md shadow-xs border border-gray-200 min-w-[200px]">

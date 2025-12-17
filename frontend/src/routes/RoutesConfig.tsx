@@ -14,8 +14,8 @@ export const routesConfig: RouteItem[] = [
     { path: path.WRITE_ARTICLE, element: <WriteArticle /> },
     { path: path.REVIEW_RESUME, element: <ReviewResume /> },
     { path: path.COMMUNITY, element: <Community /> },
-    { path: path.GENERATE_BLOG_TITLES, element: <GenerateBlogTitle /> },
-    { path: path.GENERATE_IMAGES, element: <GenerateImages /> },
+    { path: path.BLOG_TITLE, element: <GenerateBlogTitle /> },
+    { path: path.GENERATE_IMAGE, element: <GenerateImages /> },
     { path: path.REMOVE_BACKGROUND, element: <BackgroundRemove /> },
     { path: path.REPLACE_BACKGROUND, element: <ReplaceBackground /> },
 ]

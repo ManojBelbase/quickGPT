@@ -44,7 +44,7 @@ const RecentCreationItem: React.FC<RecentCreationItemProps> = ({ creation }) => 
             </div>
             <span
                 className={`px-3 py-1 text-xs font-semibold rounded-full
-          ${isImage ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}
+          ${isImage ? 'bg-purple-100 text-purple-800' : 'bg-purple-100 text-purple-800'}`}
             >
                 {isImage ? 'Image' : 'Article'}
             </span>

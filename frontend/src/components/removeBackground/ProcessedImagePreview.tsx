@@ -12,7 +12,7 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
     return (
         <div className="w-full p-4 bg-white rounded-xl shadow-xl">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Image className="w-5 h-5 mr-2 text-green-600" />
+                <Image className="w-5 h-5 mr-2 text-purple-600" />
                 Image Preview
             </h2>
 
@@ -32,7 +32,7 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
                 {/* Loading State Overlay */}
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg">
-                        <Loader2 className="h-10 w-10 text-green-600 animate-spin" />
+                        <Loader2 className="h-10 w-10 text-purple-600 animate-spin" />
                         <p className="mt-4 text-gray-700 font-medium text-lg">
                             Removing background...
                         </p>

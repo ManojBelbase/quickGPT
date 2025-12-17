@@ -37,17 +37,10 @@ const ReplaceBackground: React.FC = () => {
                 toast.success("Object removed successfully!");
             }
         } catch (error: any) {
-            let message = "Failed to replace object.";
 
-            if (error.response) {
-                const status = error.response.status;
-                if (status === 403) message = "Premium feature only";
-                else if (status === 400) message = error.response.data.message || "Invalid input";
-                else if (status === 413) message = "File too large";
-                else message = "Server error. Try again later.";
-            }
+            toast.error(error?.response?.data?.message)
 
-            toast.error(message);
+
         } finally {
             setIsLoading(false);
         }

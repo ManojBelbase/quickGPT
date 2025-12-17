@@ -63,7 +63,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
                                 onClick={() => onCategoryChange(category)}
                                 className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
                                     ${selectedCategory.value === category.value
-                                        ? 'bg-blue-500 text-white border-blue-500 shadow-sm'
+                                        ? 'bg-purple-500 text-white border-purple-500 shadow-sm'
                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                     }`}
                                 disabled={isLoading}
@@ -77,7 +77,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
                 {/* Generate Button */}
                 <Button
                     type="submit"
-                    className="w-full py-3 h-12 text-lg font-medium bg-purple-600 hover:bg-purple-700 transition-colors flex items-center justify-center"
+                    className="w-full py-3 h-12 text-lg font-medium bg-purple-600 hover:bg-purple-700 transition-colors text-white flex items-center justify-center"
                     disabled={!keyword.trim() || isLoading}
                 >
                     {isLoading ? (

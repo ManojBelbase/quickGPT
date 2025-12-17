@@ -8,6 +8,7 @@ import imageRouter from './routes/image.route'
 import removeBackgroundRouter from './routes/removeBg.route'
 import resumeRouter from './routes/reviewResume.route';
 import ReplaceBackgroundRouter from './routes/removeObject.route';
+import dashboardStatsRouter from './routes/dashboard.route';
 
 dotenv.config();
 const app = express()
@@ -23,6 +24,7 @@ app.use('/api/blog-title', blogTitleRouter)
 app.use('/api/image', imageRouter)
 app.use('/api/remove-background', removeBackgroundRouter)
 app.use('/api/remove-object', ReplaceBackgroundRouter)
+app.use('/api/dashboard', dashboardStatsRouter)
 app.use('/api', resumeRouter)
 
 app.get('/', (req, res) => res.send("server is live"))

@@ -1,12 +1,12 @@
 export const path = {
     HOME: "/",
-    DASHBOARD: "dashboard",
-    WRITE_ARTICLE: "write-article",
-    REVIEW_RESUME: "review-resume",
-    COMMUNITY: "community",
-    GENERATE_BLOG_TITLES: "generate-blog-titles",
+    DASHBOARD: "/dashboard",
+    WRITE_ARTICLE: "/write-article",
+    REVIEW_RESUME: "/review-resume",
+    COMMUNITY: "/community",
+    BLOG_TITLE: "/blog-title",
     REMOVE_BACKGROUND: "/remove-background",
-    GENERATE_IMAGES: "/generate-images",
+    GENERATE_IMAGE: "/generate-image",
     REPLACE_BACKGROUND: "/replace-background"
 } as const
 

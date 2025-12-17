@@ -131,3 +131,10 @@ export interface RemovedObjectImage {
     type: string;
     created_at: string;
 }
+
+export interface DashboardData {
+    plan: string;
+    free_remaining: number | string;
+    total_creations: number;
+    creations_by_type: { type: string; count: number }[];
+}

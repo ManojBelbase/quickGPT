@@ -17,14 +17,14 @@ export const sidebarLinks: SidebarLink[] = [
     },
     {
         id: 3,
-        name: "Blog Titles",
-        path: path.GENERATE_BLOG_TITLES,
+        name: "Blog Title",
+        path: path.BLOG_TITLE,
         Icon: FileText,
     },
     {
         id: 4,
         name: "Generate Images",
-        path: path.GENERATE_IMAGES,
+        path: path.GENERATE_IMAGE,
         Icon: Image,
     },
     {

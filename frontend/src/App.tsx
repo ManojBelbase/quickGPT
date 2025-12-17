@@ -10,8 +10,11 @@ import { setAuthTokenGetter } from "./api/axiosInstance"
 function App() {
   const { getToken } = useAuth();
 
+
+
   useEffect(() => {
     setAuthTokenGetter(getToken);
+    getToken().then((token) => console.log(token))
   }, [getToken]);
 
   return (

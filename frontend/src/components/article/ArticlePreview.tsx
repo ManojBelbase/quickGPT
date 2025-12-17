@@ -8,7 +8,7 @@ export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content,
     return (
         <div className="w-full p-4 bg-white rounded-xs shadow-sm">
             <h2 className="text-xl font-bold text-black flex items-center mb-4">
-                <FileText className="w-5 h-5 mr-2 text-blue" />
+                <FileText className="w-5 h-5 mr-2 text-purple" />
                 Article Preview
             </h2>
 
@@ -19,7 +19,7 @@ export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content,
                 ) : isLoading ? (
                     // Loading state overlay
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90">
-                        <Loader2 className="h-8 w-8 text-blue-600 animate-spin" />
+                        <Loader2 className="h-8 w-8 text-purple-600 animate-spin" />
                         <p className="mt-4 text-gray-600 font-medium"> Please wait... , AI is writing your masterpiece...</p>
                     </div>
                 ) : (

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { toolsData } from "../../const/toolsData";
 import { useUser } from "@clerk/clerk-react";
+import { AiToolsData } from "../../assets/assets";
 
 export const AITools = () => {
     const navigate = useNavigate()
@@ -8,7 +8,6 @@ export const AITools = () => {
     return (
         <section className="py-24 bg-white px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                {/* Header Section (Kept structure and text) */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold text-gray-900 mb-4">
                         Powerful AI Tools
@@ -21,14 +20,13 @@ export const AITools = () => {
 
                 {/* Grid Container */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {toolsData.map(({ id, title, description, Icon, colorClass, path }) => (
+                    {AiToolsData.map(({ title, description, Icon, path }) => (
                         <div
                             onClick={() => user && navigate(path)}
-                            key={id}
-                            className="bg-white p-8 rounded-2xl border border-gray-200 transition-all duration-200 hover:border-blue-500/50"
+                            className="bg-white p-8 rounded-2xl border border-gray-200 transition-all duration-200 hover:border-purple-500/50"
                         >
                             {/* Icon Wrapper */}
-                            <div className={`w-12 h-12 flex items-center justify-center rounded-xl mb-4 ${colorClass}`}>
+                            <div className={`w-12 h-12 flex items-center justify-center rounded-xl mb-4 `}>
                                 <Icon className="w-6 h-6 stroke-2" />
                             </div>
 

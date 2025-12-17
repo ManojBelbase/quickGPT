@@ -88,7 +88,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 <Button
                     type="submit"
                     disabled={!prompt.trim() || isLoading}
-                    className="w-full py-2 h-12 text-lg cursor-pointer font-medium bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-2 h-12 text-lg cursor-pointer font-medium bg-purple-600 hover:bg-purple-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {isLoading ? (
                         <>

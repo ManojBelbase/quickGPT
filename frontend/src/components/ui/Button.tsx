@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Loader2 } from "lucide-react";
 
-// Define variants and sizes for the button
 type ButtonVariant = "default" | "outline" | "ghost";
 type ButtonSize = "default" | "sm" | "lg" | "icon";
 
@@ -20,8 +19,8 @@ const getVariantClasses = (variant: ButtonVariant) => {
             return "text-gray-700 hover:bg-gray-100";
         case "default":
         default:
-            // This style matches the blue 'Generate article' button
-            return "bg-blue-600 text-white hover:bg-blue-700 shadow-md";
+            // This style matches the purple 'Generate article' button
+            return "bg-purple-600 text-white hover:bg-purple-700 shadow-md";
     }
 };
 
@@ -53,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref
     ) => {
         const finalClassName = [
-            "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+            "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500",
             "disabled:opacity-50 disabled:pointer-events-none",
             getVariantClasses(variant),
             getSizeClasses(size),
