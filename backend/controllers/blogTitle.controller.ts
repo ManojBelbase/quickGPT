@@ -3,6 +3,7 @@ import { openRouter } from "../config/openRouter";
 import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
+import { buildBlogTitlePrompt } from "../prompts/blogTitlePrompt";
 
 export const generateBlogTitle = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -18,10 +19,13 @@ export const generateBlogTitle = async (req: Request, res: Response): Promise<vo
             return;
         }
 
+        const formattedPrompt = buildBlogTitlePrompt({ prompt: prompt });
+
+
         // 🔥 OpenRouter AI call
         const aiResponse = await openRouter.post("/chat/completions", {
             model: "tngtech/deepseek-r1t-chimera:free",
-            messages: [{ role: "user", content: prompt }],
+            messages: [{ role: "user", content: formattedPrompt }],
             temperature: 0.7,
             max_tokens: 100,
         });
