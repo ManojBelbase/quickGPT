@@ -1,6 +1,7 @@
 // src/components/BlogTitleResult.tsx
 import React from 'react';
 import { Hash, Loader2 } from 'lucide-react';
+import { AIResponseParser } from 'ai-response-parser';
 
 interface BlogTitleResultProps {
     titles: string[];
@@ -24,8 +25,7 @@ const BlogTitleResult: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) 
                     <div className="space-y-3">
                         {titles.map((title, index) => (
                             <div key={index} className="p-3 border border-gray-100 rounded-md bg-gray-50 hover:bg-white transition-colors">
-                                <p className="text-base font-medium text-gray-800">{title}</p>
-                                <span className="text-xs text-purple-600 mt-1 block">#{index + 1}</span>
+                                <AIResponseParser content={title} themeName='light' textColor='#000000' />
                             </div>
                         ))}
                     </div>

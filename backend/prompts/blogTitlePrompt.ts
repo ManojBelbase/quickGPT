@@ -13,6 +13,7 @@ Topic: "${prompt}"
 Rules:
 - Each title should be short, clear, and attention-grabbing
 - Use proper capitalization
+- Use Markdown headings (##, ###)
 - Do NOT write anything else except the titles
 - Return titles as a list or separated by new lines
 `;
