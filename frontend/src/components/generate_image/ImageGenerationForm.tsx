@@ -11,7 +11,7 @@ interface ImageGenerationFormProps {
     selectedStyle: ImageStyle;
     onStyleChange: (style: ImageStyle) => void;
     publish: boolean;
-    onPublishChange: (value: boolean) => void; // Proper boolean type
+    onPublishChange: (value: boolean) => void;
     onGenerate: () => void;
     isLoading: boolean;
 }
@@ -34,7 +34,7 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
     };
 
     return (
-        <div className="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full p-4 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Wand2 className="w-5 h-5 mr-2 text-green-600" />
                 AI Image Generation

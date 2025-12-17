@@ -49,3 +49,30 @@ export export interface BlogTitle {
     content: string;
     created_at: string;
 }
+
+export interface UserImage {
+    id: string;
+    prompt: string;
+    content: string;
+    publish: boolean;
+    created_at: string;
+}
+
+export export interface ImageStyle {
+    name: string;
+    value: string;
+}
+export interface GeneratedImageResultProps {
+    images: string[];
+    isLoading: boolean;
+}
+export
+    interface GeneratedArticleResultProps {
+    content: string;
+    isLoading: boolean;
+}
+
+export interface BlogTitleResultProps {
+    titles: string[];
+    isLoading: boolean;
+}

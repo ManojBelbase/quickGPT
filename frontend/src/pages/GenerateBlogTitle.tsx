@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
 import BlogTitleForm from '../components/blog_title/BlogTitleForm';
-import BlogTitleResult from '../components/blog_title/BlogTitleResult';
 import BlogTitleList from '../components/blog_title/BlogTitleList';
 import api from '../api/axiosInstance';
-
-const blogCategories = [
-    { name: 'General', value: 'general' },
-    { name: 'Technology', value: 'technology' },
-    { name: 'Business', value: 'business' },
-    { name: 'Health', value: 'health' },
-    { name: 'Lifestyle', value: 'lifestyle' },
-    { name: 'Education', value: 'education' },
-    { name: 'Travel', value: 'travel' },
-    { name: 'Food', value: 'food' },
-];
+import { blogCategories } from '../const/blogCategories';
+import { BlogTitlePreview } from '../components/blog_title/BlogTitlePreview';
 
 const GenerateBlogTitle: React.FC = () => {
     const [keyword, setKeyword] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<any>(blogCategories[0]);
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
-    const [selectedTitle, setSelectedTitle] = useState<string>(''); // ✅ added
+    const [selectedTitle, setSelectedTitle] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleGenerateTitles = async (prompt: string) => {
@@ -66,7 +56,7 @@ const GenerateBlogTitle: React.FC = () => {
 
             {/* Right: Generated / Selected Title */}
             <div className="col-span-1 md:col-span-1 lg:col-span-3 flex flex-col">
-                <BlogTitleResult
+                <BlogTitlePreview
                     titles={selectedTitle ? [selectedTitle] : generatedTitles}
                     isLoading={isLoading}
                 />

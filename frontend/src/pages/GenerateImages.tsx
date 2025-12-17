@@ -1,84 +1,80 @@
-import React, { useState } from 'react';
-import ImageGenerationForm from '../components/generate_image/ImageGenerationForm';
-import GeneratedImageResult from '../components/generate_image/GeneratedImageResult';
-import api from '../api/axiosInstance';
-
-// Define the Style structure
-export interface ImageStyle {
-    name: string;
-    value: string;
-}
-
-const imageStyles: ImageStyle[] = [
-    { name: 'Realistic', value: 'realistic' },
-    { name: 'Anime', value: 'anime' },
-    { name: 'Concept Art', value: 'concept_art' },
-    { name: 'Watercolor', value: 'watercolor' },
-    { name: 'Digital Painting', value: 'digital_painting' },
-    { name: '3D Render', value: '3d_render' },
-];
-
+import React, { useState, useCallback } from "react";
+import ImageGenerationForm from "../components/generate_image/ImageGenerationForm";
+import ImageList from "../components/generate_image/ImageList";
+import api from "../api/axiosInstance";
+import ImagePreview from "../components/generate_image/ImagePreview";
+import { imageStyles } from "../const/imageStyles";
+import type { ImageStyle } from "../types";
 const GenerateImages: React.FC = () => {
-    const [prompt, setPrompt] = useState<string>('A golden retriever wearing sunglasses on a neon city street');
+    const [prompt, setPrompt] = useState("A golden retriever wearing sunglasses on a neon city street");
     const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
-    const [publish, setPublish] = useState<boolean>(false)
+    const [publish, setPublish] = useState<boolean>(false);
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleGenerateImages = async () => {
-        const trimmedPrompt = prompt.trim();
-        if (!trimmedPrompt) return;
+    const handleSelectFromGallery = (imageUrl: string) => {
+        setGeneratedImages([imageUrl]);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleGenerateImages = useCallback(async () => {
+        if (!prompt.trim()) return;
 
         setIsLoading(true);
-        setGeneratedImages([]); // clear previous
+        setGeneratedImages([]);
 
-        const fullPrompt = `${trimmedPrompt} [Style: ${selectedStyle.name}]`;
+        const fullPrompt = `${prompt.trim()} [Style: ${selectedStyle.name}]`;
 
         try {
-            const { data } = await api.post('/image', {
+            const { data } = await api.post("/image", {
                 prompt: fullPrompt,
                 publish,
             });
 
-            if (data?.status === 'success') {
-                const imageUrl = data.data.content;
-
-                // Option A: Set as array (best for your current grid layout)
-                setGeneratedImages([imageUrl]);
-
-                // Option B: Set as single string (if you change state type)
-                // setGeneratedImage(imageUrl);
-            } else {
-                console.error('Failed to generate images', data);
+            if (data?.status === "success") {
+                setGeneratedImages([data.data.content]);
             }
-        } catch (err) {
-            console.error('API error:', err);
+        } catch (error) {
+            console.error("Image generation failed", error);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [prompt, selectedStyle, publish]);
 
     return (
-        <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
+        <div className="min-h-screen p-2 bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full max-w-[1600px] mx-auto">
 
-            {/* Left Panel: Controls */}
-            <ImageGenerationForm
-                prompt={prompt}
-                onPromptChange={setPrompt}
-                styles={imageStyles}
-                selectedStyle={selectedStyle}
-                onStyleChange={setSelectedStyle}
-                publish={publish}                    // ✅ Pass publish
-                onPublishChange={setPublish}         // ✅ Pass handler
-                onGenerate={handleGenerateImages}
-                isLoading={isLoading}
-            />
+                {/* LEFT SIDE: Controls & History */}
+                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-4">
+                    <ImageGenerationForm
+                        prompt={prompt}
+                        onPromptChange={setPrompt}
+                        styles={imageStyles}
+                        selectedStyle={selectedStyle}
+                        onStyleChange={setSelectedStyle}
+                        publish={publish}
+                        onPublishChange={setPublish}
+                        onGenerate={handleGenerateImages}
+                        isLoading={isLoading}
+                    />
 
-            {/* Right Panel: Results */}
-            <GeneratedImageResult
-                images={generatedImages}
-                isLoading={isLoading}
-            />
+                    <div className="flex-1 overflow-y-auto max-h-[calc(100vh-400px)] lg:max-h-none">
+                        <ImageList onSelectImage={handleSelectFromGallery} />
+                    </div>
+                </div>
+
+                {/* RIGHT SIDE: Big Preview */}
+                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col">
+                    <div className="sticky top-2">
+                        <ImagePreview
+                            images={generatedImages}
+                            isLoading={isLoading}
+                        />
+                    </div>
+                </div>
+
+            </div>
         </div>
     );
 };

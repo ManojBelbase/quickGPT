@@ -1,10 +1,9 @@
 import React, { useState, useCallback } from "react";
 import toast from "react-hot-toast";
-
 import ArticleForm from "../components/article/ArticleForm";
-import ArticleResult from "../components/article/ArticleResult";
 import ArticleList from "../components/article/ArticleList";
 import api from "../api/axiosInstance";
+import { ArticlePreview } from "../components/article/ArticlePreview";
 
 const WriteArticle: React.FC = () => {
     const [prompt, setPrompt] = useState("");
@@ -81,7 +80,7 @@ const WriteArticle: React.FC = () => {
                     flex
                     flex-col
                 ">
-                    <ArticleResult
+                    <ArticlePreview
                         content={articleContent}
                         isLoading={isLoading}
                     />

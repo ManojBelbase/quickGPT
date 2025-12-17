@@ -1,21 +1,14 @@
-// src/components/BlogTitleResult.tsx
-import React from 'react';
 import { Hash, Loader2 } from 'lucide-react';
 import { AIResponseParser } from 'ai-response-parser';
-
-interface BlogTitleResultProps {
-    titles: string[];
-    isLoading: boolean;
-}
-
-const BlogTitleResult: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) => {
+import type { BlogTitleResultProps } from '../../types';
+export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) => {
     const isInitialState = !titles.length && !isLoading;
 
     return (
         <div className="w-full  p-2 bg-white rounded-xl shadow-md">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Hash className="w-5 h-5 mr-2 text-purple-600" />
-                Generated Titles
+                Blog Title Preview
             </h2>
 
             <div className="min-h-[400px] border border-gray-200 rounded-lg p-4 relative">
@@ -52,4 +45,3 @@ const BlogTitleResult: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) 
     );
 };
 
-export default BlogTitleResult;
