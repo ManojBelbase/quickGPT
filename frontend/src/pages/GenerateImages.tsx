@@ -1,13 +1,12 @@
-// src/pages/GenerateImages.tsx
 import React, { useState } from 'react';
-import { dummyPublishedCreationData } from '../assets/assets';
 import ImageGenerationForm from '../components/generate_image/ImageGenerationForm';
 import GeneratedImageResult from '../components/generate_image/GeneratedImageResult';
+import api from '../api/axiosInstance';
 
 // Define the Style structure
 export interface ImageStyle {
     name: string;
-    value: string; // Used for API calls/unique identification
+    value: string;
 }
 
 const imageStyles: ImageStyle[] = [
@@ -21,43 +20,46 @@ const imageStyles: ImageStyle[] = [
 
 const GenerateImages: React.FC = () => {
     const [prompt, setPrompt] = useState<string>('A golden retriever wearing sunglasses on a neon city street');
-    const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]); // Starts at 'Realistic'
+    const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
+    const [publish, setPublish] = useState<boolean>(false)
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleGenerateImages = () => {
+    const handleGenerateImages = async () => {
         const trimmedPrompt = prompt.trim();
         if (!trimmedPrompt) return;
 
         setIsLoading(true);
-        setGeneratedImages([]); // Clear previous results
+        setGeneratedImages([]); // clear previous
 
-        // Prepare payload for API integration
-        const payload = {
-            prompt: trimmedPrompt,
-            styleValue: selectedStyle.value, // The unique API identifier (e.g., 'anime')
-            styleName: selectedStyle.name,   // The display name (e.g., 'Anime')
-            count: 4, // Assuming we generate 4 images per request
-        };
+        const fullPrompt = `${trimmedPrompt} [Style: ${selectedStyle.name}]`;
 
-        // Log the submission payload
-        console.log('Image Generation Payload:', payload);
+        try {
+            const { data } = await api.post('/image', {
+                prompt: fullPrompt,
+                publish,
+            });
 
-        // Simulate API call delay
-        setTimeout(() => {
-            // Simulate receiving image URLs (using placeholders from dummy data)
-            const simulatedImages = dummyPublishedCreationData
-                .filter(item => item.type === 'image')
-                .map(item => item.content as string) // Assuming 'content' holds the image URL
-                .slice(0, 4);
+            if (data?.status === 'success') {
+                const imageUrl = data.data.content;
 
-            setGeneratedImages(simulatedImages);
+                // Option A: Set as array (best for your current grid layout)
+                setGeneratedImages([imageUrl]);
+
+                // Option B: Set as single string (if you change state type)
+                // setGeneratedImage(imageUrl);
+            } else {
+                console.error('Failed to generate images', data);
+            }
+        } catch (err) {
+            console.error('API error:', err);
+        } finally {
             setIsLoading(false);
-        }, 3000);
+        }
     };
 
     return (
-        <div className=" flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
+        <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
 
             {/* Left Panel: Controls */}
             <ImageGenerationForm
@@ -66,6 +68,8 @@ const GenerateImages: React.FC = () => {
                 styles={imageStyles}
                 selectedStyle={selectedStyle}
                 onStyleChange={setSelectedStyle}
+                publish={publish}                    // ✅ Pass publish
+                onPublishChange={setPublish}         // ✅ Pass handler
                 onGenerate={handleGenerateImages}
                 isLoading={isLoading}
             />
@@ -75,7 +79,6 @@ const GenerateImages: React.FC = () => {
                 images={generatedImages}
                 isLoading={isLoading}
             />
-
         </div>
     );
 };

@@ -1,8 +1,8 @@
-// src/components/image_generation/ImageGenerationForm.tsx
 import React from 'react';
 import { Image, Wand2, Loader2 } from 'lucide-react';
 import type { ImageStyle } from '../../pages/GenerateImages';
 import { Button } from '../ui/Button';
+import { Switch } from '../ui/Switch';
 
 interface ImageGenerationFormProps {
     prompt: string;
@@ -10,6 +10,8 @@ interface ImageGenerationFormProps {
     styles: ImageStyle[];
     selectedStyle: ImageStyle;
     onStyleChange: (style: ImageStyle) => void;
+    publish: boolean;
+    onPublishChange: (value: boolean) => void; // Proper boolean type
     onGenerate: () => void;
     isLoading: boolean;
 }
@@ -20,14 +22,14 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
     styles,
     selectedStyle,
     onStyleChange,
+    publish,
+    onPublishChange,
     onGenerate,
     isLoading,
 }) => {
-
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (!prompt.trim() || isLoading) return;
-
         onGenerate();
     };
 
@@ -39,15 +41,14 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-
-                {/* Prompt Input (TextArea) */}
+                {/* Prompt Input */}
                 <div>
                     <label htmlFor="image-prompt" className="block text-sm font-medium text-gray-700 mb-2">
                         Image Prompt
                     </label>
                     <textarea
                         id="image-prompt"
-                        placeholder="e.g., A futuristic robot reading a book on a neon bench, 4K."
+                        placeholder="Describe your image..."
                         value={prompt}
                         onChange={(e) => onPromptChange(e.target.value)}
                         rows={4}
@@ -56,11 +57,9 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                     />
                 </div>
 
-                {/* Style Selection (Dynamic) */}
+                {/* Style Selection */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Style
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Style</label>
                     <div className="flex flex-wrap gap-2">
                         {styles.map((style) => (
                             <button
@@ -68,7 +67,7 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                                 key={style.value}
                                 onClick={() => onStyleChange(style)}
                                 className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
-                                    ${selectedStyle.value === style.value
+                  ${selectedStyle.value === style.value
                                         ? 'bg-green-500 text-white border-green-500 shadow-sm'
                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                     }`}
@@ -78,6 +77,16 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                             </button>
                         ))}
                     </div>
+                </div>
+
+                {/* Publish Switch */}
+                <div className="flex items-center gap-3">
+                    <Switch
+                        checked={publish}
+                        onCheckedChange={onPublishChange}
+                        disabled={isLoading}
+                    />
+                    <span className="text-sm font-medium text-gray-700">Publish immediately</span>
                 </div>
 
                 {/* Generate Button */}
