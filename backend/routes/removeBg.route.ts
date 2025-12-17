@@ -6,6 +6,6 @@ import { upload } from "../config/multer";
 const imageRouter = express.Router();
 
 imageRouter.post("/", auth, upload.single('image'), removeImageBackground);
-imageRouter.post("/", auth, getRemovedBackgroundImages);
+imageRouter.get("/", auth, getRemovedBackgroundImages);
 
 export default imageRouter;

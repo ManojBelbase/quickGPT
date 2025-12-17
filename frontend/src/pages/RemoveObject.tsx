@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import ObjectRemovalForm from '../components/remove_object/ObjectRemovalForm';
-import ProcessedImageResult from '../components/remove_background/ProcessedImageResult';
 
 const RemoveObject: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -57,10 +56,10 @@ const RemoveObject: React.FC = () => {
             />
 
             {/* Right Panel: Results */}
-            <ProcessedImageResult
+            {/* <ProcessedImageResult
                 imageUrl={processedImageUrl}
                 isLoading={isLoading}
-            />
+            /> */}
 
         </div>
     );
