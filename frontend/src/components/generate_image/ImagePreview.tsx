@@ -1,31 +1,27 @@
-// src/components/image_generation/GeneratedImageResult.tsx
 import React from 'react';
 import { Image, Loader2, Wand2 } from 'lucide-react';
+import type { GeneratedImageResultProps } from '../../types';
 
-interface GeneratedImageResultProps {
-    images: string[];
-    isLoading: boolean;
-}
-
-const GeneratedImageResult: React.FC<GeneratedImageResultProps> = ({ images, isLoading }) => {
+const ImagePreview: React.FC<GeneratedImageResultProps> = ({ images, isLoading }) => {
     const isInitialState = !images.length && !isLoading;
+    console.log(images, "hdh")
 
     return (
-        <div className="w-full lg:w-2/3 p-6 bg-white rounded-xl shadow-md">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
+        <div className="w-full  p-4 bg-white rounded-xl shadow-md">
+            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
                 <Image className="w-5 h-5 mr-2 text-green-600" />
-                Generated Images
+                Image Preview
             </h2>
 
-            <div className="min-h-[400px] border border-gray-200 rounded-lg p-4 relative">
+            <div className="min-h-[600px] h-full border border-gray-200 rounded-lg p-2 relative">
 
                 {/* Displaying Results Grid */}
                 {images.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                         {images.map((imgSrc, index) => (
                             <div
                                 key={index}
-                                className="aspect-square w-full rounded-lg overflow-hidden border border-gray-100 shadow-sm"
+                                className=" w-full rounded-lg overflow-hidden border border-gray-100 shadow-sm"
                             >
                                 <img
                                     src={imgSrc}
@@ -58,4 +54,4 @@ const GeneratedImageResult: React.FC<GeneratedImageResultProps> = ({ images, isL
     );
 };
 
-export default GeneratedImageResult;
+export default ImagePreview;
