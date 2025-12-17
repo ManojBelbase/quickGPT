@@ -9,13 +9,13 @@ interface GeneratedArticleResultProps {
 
 const ArticleResult: React.FC<GeneratedArticleResultProps> = ({ content, isLoading }) => {
     return (
-        <div className="w-full lg:w-2/3 p-6 bg-white rounded-xs shadow-sm">
+        <div className="w-full p-4 bg-white rounded-xs shadow-sm">
             <h2 className="text-xl font-bold text-black flex items-center mb-4">
                 <FileText className="w-5 h-5 mr-2 text-blue" />
                 Generated Article
             </h2>
 
-            <div className="min-h-[400px] border border-gray-200 rounded-sm p-2 relative">
+            <div className="min-h-[400px] overflow-y-scroll border border-gray-200 rounded-sm p-2 relative">
                 {content ? (
                     // Display generated content
                     <AIResponseParser content={content} themeName='light' textColor='#000000' />

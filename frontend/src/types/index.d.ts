@@ -24,3 +24,12 @@ export interface CreationItem {
     created_at: string;
     content: string,
 }
+
+export interface Article {
+    id: string;
+    prompt: string;
+    content: string;
+}
+export interface ArticleListProps {
+    onSelectArticle: (content: string) => void;
+}

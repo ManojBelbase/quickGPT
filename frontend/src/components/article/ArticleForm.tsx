@@ -39,7 +39,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
     };
 
     return (
-        <div className="w-full lg:w-2/5 p-4 bg-white rounded-sm shadow-sm h-fit">
+        <div className="w-full  p-4 bg-white rounded-sm shadow-sm h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
                 AI Article Writer
