@@ -13,3 +13,7 @@ declare global {
     }
 }
 
+export interface ArticlePromptOptions {
+    title: string;
+    length: number;
+}
