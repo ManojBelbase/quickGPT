@@ -2,16 +2,8 @@ import React from 'react';
 import { Sparkles, Hash, Loader2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import type { BlogTitleFormProps } from '../../types';
 
-interface BlogTitleFormProps {
-    keyword: string;
-    onKeywordChange: (value: string) => void;
-    categories: any[];
-    selectedCategory: any;
-    onCategoryChange: (category: any) => void;
-    onGenerate: (prompt: string) => void; // <- pass full prompt
-    isLoading: boolean;
-}
 
 const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
     keyword,
@@ -27,7 +19,6 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
         event.preventDefault();
         if (!keyword.trim() || isLoading) return;
 
-        // Combine keyword + category into a single prompt
         const prompt = selectedCategory
             ? `${keyword} (Category: ${selectedCategory.name})`
             : keyword;
@@ -36,7 +27,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
     };
 
     return (
-        <div className="w-full lg:w-1/3 p-4 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full  p-4 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
                 AI Title Generator

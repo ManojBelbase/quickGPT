@@ -19,7 +19,7 @@ app.use(requireAuth())
 
 // routes
 app.use('/api/article', articleRouter)
-app.use('/api', blogTitleRouter)
+app.use('/api/blog-title', blogTitleRouter)
 app.use('/api/image', imageRouter)
 app.use('/api', removeBackgroundRouter)
 app.use('/api', replaceObjectFromImage)

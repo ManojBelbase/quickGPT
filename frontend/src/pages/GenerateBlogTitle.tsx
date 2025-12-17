@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import BlogTitleForm from '../components/blog_title/BlogTitleForm';
 import BlogTitleResult from '../components/blog_title/BlogTitleResult';
-import api from '../api/axiosInstance'; // Your Axios instance
+import BlogTitleList from '../components/blog_title/BlogTitleList';
+import api from '../api/axiosInstance';
 
-// Define categories
 const blogCategories = [
     { name: 'General', value: 'general' },
     { name: 'Technology', value: 'technology' },
@@ -19,20 +19,20 @@ const GenerateBlogTitle: React.FC = () => {
     const [keyword, setKeyword] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<any>(blogCategories[0]);
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
+    const [selectedTitle, setSelectedTitle] = useState<string>(''); // ✅ added
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleGenerateTitles = async (prompt: string) => {
         if (!prompt.trim()) return;
 
         setIsLoading(true);
-        setGeneratedTitles([]); // Clear previous results
+        setGeneratedTitles([]);
+        setSelectedTitle('');
 
         try {
-            // Send combined prompt to backend
             const { data } = await api.post('/blog-title', { prompt });
 
             if (data?.status === 'success' && data.data) {
-                // If AI returns plain text with newlines, split into array
                 const titles = data.data.split(/\r?\n/).filter(Boolean);
                 setGeneratedTitles(titles);
             } else {
@@ -46,23 +46,31 @@ const GenerateBlogTitle: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
-            {/* Left Panel: Form */}
-            <BlogTitleForm
-                keyword={keyword}
-                onKeywordChange={setKeyword}
-                categories={blogCategories}
-                selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
-                onGenerate={handleGenerateTitles} // receives full prompt now
-                isLoading={isLoading}
-            />
+        <div className=" grid grid-cols-1  md:grid-cols-2 lg:grid-cols-5 gap-2 h-full min-h-full">
+            {/* Left: Form */}
+            <div className='col-span-1 md:col-span-1 lg:col-span-2 flex flex-col  gap-2'>
+                <BlogTitleForm
+                    keyword={keyword}
+                    onKeywordChange={setKeyword}
+                    categories={blogCategories}
+                    selectedCategory={selectedCategory}
+                    onCategoryChange={setSelectedCategory}
+                    onGenerate={handleGenerateTitles}
+                    isLoading={isLoading}
+                />
+                <div className='flex-1 overflow-hidden'>
+                    <BlogTitleList onSelectTitle={setSelectedTitle} />
+                </div>
+            </div>
 
-            {/* Right Panel: Results */}
-            <BlogTitleResult
-                titles={generatedTitles}
-                isLoading={isLoading}
-            />
+
+            {/* Right: Generated / Selected Title */}
+            <div className="col-span-1 md:col-span-1 lg:col-span-3 flex flex-col">
+                <BlogTitleResult
+                    titles={selectedTitle ? [selectedTitle] : generatedTitles}
+                    isLoading={isLoading}
+                />
+            </div>
         </div>
     );
 };

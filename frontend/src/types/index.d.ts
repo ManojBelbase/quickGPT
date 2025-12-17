@@ -33,3 +33,19 @@ export interface Article {
 export interface ArticleListProps {
     onSelectArticle: (content: string) => void;
 }
+
+export interface BlogTitleFormProps {
+    keyword: string;
+    onKeywordChange: (value: string) => void;
+    categories: any[];
+    selectedCategory: any;
+    onCategoryChange: (category: any) => void;
+    onGenerate: (prompt: string) => void;
+    isLoading: boolean;
+}
+export export interface BlogTitle {
+    id: string;
+    prompt: string;
+    content: string;
+    created_at: string;
+}
