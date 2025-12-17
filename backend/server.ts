@@ -21,7 +21,7 @@ app.use(requireAuth())
 app.use('/api/article', articleRouter)
 app.use('/api/blog-title', blogTitleRouter)
 app.use('/api/image', imageRouter)
-app.use('/api', removeBackgroundRouter)
+app.use('/api/remove-background', removeBackgroundRouter)
 app.use('/api', replaceObjectFromImage)
 app.use('/api', resumeRouter)
 
