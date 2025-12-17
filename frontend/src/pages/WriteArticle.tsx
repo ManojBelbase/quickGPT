@@ -7,7 +7,7 @@ import ArticleList from "../components/article/ArticleList";
 import api from "../api/axiosInstance";
 
 const WriteArticle: React.FC = () => {
-    const [prompt, setPrompt] = useState("The future of artificial intelligence");
+    const [prompt, setPrompt] = useState("");
     const [selectedLength, setSelectedLength] = useState(300);
     const [articleContent, setArticleContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);

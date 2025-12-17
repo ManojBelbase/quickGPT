@@ -21,7 +21,7 @@ const blogCategories: BlogCategory[] = [
 ];
 
 const GenerateBlogTitle: React.FC = () => {
-    const [keyword, setKeyword] = useState<string>('The future of artificial intelligence');
+    const [keyword, setKeyword] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<BlogCategory>(blogCategories[0]); // Starts at 'General'
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
