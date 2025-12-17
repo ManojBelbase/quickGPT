@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import fs from 'fs'
 import sql from "../config/db";
 import { response } from "../utils/responseHandler";
-import pdf from 'pdf-parse'
+const pdf = require("pdf-parse")
 import { openRouter } from "../config/openRouter";
 
 export const reviewResume = async (req: Request, res: Response): Promise<void> => {
