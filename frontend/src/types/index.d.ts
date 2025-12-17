@@ -76,3 +76,20 @@ export interface BlogTitleResultProps {
     titles: string[];
     isLoading: boolean;
 }
+
+export interface BackgroundRemovalFormProps {
+    selectedFile: File | null;
+    onFileChange: (file: File | null) => void;
+    onRemoveBackground: () => void;
+    isLoading: boolean;
+}
+
+export interface RemovedImage {
+    id: string;
+    content: string;
+    created_at: string;
+}
+
+export interface Props {
+    onSelectImage?: (url: string) => void;
+}

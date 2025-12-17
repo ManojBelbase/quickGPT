@@ -21,7 +21,7 @@ const ImagePreview: React.FC<GeneratedImageResultProps> = ({ images, isLoading }
                         {images.map((imgSrc, index) => (
                             <div
                                 key={index}
-                                className=" w-full rounded-lg overflow-hidden border border-gray-100 shadow-sm"
+                                className="w-full rounded-lg overflow-hidden border border-gray-100 shadow-sm"
                             >
                                 <img
                                     src={imgSrc}
