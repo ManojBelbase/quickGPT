@@ -73,6 +73,25 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
     }
 };
 
+
+export const getUserImages = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId: string = req.auth().userId;
+
+        const images = await sql`
+            SELECT id, prompt, content, publish, created_at
+            FROM creations
+            WHERE user_id = ${userId} AND type = 'image'
+            ORDER BY created_at DESC
+        `;
+
+        response(res, 200, "Success", images);
+    } catch (error: any) {
+        console.error(error);
+        response(res, 500, "Something went wrong", error.message);
+    }
+};
+
 export const getPublishImages = async (req: Request, res: Response): Promise<void> => {
     try {
 
