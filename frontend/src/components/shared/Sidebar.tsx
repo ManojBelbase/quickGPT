@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { sidebarLinks } from '../../const/sidebarLinks';
 import { useUser, UserButton } from '@clerk/clerk-react';
-import { X } from 'lucide-react';
 import { path } from '../../routes/paths';
 import type { SidebarLink, SidebarProps } from '../../types';
+import { Icon } from '@iconify/react';
+import { X } from 'lucide-react';
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
     const navigate = useNavigate();
     const { user } = useUser();
@@ -42,12 +43,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
         >
             {/* User Profile Section (Top) */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                <div className="flex items-center">
-                    <Link to={path.HOME} className="text-purple-600 font-bold text-lg sm:text-3xl">
-
-                        QuickGPT
-                    </Link>
-                </div>
+                <Link to={path.HOME} className="flex items-center gap-2 group">
+                    <div className="bg-[#9810fa] p-1.5 rounded-md">
+                        <Icon icon="lucide:zap" className="text-white text-xl" />
+                    </div>
+                    <span className="text-gray-900 font-bold text-2xl tracking-tight">
+                        Quick<span className="text-[#9810fa]">GPT</span>
+                    </span>
+                </Link>
                 {/* Close Button for Mobile */}
                 <button
                     onClick={onClose}
