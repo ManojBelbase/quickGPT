@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from "react";
+// src/components/removeBackground/RemovedBackgroundList.tsx
+import React from "react";
 import { Image, Loader2 } from "lucide-react";
-import api from "../../api/axiosInstance";
-import type { Props, RemovedImage } from "../../types";
-const RemovedBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
-    const [images, setImages] = useState<RemovedImage[]>([]);
-    const [loading, setLoading] = useState(false);
+import { useGetRemovedImages } from "../../hooks/useRemoveBackground";
 
+interface RemovedBackgroundListProps {
+    onSelectImage?: (url: string) => void;
+}
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            setLoading(true);
-            try {
-                const { data } = await api.get("/remove-background");
-                if (data?.status === "success") {
-                    setImages(data.data);
-                }
+const RemovedBackgroundList: React.FC<RemovedBackgroundListProps> = ({ onSelectImage }) => {
+    const { data: images = [], isLoading, isError } = useGetRemovedImages();
 
-            } catch (error) {
-                console.error("Failed to load images", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    if (isError) {
+        return (
+            <div className="text-center text-red-600 text-sm p-4">
+                Failed to load processed images
+            </div>
+        );
+    }
 
-        fetchImages();
-    }, []);
     return (
         <div className="bg-white p-4 rounded-xl shadow-sm border-gray-200 h-fit">
-
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
                 <Image className="w-5 h-5 mr-2 text-purple-600" />
-                Recent Removels
+                Recent Removals
             </h2>
 
-            {loading && (
+            {isLoading && (
                 <div className="flex items-center gap-2 text-gray-500 text-sm">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Loading...
@@ -56,7 +48,7 @@ const RemovedBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
                 ))}
             </div>
 
-            {!loading && images.length === 0 && (
+            {!isLoading && images.length === 0 && (
                 <p className="text-sm text-gray-400 mt-2">
                     No processed images yet
                 </p>

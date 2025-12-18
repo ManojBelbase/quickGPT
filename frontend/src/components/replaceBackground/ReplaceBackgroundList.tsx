@@ -1,57 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Scissors, Loader2 } from "lucide-react";
-import api from "../../api/axiosInstance";
-import type { RemovedObjectImage } from "../../types";
+// src/components/replaceBackground/ReplaceBackgroundList.tsx
+import React from "react";
+import { Image, Loader2 } from "lucide-react";
+import { useGetReplacedBackgrounds } from "../../hooks/useReplaceBackground";
 
-
-interface Props {
-    onSelectImage?: (imageUrl: string) => void;
+interface ReplaceBackgroundListProps {
+    onSelectImage?: (url: string) => void;
 }
 
-const ReplaceBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
-    const [images, setImages] = useState<RemovedObjectImage[]>([]);
-    const [loading, setLoading] = useState(true);
+const ReplaceBackgroundList: React.FC<ReplaceBackgroundListProps> = ({ onSelectImage }) => {
+    const { data: images = [], isLoading, isError } = useGetReplacedBackgrounds();
 
-    // Helper to extract actual Cloudinary URL from the saved content string
     const extractImageUrl = (content: string): string => {
-        const match = content.match(/https:\/\/res\.cloudinary\.com\/[^\s]+/);
+        const match = content.match(/https:\/\/res\.cloudinary\.com\/[^\s"]+/);
         return match ? match[0] : "/placeholder.png";
     };
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            setLoading(true);
-            try {
-                const { data } = await api.get("/remove-object");
-
-                if (data?.status === "success") {
-                    setImages(data.data);
-                }
-            } catch (error) {
-                console.error("Failed to load remove-object history", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchImages();
-    }, []);
+    if (isError) {
+        return <p className="text-red-600 text-sm p-4">Failed to load history</p>;
+    }
 
     return (
         <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 h-fit">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Scissors className="w-5 h-5 mr-2 text-indigo-600" />
-                Recent Replaced Images
+            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-4">
+                <Image className="w-5 h-5 mr-2 text-indigo-600" />
+                Recent Replacements
             </h2>
 
-            {loading && (
+            {isLoading && (
                 <div className="flex items-center gap-2 text-gray-500 text-sm py-4">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Loading history...
                 </div>
             )}
 
-            {!loading && images.length > 0 && (
+            {!isLoading && images.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {images.map((img) => {
                         const imageUrl = extractImageUrl(img.content);
@@ -60,12 +42,12 @@ const ReplaceBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
                             <button
                                 key={img.id}
                                 onClick={() => onSelectImage?.(imageUrl)}
-                                className="aspect-square cursor-pointer rounded-lg overflow-hidden border border-gray-200 hover:ring-2 hover:ring-indigo-400 hover:border-indigo-400 transition-all duration-200"
-                                title={`Removed: ${img.prompt}`}
+                                className="aspect-square cursor-pointer rounded-lg overflow-hidden border border-gray-200 hover:ring-2 hover:ring-indigo-400 transition-all duration-200"
+                                title={`Background: ${img.prompt}`}
                             >
                                 <img
                                     src={imageUrl}
-                                    alt={`Removed object: ${img.prompt}`}
+                                    alt={`Background: ${img.prompt}`}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
                                 />
@@ -75,9 +57,9 @@ const ReplaceBackgroundList: React.FC<Props> = ({ onSelectImage }) => {
                 </div>
             )}
 
-            {!loading && images.length === 0 && (
+            {!isLoading && images.length === 0 && (
                 <p className="text-sm text-gray-400 py-4 text-center">
-                    No object removals yet
+                    No background replacements yet
                 </p>
             )}
         </div>

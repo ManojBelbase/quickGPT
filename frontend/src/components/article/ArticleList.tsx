@@ -1,66 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { FileText, Trash2 } from "lucide-react";
-import api from "../../api/axiosInstance";
-import type { Article, ArticleListProps } from "../../types";
+import React from "react";
+import { FileText, Trash2, Loader2 } from "lucide-react";
+import { useGetArticles, useDeleteArticle } from "../../hooks/useArticles";
+import type { ArticleListProps } from "../../types";
 import toast from "react-hot-toast";
 
 const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
-    const [articles, setArticles] = useState<Article[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [deletingId, setDeletingId] = useState<string | null>(null);
+    const { data: articles = [], isLoading, isError } = useGetArticles();
+    const { mutateAsync: deleteArticle } = useDeleteArticle();
 
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const { data } = await api.get("/article");
-                if (data?.status === "success") {
-                    setArticles(data.data);
-                }
-            } catch (error) {
-                toast.error("Failed to load articles");
-            } finally {
-                setLoading(false);
-            }
-        };
+    const [deletingId, setDeletingId] = React.useState<string | null>(null);
 
-        fetchArticles();
-    }, []);
+    const handleDelete = async (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
 
-    const handleDelete = async (id: string) => {
         if (!confirm("Delete this article permanently?")) return;
 
         setDeletingId(id);
 
         try {
-            const { data } = await api.delete(`/article/${id}`);
-
-            if (data?.status === "success") {
-                setArticles((prev) => prev.filter((a) => a.id !== id));
-                toast.success("Article deleted");
-            } else {
-                toast.error(data?.message || "Delete failed");
-            }
-        } catch {
+            await deleteArticle(id);
+            toast.success("Article deleted successfully");
+        } catch (error) {
             toast.error("Failed to delete article");
         } finally {
             setDeletingId(null);
         }
     };
 
+    if (isError) {
+        return (
+            <div className="p-4 text-red-600 text-sm">
+                Failed to load articles. Please try again later.
+            </div>
+        );
+    }
+
     return (
         <div className="bg-white rounded-xs shadow-sm flex flex-col">
-            {/* HEADER (STICKY) */}
             <div className="px-4 pt-2 shrink-0">
                 <h2 className="text-lg font-semibold">Your Articles</h2>
             </div>
 
-            {/* CONTENT (SCROLLABLE) */}
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
-                {loading && (
-                    <p className="text-sm text-gray-500">Loading articles...</p>
+                {isLoading && (
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Loading articles...
+                    </div>
                 )}
 
-                {!loading && articles.length === 0 && (
+                {!isLoading && articles.length === 0 && (
                     <p className="text-sm text-gray-400">No articles found</p>
                 )}
 
@@ -71,7 +60,6 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                         className="cursor-pointer border border-gray-200 p-2 rounded-sm hover:bg-gray-50 transition"
                     >
                         <div className="flex items-center justify-between gap-2">
-                            {/* LEFT */}
                             <div className="flex items-center gap-1 min-w-0">
                                 <FileText className="w-4 h-4 text-purple-600 shrink-0" />
                                 <p className="font-medium text-sm truncate" title={article.prompt}>
@@ -79,16 +67,16 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                                 </p>
                             </div>
 
-                            {/* RIGHT */}
                             <button
+                                onClick={(e) => handleDelete(e, article.id)}
                                 disabled={deletingId === article.id}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDelete(article.id);
-                                }}
-                                className="text-red-500 cursor-pointer hover:text-red-600 shrink-0 disabled:opacity-50"
+                                className="text-red-500 hover:text-red-600 shrink-0 disabled:opacity-50 transition"
                             >
-                                {deletingId === article.id ? "…" : <Trash2 className="w-4 h-4" />}
+                                {deletingId === article.id ? (
+                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                    <Trash2 className="w-4 h-4" />
+                                )}
                             </button>
                         </div>
                     </div>

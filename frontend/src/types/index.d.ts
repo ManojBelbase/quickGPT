@@ -57,7 +57,7 @@ export interface UserImage {
     content: string;
     publish: boolean;
     created_at: string;
-    likes: string
+    likes?: any
 
 }
 
@@ -138,4 +138,66 @@ export interface DashboardData {
     free_remaining: number | string;
     total_creations: number;
     creations_by_type: { type: string; count: number }[];
+}
+
+// src/types/article.types.ts
+export interface Article {
+    id: string;
+    prompt: string;
+    content: string;
+    createdAt?: string;
+    [key: string]: any;
+}
+
+export interface GenerateArticleBody {
+    prompt: string;
+    length: number;
+}
+
+export interface GenerateArticleResponse {
+    status: string;
+    message?: string;
+    data: string; // generated article content
+}
+
+export interface BlogTitle {
+    id: string;
+    prompt: string;
+    content: string; // the generated titles (maybe as string or array)
+    createdAt?: string;
+}
+
+export interface GenerateBlogTitleBody {
+    prompt: string;
+}
+
+
+export interface UserImage {
+    id: string;
+    content: string;
+    prompt: string;
+    publish: boolean;
+    likes?: any;   // ← MUST BE string[], not string!
+    userId: string;
+    createdAt?: string;
+}
+
+export interface GenerateImageBody {
+    prompt: string;
+    publish: boolean;
+}
+
+export interface RemovedImage {
+    id: string;
+    content: string;
+    originalPrompt?: string;
+    createdAt?: string;
+}
+
+
+export interface ReplacedBackgroundImage {
+    id: string;
+    content: string;
+    prompt: string;
+    createdAt?: string;
 }
