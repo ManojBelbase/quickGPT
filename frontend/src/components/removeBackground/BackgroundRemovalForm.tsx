@@ -1,4 +1,3 @@
-// src/components/removeBackground/BackgroundRemovalForm.tsx
 import React from "react";
 import { Sparkles, Loader2 } from "lucide-react";
 import { Button } from "../ui/Button";
@@ -59,7 +58,7 @@ const BackgroundRemovalForm: React.FC<BackgroundRemovalFormProps> = ({
                     </div>
 
                     <p className="text-xs text-gray-500 mt-2">
-                        Supports JPG, PNG, WEBP (max 10MB recommended)
+                        Supports JPG, PNG (max 2MB recommended)
                     </p>
                 </div>
 

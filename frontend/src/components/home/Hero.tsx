@@ -1,56 +1,96 @@
 import { useNavigate } from 'react-router-dom';
-import gradientBackground from '../../assets/gradientBackground.png';
 import { path } from '../../routes/paths';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, useClerk } from '@clerk/clerk-react';
+import { ArrowRight, Sparkles, PlayCircle } from 'lucide-react';
 
 export const Hero = () => {
-    const navigate = useNavigate()
-    const { user } = useUser()
+    const navigate = useNavigate();
+    const { user } = useUser();
+    const { openSignIn } = useClerk();
+
+    const handleStartCreating = () => {
+        if (user) {
+            navigate(path.DASHBOARD);
+        } else {
+            openSignIn();
+        }
+    };
+
+
     return (
-        <div
-            className="relative flex flex-col w-full items-center justify-center px-4 sm:px-20 xl:px-32 h-screen bg-cover bg-no-repeat min-h-screen"
-            style={{ backgroundImage: `url(${gradientBackground})` }}
-        >
-            {/* Main Headline - Changed "Create Content" to "Scale Workflow" context */}
-            <h1 className="text-gray-900 text-4xl md:text-6xl font-extrabold text-center tracking-tight leading-tight max-w-5xl">
-                Supercharge your workflow <br className="hidden md:block" />
-                using <span className="text-indigo-600">Next-Gen AI</span>
-            </h1>
+        <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAFBFF]">
 
-            {/* Subheading - Changed "Transform creation" to "Eliminate busywork" context */}
-            <p className="text-gray-600 mt-6 text-center text-lg max-w-2xl leading-relaxed">
-                Stop staring at a blank page. Unlock a suite of intelligent assistants that
-                automate your writing, design, and research tasks in seconds.
-            </p>
-
-            {/* Buttons Container - Changed labels to be more action-oriented */}
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <button onClick={() => user && navigate(path.DASHBOARD)} className="px-8 py-3.5 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all transform hover:scale-105 shadow-lg shadow-indigo-600/20">
-                    Get started for free
-                </button>
-                <button className="px-8 py-3.5 rounded-lg bg-white text-gray-700 border border-gray-200 font-semibold hover:bg-gray-50 transition-colors hover:border-indigo-200">
-                    See how it works
-                </button>
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] left-[-5%] w-[50%] h-[50%] rounded-full bg-indigo-100/60 blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[50%] rounded-full bg-purple-100/60 blur-[120px]" />
+                <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-blue-50/80 blur-[100px]" />
             </div>
 
-            {/* Social Proof - Changed "Trusted by people" to "Teams/Innovators" */}
-            <div className="mt-12 flex flex-col items-center gap-4">
-                <div className="flex items-center -space-x-3">
-                    {/* Placeholder Avatars */}
-                    {[1, 2, 3, 4].map((i) => (
-                        <img
-                            key={i}
-                            className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-sm"
-                            // Using a different placeholder range so faces look different too
-                            src={`https://i.pravatar.cc/100?img=${i + 20}`}
-                            alt={`Member ${i}`}
-                        />
-                    ))}
+            <div className="relative z-10 flex flex-col items-center px-6 pt-24 pb-12">
+
+                {/* 2. Animated Announcement Badge */}
+                <div className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-indigo-100 shadow-sm mb-10 transition-all hover:border-indigo-300 cursor-pointer">
+                    <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse" />
+                    <span className="text-xs font-semibold text-slate-600 tracking-wide">
+                        New: AI Image Generation is here
+                    </span>
+                    <ArrowRight size={14} className="text-indigo-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-gray-500 text-sm font-medium">
-                    Joined by <span className="text-indigo-600 font-bold">12,000+</span> innovators
+
+                {/* 3. The "Power" Headline */}
+                <h1 className="text-center text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.05] max-w-6xl">
+                    Automate your <br />
+                    <span className="relative inline-block">
+                        <span className="relative z-10 bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                            Creative Flow
+                        </span>
+                        {/* Abstract underline decoration */}
+                        <div className="absolute bottom-2 left-0 w-full h-3 bg-indigo-100 -z-10 rounded-full opacity-60" />
+                    </span>
+                </h1>
+
+                {/* 4. Elegant Subheading */}
+                <p className="mt-8 text-slate-600 text-center text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
+                    The all-in-one AI platform that transforms complex workflows into
+                    one-click solutions. Research, write, and design in seconds.
                 </p>
+
+                {/* 5. High-Contrast Action Area */}
+                <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                    <button
+                        onClick={handleStartCreating}
+                        className="w-full sm:w-auto px-8 cursor-pointer py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-2xl shadow-indigo-200 hover:bg-indigo-600 hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-2"
+                    >
+                        Start Creating Free <Sparkles size={18} />
+                    </button>
+
+                    <button onClick={() => navigate("https://www.youtube.com/@manojbelbasay")} className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border cursor-pointer border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                        <PlayCircle size={18} className="text-indigo-600" />
+                        Watch Demo
+                    </button>
+                </div>
+
+                {/* 6. Social Proof / User Avatars */}
+                <div className="mt-16 flex flex-col items-center gap-4">
+                    <div className="flex -space-x-3">
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <img
+                                key={i}
+                                className="h-10 w-10 rounded-full border-4 border-white object-cover shadow-sm ring-1 ring-slate-100"
+                                src={`https://i.pravatar.cc/100?img=${i + 15}`}
+                                alt="User"
+                            />
+                        ))}
+                        <div className="h-10 w-10 rounded-full border-4 border-white bg-indigo-50 flex items-center justify-center text-[10px] font-bold text-indigo-600 ring-1 ring-slate-100">
+                            +2k
+                        </div>
+                    </div>
+                    <p className="text-slate-500 text-sm font-medium">
+                        Loved by <span className="text-slate-900 font-bold">12,000+</span> modern teams
+                    </p>
+                </div>
+
             </div>
         </div>
-    )
-}
+    );
+};
