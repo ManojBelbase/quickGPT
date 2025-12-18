@@ -54,5 +54,5 @@ app.get("/", (req, res) => {
 });
 
 // Listen on Render dynamic port
-const PORT = process.env.PORT || 5005;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// const PORT = process.env.PORT || 5005;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
