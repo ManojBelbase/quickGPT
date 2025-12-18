@@ -68,8 +68,8 @@ const Dashboard: React.FC = () => {
                             </span>
                         </div>
                         <button
-                            onClick={() => navigate("/pricing")}
-                            className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-2 shadow-lg"
+                            onClick={() => navigate("/#plans")}
+                            className="bg-slate-900 cursor-pointer text-white px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-2 shadow-lg"
                         >
                             {isPremium ? (
                                 <>Pro Member</>
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
                         <button
                             key={tool.title}
                             onClick={() => navigate(tool.path)}
-                            className="group relative bg-white border border-slate-200 p-8 rounded-2xl hover:shadow-2xl hover:shadow-indigo-200/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center"
+                            className="group relative bg-white cursor-pointer border border-slate-200 p-8 rounded-2xl hover:shadow-2xl hover:shadow-indigo-200/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center"
                         >
                             <div
                                 className={`${tool.color} text-white p-5 rounded-2xl mb-4 shadow-xl group-hover:rotate-12 transition-transform duration-300`}
@@ -148,10 +148,8 @@ const Dashboard: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Upgrade Card */}
                     <div
                         className="lg:col-span-5 relative group cursor-pointer"
-                        onClick={() => navigate("/pricing")}
                     >
                         <div className="absolute inset-0 bg-linear-to-br from-indigo-600 to-violet-900 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                         <div className="relative h-full bg-slate-950 rounded-2xl p-10 text-white flex flex-col justify-between overflow-hidden border border-white/10">
@@ -183,7 +181,8 @@ const Dashboard: React.FC = () => {
                             </div>
 
                             <div className="mt-10">
-                                <button className="w-full py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-black text-sm transition-all shadow-2xl shadow-indigo-500/40 flex items-center justify-center gap-2">
+                                <button onClick={() => navigate("/#plans")}
+                                    className="w-full py-4 bg-indigo-500 cursor-pointer hover:bg-indigo-400 text-white rounded-xl font-black text-sm transition-all shadow-2xl shadow-indigo-500/40 flex items-center justify-center gap-2">
                                     Go Premium Now <ArrowUpRight size={20} />
                                 </button>
                             </div>

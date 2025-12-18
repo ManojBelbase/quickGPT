@@ -15,7 +15,6 @@ const WriteArticle: React.FC = () => {
 
     const handleGenerateArticle = async () => {
         if (!prompt.trim()) {
-            toast.error("Please enter an article prompt");
             return;
         }
 
@@ -30,8 +29,8 @@ const WriteArticle: React.FC = () => {
             setArticleContent(content);
             setPrompt("");
             toast.success("Article generated successfully!");
-        } catch (error) {
-            toast.error("Failed to generate article");
+        } catch (error: any) {
+            toast.error(error?.response.data.message || "Failed to generate Article");
         } finally {
             setIsGenerating(false);
         }

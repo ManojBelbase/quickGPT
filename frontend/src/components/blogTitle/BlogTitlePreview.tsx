@@ -11,13 +11,13 @@ export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoa
                 Blog Title Preview
             </h2>
 
-            <div className="min-h-[400px] border border-gray-200 rounded-lg p-4 relative">
+            <div className="sm:min-h-[400px] border border-gray-200 rounded-lg p-4 relative">
 
                 {/* Displaying Results */}
                 {titles.length > 0 && (
                     <div className="space-y-3">
                         {titles.map((title, index) => (
-                            <div key={index} className="p-3 border border-gray-100 rounded-md bg-gray-50 hover:bg-white transition-colors">
+                            <div key={index} className=" hover:bg-white transition-colors">
                                 <AIResponseParser content={title} themeName='light' textColor='#000000' />
                             </div>
                         ))}

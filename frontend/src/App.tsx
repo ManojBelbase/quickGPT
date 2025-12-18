@@ -13,7 +13,6 @@ function App() {
 
   useEffect(() => {
     setAuthTokenGetter(getToken);
-    getToken().then((token) => console.log(token));
   }, [getToken]);
 
   return (
