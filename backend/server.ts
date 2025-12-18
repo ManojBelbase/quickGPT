@@ -35,7 +35,7 @@ app.use(clerkMiddleware());
 
 // ✅ PUBLIC ROUTE (important)
 app.get("/", (_req, res) => {
-    res.send("QuickGPT API running 🚀");
+    res.send("QuickGPT Server running 🚀");
 });
 
 // 🔐 PROTECT ONLY API ROUTES
@@ -49,4 +49,4 @@ app.use("/api/remove-background", removeBackgroundRouter);
 app.use("/api/remove-object", ReplaceBackgroundRouter);
 app.use("/api/dashboard", dashboardStatsRouter);
 
-export default app; // 🔥 REQUIRED FOR VERCEL
+export default app; 
