@@ -49,10 +49,10 @@ app.use('/api/remove-object', ReplaceBackgroundRouter);
 app.use('/api/dashboard', dashboardStatsRouter);
 app.use('/api', resumeRouter);
 
-app.get('/', (req, res) => res.send('Server is live'));
+app.get("/", (req, res) => {
+    res.send("Server is running successfully 🚀");
+});
 
-// ===================
-// Start Server
-// ===================
-const PORT = process.env.PORT;
+// Listen on Render dynamic port
+const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
