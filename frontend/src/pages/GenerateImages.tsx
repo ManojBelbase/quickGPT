@@ -38,7 +38,8 @@ const GenerateImages: React.FC = () => {
             setGeneratedImages([imageUrl]);
             toast.success("Image generated successfully!");
         } catch (error: any) {
-            toast.error(error?.message || "Failed to generate image");
+            console.log(error, "er")
+            toast.error(error?.response.data.message || "Failed to generate image");
         } finally {
             setIsGenerating(false);
         }

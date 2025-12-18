@@ -1,4 +1,3 @@
-// src/hooks/useCommunity.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosInstance";
 import toast from "react-hot-toast";
@@ -23,10 +22,9 @@ export const useToggleLike = () => {
         mutationFn: async (imageId: string) => {
             const { data } = await api.post("/image/toggle-like", { id: imageId });
             if (data.status !== "success") throw new Error(data.message || "Failed to toggle like");
-            return data; // { message: "Liked"/"Unliked", data: { likes: string[] } }
+            return data;
         },
         onMutate: async (imageId) => {
-            // Optimistic update
             await queryClient.cancelQueries({ queryKey: ["community-images"] });
 
             const previousImages = queryClient.getQueryData<UserImage[]>(["community-images"]);

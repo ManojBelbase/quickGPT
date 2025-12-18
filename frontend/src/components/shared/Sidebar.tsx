@@ -75,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
                     <UserButton />
                     <div>
                         <div className="font-medium">{user?.fullName || "Guest User"}</div>
-                        <div className="text-xs text-gray-500">Premium Plan</div>
+                        <div className="text-xs text-gray-500"></div>
                     </div>
                 </div>
 

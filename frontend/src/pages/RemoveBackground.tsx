@@ -26,7 +26,7 @@ const RemoveBackground: React.FC = () => {
             setProcessedImageUrl(resultUrl);
             toast.success("Background removed successfully!");
         } catch (error: any) {
-            toast.error(error?.message || "Failed to remove background");
+            toast.error(error?.response.data.message || "Failed to generate image");
         } finally {
             setIsProcessing(false);
         }

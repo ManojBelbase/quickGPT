@@ -30,7 +30,7 @@ const ReplaceBackground: React.FC = () => {
             setProcessedImageUrl(cleanUrl);
             toast.success("Background replaced successfully!");
         } catch (error: any) {
-            toast.error(error?.message || "Failed to replace background");
+            toast.error(error?.response.data.message || "Failed to generate image");
         } finally {
             setIsProcessing(false);
         }

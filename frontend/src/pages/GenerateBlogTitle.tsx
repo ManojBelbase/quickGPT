@@ -33,15 +33,16 @@ const GenerateBlogTitle: React.FC = () => {
             const titles = rawTitles.split(/\r?\n/).filter(Boolean);
             setGeneratedTitles(titles);
             toast.success("Blog titles generated!");
-        } catch (err) {
-            toast.error("Failed to generate titles");
+        } catch (err: any) {
+            toast.error(err?.response.data.message || "Failed to generate Title");
+
         } finally {
             setIsGenerating(false);
         }
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 h-full min-h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 ">
             {/* Left: Form + List */}
             <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-2">
                 <BlogTitleForm
