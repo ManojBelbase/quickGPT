@@ -14,26 +14,26 @@ dotenv.config();
 
 const app = express();
 
+
 // CORS Setup
 const allowedOrigins = [
-    'https://quickgptai.vercel.app',
-    'http://localhost:3000',
-    "http://localhost:5173"
+    process.env.FRONTEND_URL || "https://quickgptai.vercel.app",
+    process.env.DEV_FRONTEND_URL || "http://localhost:5173",
 ];
 
 app.use(
     cors({
-        origin: function (origin, callback) {
-            if (!origin) return callback(null, true);
-            if (allowedOrigins.indexOf(origin) === -1) {
-                const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
-                return callback(new Error(msg), false);
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
             }
-            return callback(null, true);
         },
         credentials: true,
     })
 );
+
 
 // Middlewares
 app.use(express.json());
@@ -54,5 +54,5 @@ app.get('/', (req, res) => res.send('Server is live'));
 // ===================
 // Start Server
 // ===================
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
