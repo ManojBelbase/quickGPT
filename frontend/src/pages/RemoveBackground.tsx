@@ -1,77 +1,63 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import BackgroundRemovalForm from "../components/removeBackground/BackgroundRemovalForm";
-import api from "../api/axiosInstance";
 import RemovedBackgroundList from "../components/removeBackground/RemovedBackgroundList";
 import { ProcessedImagePreview } from "../components/removeBackground/ProcessedImagePreview";
+import { useRemoveBackground } from "../hooks/useRemoveBackground";
 import toast from "react-hot-toast";
 
 const RemoveBackground: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [processedImageUrl, setProcessedImageUrl] = useState<string | null>(null);
+    const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { mutateAsync: removeBackground } = useRemoveBackground();
 
-    const handleRemoveBackground = useCallback(async () => {
-        if (!selectedFile) return;
+    const handleRemoveBackground = async () => {
+        if (!selectedFile) {
+            toast.error("Please select an image first");
+            return;
+        }
 
-        setIsLoading(true);
+        setIsProcessing(true);
         setProcessedImageUrl(null);
 
         try {
-            const formData = new FormData();
-            formData.append("image", selectedFile);
-
-            const { data } = await api.post(
-                "/remove-background",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
-
-            if (data?.status === "success") {
-                setProcessedImageUrl(data.data.content);
-            }
+            const resultUrl = await removeBackground(selectedFile);
+            setProcessedImageUrl(resultUrl);
+            toast.success("Background removed successfully!");
         } catch (error: any) {
-            toast.error(error?.response?.data?.message)
+            toast.error(error?.message || "Failed to remove background");
         } finally {
-            setIsLoading(false);
+            setIsProcessing(false);
         }
-    }, [selectedFile]);
+    };
 
     return (
-        <div className="min-h-screen">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2"
-            >
-                {/* LEFT */}
-                <div className="col-span-1 lg:col-span-2 flex flex-col gap-2">
+        <div className="min-h-screen bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-2xl mx-auto p-4">
+                {/* LEFT: Form + History */}
+                <div className="col-span-1 lg:col-span-2 flex flex-col gap-4">
                     <BackgroundRemovalForm
                         selectedFile={selectedFile}
                         onFileChange={setSelectedFile}
                         onRemoveBackground={handleRemoveBackground}
-                        isLoading={isLoading}
+                        isLoading={isProcessing}
                     />
 
-                    {/* LIST */}
-                    <div className="flex-1 overflow-hidden">
-                        <RemovedBackgroundList
-                            onSelectImage={setProcessedImageUrl}
-                        />
+                    <div className="flex-1 min-h-0">
+                        <RemovedBackgroundList onSelectImage={setProcessedImageUrl} />
                     </div>
                 </div>
 
-                {/* RIGHT */}
+                {/* RIGHT: Preview */}
                 <div className="col-span-1 lg:col-span-2">
                     <ProcessedImagePreview
                         imageUrl={processedImageUrl}
-                        isLoading={isLoading}
+                        isLoading={isProcessing}
                     />
                 </div>
             </div>
         </div>
-
     );
 };
 

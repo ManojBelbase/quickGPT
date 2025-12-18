@@ -1,58 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { FileText } from "lucide-react";
-import api from "../../api/axiosInstance";
+// src/components/blogTitle/BlogTitleList.tsx
+import React from "react";
+import { FileText, Trash2, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
-import type { BlogTitle } from "../../types";
+import { useDeleteBlogTitle, useGetBlogTitles } from "../../hooks/useBlogTitles";
 
 interface BlogTitleListProps {
     onSelectTitle?: (title: string) => void;
 }
 
 const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
-    const [titles, setTitles] = useState<BlogTitle[]>([]);
-    const [loading, setLoading] = useState(false);
+    const { data: titles = [], isLoading, isError } = useGetBlogTitles();
 
-    const fetchTitles = async () => {
-        setLoading(true);
+    // mutateAsync delete — same as your ArticleList
+    const { mutateAsync: deleteTitle } = useDeleteBlogTitle();
+    const [deletingId, setDeletingId] = React.useState<string | null>(null);
+
+    const handleDelete = async (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
+        if (!confirm("Delete this blog title permanently?")) return;
+
+        setDeletingId(id);
         try {
-            const { data } = await api.get("/blog-title");
-            if (data?.status === "success") {
-                setTitles(data.data);
-            }
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to fetch blog titles");
+            await deleteTitle(id);
+            toast.success("Blog title deleted");
+        } catch {
+            toast.error("Failed to delete");
         } finally {
-            setLoading(false);
+            setDeletingId(null);
         }
     };
 
-    const handleDelete = async (id: string) => {
-        try {
-            const { data } = await api.delete(`/blog-title/${id}`);
-            if (data?.status === "success") {
-                toast.success("Blog title deleted");
-                setTitles((prev) => prev.filter((t) => t.id !== id));
-            } else {
-                toast.error(data?.message || "Failed to delete");
-            }
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to delete blog title");
-        }
-    };
-
-    useEffect(() => {
-        fetchTitles();
-    }, []);
+    if (isError) return <p className="text-red-600 text-sm p-4">Failed to load titles</p>;
 
     return (
         <div className="bg-white p-4 rounded-xl shadow-sm h-[500px] overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">Your Blog Titles</h2>
 
-            {loading && <p className="text-gray-500">Loading...</p>}
+            {isLoading && <p className="text-gray-500">Loading...</p>}
 
-            {!loading && titles.length === 0 && (
+            {!isLoading && titles.length === 0 && (
                 <p className="text-gray-400 text-sm">No blog titles found</p>
             )}
 
@@ -65,17 +51,21 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
                     >
                         <div className="flex items-center gap-2 min-w-0">
                             <FileText className="w-4 h-4 text-purple-600 shrink-0" />
-                            <p className="text-sm font-medium truncate">{title.prompt}</p>
+                            <p className="text-sm font-medium truncate" title={title.prompt}>
+                                {title.prompt}
+                            </p>
                         </div>
 
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete(title.id);
-                            }}
-                            className="text-red-500 hover:text-red-600 transition text-sm"
+                            onClick={(e) => handleDelete(e, title.id)}
+                            disabled={deletingId === title.id}
+                            className="text-red-500 hover:text-red-600 transition"
                         >
-                            🗑
+                            {deletingId === title.id ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                                <Trash2 className="w-4 h-4" />
+                            )}
                         </button>
                     </div>
                 ))}

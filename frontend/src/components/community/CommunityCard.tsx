@@ -47,7 +47,7 @@ export const CommunityCard: React.FC<CommunityCardProps> = ({ image, onLike, cur
 
             {/* Bottom Content Overlay */}
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                <p className="text-white text-lg font-medium leading-snug mb-6 line-clamp-3">
+                <p className="text-white text-sm font-medium leading-snug mb-2 line-clamp-3">
                     {image.prompt}
                 </p>
 
@@ -59,7 +59,7 @@ export const CommunityCard: React.FC<CommunityCardProps> = ({ image, onLike, cur
                             e.stopPropagation();
                             onLike();
                         }}
-                        className={`flex cursor-pointer items-center gap-2 px-5 py-2.5 rounded-2xl transition-all active:scale-90 ${isLiked
+                        className={`flex cursor-pointer items-center gap-2 px-5 py-2 rounded-2xl transition-all active:scale-90 ${isLiked
                             ? 'bg-red-500 text-white hover:bg-red-600'
                             : 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
                             }`}
