@@ -6,7 +6,7 @@ import articleRouter from './routes/article.route';
 import blogTitleRouter from './routes/blog-title.route';
 import imageRouter from './routes/image.route';
 import removeBackgroundRouter from './routes/removeBg.route';
-import resumeRouter from './routes/reviewResume.route';
+// import resumeRouter from './routes/reviewResume.route';
 import ReplaceBackgroundRouter from './routes/removeObject.route';
 import dashboardStatsRouter from './routes/dashboard.route';
 
@@ -47,7 +47,7 @@ app.use('/api/image', imageRouter);
 app.use('/api/remove-background', removeBackgroundRouter);
 app.use('/api/remove-object', ReplaceBackgroundRouter);
 app.use('/api/dashboard', dashboardStatsRouter);
-app.use('/api', resumeRouter);
+// app.use('/api', resumeRouter);
 
 app.get("/", (req, res) => {
     res.send("Server is running successfully 🚀");
