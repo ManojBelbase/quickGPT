@@ -10,12 +10,13 @@ import GenerateImages from "../pages/GenerateImages"
 import ReplaceBackground from "../pages/ReplaceBackground"
 
 export const routesConfig: RouteItem[] = [
-    { path: path.DASHBOARD, element: <Dashboard /> },
-    { path: path.WRITE_ARTICLE, element: <WriteArticle /> },
-    { path: path.REVIEW_RESUME, element: <ReviewResume /> },
-    { path: path.COMMUNITY, element: <Community /> },
-    { path: path.BLOG_TITLE, element: <GenerateBlogTitle /> },
-    { path: path.GENERATE_IMAGE, element: <GenerateImages /> },
-    { path: path.REMOVE_BACKGROUND, element: <BackgroundRemove /> },
-    { path: path.REPLACE_BACKGROUND, element: <ReplaceBackground /> },
+    { path: path.DASHBOARD, element: <Dashboard />, protected: true },
+    { path: path.WRITE_ARTICLE, element: <WriteArticle />, protected: true },
+    { path: path.REVIEW_RESUME, element: <ReviewResume />, protected: true },
+    { path: path.COMMUNITY, element: <Community />, protected: true },
+    { path: path.BLOG_TITLE, element: <GenerateBlogTitle />, protected: true },
+    { path: path.GENERATE_IMAGE, element: <GenerateImages />, protected: true },
+    { path: path.REMOVE_BACKGROUND, element: <BackgroundRemove />, protected: true },
+    { path: path.REPLACE_BACKGROUND, element: <ReplaceBackground />, protected: true },
 ]
+

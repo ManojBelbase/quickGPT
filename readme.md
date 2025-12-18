@@ -4,7 +4,7 @@
 
 Generate stunning images from text, write full articles, craft catchy blog titles, edit photos like a pro — and share your best creations in a vibrant public community gallery.
 
-**Live Demo:** [https://quickgptai.vercel.app/](https://quickgptai.vercel.app/) *(replace with your actual URL when deployed)*
+**Live Demo:** [https://quickgptai.vercel.app/](https://quickgptai.vercel.app/) 
 
 ## 🚀 Key Features
 
