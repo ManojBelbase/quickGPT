@@ -40,7 +40,7 @@ Generate stunning images from text, write full articles, craft catchy blog title
 ### Frontend
 - React + TypeScript + Vite
 - Tailwind CSS
-- ShadCN UI components
+- Tanstack Query
 - Lucide React icons
 - Axios
 - React Hot Toast (notifications)
@@ -50,15 +50,11 @@ Generate stunning images from text, write full articles, craft catchy blog title
 - Node.js + Express + TypeScript
 - **Neon Database** (Serverless PostgreSQL)
 - **Cloudinary** – Image storage and optimized delivery
+- **OpenRouter**- API Key
 - **ClipDrop API** – AI-powered image processing (background remove/replace, object removal)
 - **Clerk** – User management and secure authentication
+- 
 
 ### Payment
 - **Clerk Payments** – Seamless subscription and credit purchase integration
 
-## 📦 Local Development Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/quickgpt.git
-   cd quickgpt
