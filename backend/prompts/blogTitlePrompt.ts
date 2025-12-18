@@ -14,13 +14,10 @@ TOPIC:
 
 STRICT RULES (VERY IMPORTANT):
 - Each title MUST be 12–30 words long
-- Each title MUST be descriptive and informative
+- Each title MUST be descriptive and informative, capitalization
 - Include context, scope, or benefit in every title
-- Use a subtitle after a colon (:) when appropriate
-- Must use markdown, bullets, or numbering
-- Do NOT add explanations or extra text
-- Each title must be on its own line
-- Use proper capitalization
+- Use Markdown headings (##, ###)
+- Return titles as a list or separated by new lines
 
 OUTPUT FORMAT (example):
 Title one with detailed explanation and clear scope
