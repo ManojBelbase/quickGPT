@@ -17,7 +17,7 @@ STRICT RULES (VERY IMPORTANT):
 - Each title MUST be descriptive and informative
 - Include context, scope, or benefit in every title
 - Use a subtitle after a colon (:) when appropriate
-- Do NOT use markdown, bullets, or numbering
+- Must use markdown, bullets, or numbering
 - Do NOT add explanations or extra text
 - Each title must be on its own line
 - Use proper capitalization
