@@ -46,7 +46,7 @@ app.use("/api/article", articleRouter);
 app.use("/api/blog-title", blogTitleRouter);
 app.use("/api/image", imageRouter);
 app.use("/api/remove-background", removeBackgroundRouter);
-app.use("/api/remove-object", ReplaceBackgroundRouter);
+app.use("/api/replace-background", ReplaceBackgroundRouter);
 app.use("/api/dashboard", dashboardStatsRouter);
 
 export default app; 
