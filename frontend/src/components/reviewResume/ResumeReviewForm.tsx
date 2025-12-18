@@ -34,7 +34,7 @@ const ResumeReviewForm: React.FC<ResumeReviewFormProps> = ({
     return (
         <div className="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <Award className="w-5 h-5 mr-2 text-green-500" />
+                <Award className="w-5 h-5 mr-2 text-purple-500" />
                 Resume Review
             </h2>
 
@@ -48,7 +48,7 @@ const ResumeReviewForm: React.FC<ResumeReviewFormProps> = ({
                     <div className="flex items-center space-x-2">
                         <label
                             htmlFor="resume-file-upload"
-                            className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors border border-blue-500"
+                            className="cursor-pointer bg-purple-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-purple-600 transition-colors border border-purple-500"
                         >
                             Choose File
                         </label>
@@ -71,13 +71,13 @@ const ResumeReviewForm: React.FC<ResumeReviewFormProps> = ({
                     Supports PDF, DOCX, PNG, JPG formats
                 </p>
 
-                {/* Review Resume Button (Green/Cyan Gradient) */}
+                {/* Review Resume Button (purple/Cyan Gradient) */}
                 <Button
                     type="submit"
                     className={`w-full py-3 h-12 text-lg font-medium 
                         ${!selectedFile || isLoading
                             ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-linear-to-r from-green-400 to-cyan-500 hover:from-green-500 hover:to-cyan-600'
+                            : 'bg-linear-to-r from-purple-400 to-cyan-500 hover:from-purple-500 hover:to-cyan-600'
                         } 
                         transition-all flex items-center justify-center`}
                     disabled={!selectedFile || isLoading}

@@ -13,7 +13,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ result, isLoading }) 
     return (
         <div className="w-full lg:w-2/3 p-6 bg-white rounded-xl shadow-md">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <FileText className="w-5 h-5 mr-2 text-green-500" />
+                <FileText className="w-5 h-5 mr-2 text-purple-500" />
                 Analysis Results
             </h2>
 
@@ -23,15 +23,15 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ result, isLoading }) 
                 {result && (
                     <div className="space-y-6">
                         {/* Score Card */}
-                        <div className="bg-green-50 p-4 rounded-lg flex items-center justify-between shadow-sm">
-                            <h3 className="text-lg font-semibold text-green-700">Overall Score</h3>
-                            <span className="text-4xl font-extrabold text-green-600">{result.score}%</span>
+                        <div className="bg-purple-50 p-4 rounded-lg flex items-center justify-between shadow-sm">
+                            <h3 className="text-lg font-semibold text-purple-700">Overall Score</h3>
+                            <span className="text-4xl font-extrabold text-purple-600">{result.score}%</span>
                         </div>
 
                         {/* Summary */}
                         <div>
                             <h3 className="text-lg font-semibold text-gray-800 flex items-center mb-2">
-                                <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                                <CheckCircle className="w-5 h-5 mr-2 text-purple-500" />
                                 Summary Feedback
                             </h3>
                             <p className="text-gray-600 bg-gray-50 p-3 rounded-md border text-sm">
@@ -57,7 +57,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({ result, isLoading }) 
                 {/* Loading State */}
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90">
-                        <Loader2 className="h-8 w-8 text-green-500 animate-spin" />
+                        <Loader2 className="h-8 w-8 text-purple-500 animate-spin" />
                         <p className="mt-4 text-gray-600 font-medium">Scanning and analyzing resume...</p>
                     </div>
                 )}

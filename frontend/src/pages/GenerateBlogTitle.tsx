@@ -1,54 +1,49 @@
-import React, { useState } from 'react';
-import BlogTitleForm from '../components/blog_title/BlogTitleForm';
-import BlogTitleResult from '../components/blog_title/BlogTitleResult';
-import BlogTitleList from '../components/blog_title/BlogTitleList';
-import api from '../api/axiosInstance';
-
-const blogCategories = [
-    { name: 'General', value: 'general' },
-    { name: 'Technology', value: 'technology' },
-    { name: 'Business', value: 'business' },
-    { name: 'Health', value: 'health' },
-    { name: 'Lifestyle', value: 'lifestyle' },
-    { name: 'Education', value: 'education' },
-    { name: 'Travel', value: 'travel' },
-    { name: 'Food', value: 'food' },
-];
+// src/pages/GenerateBlogTitle.tsx
+import React, { useState } from "react";
+import BlogTitleForm from "../components/blogTitle/BlogTitleForm";
+import BlogTitleList from "../components/blogTitle/BlogTitleList";
+import { BlogTitlePreview } from "../components/blogTitle/BlogTitlePreview";
+import { blogCategories } from "../const/blogCategories";
+import toast from "react-hot-toast";
+import { useGenerateBlogTitle } from "../hooks/useBlogTitles";
 
 const GenerateBlogTitle: React.FC = () => {
-    const [keyword, setKeyword] = useState<string>('');
+    const [keyword, setKeyword] = useState<string>("");
     const [selectedCategory, setSelectedCategory] = useState<any>(blogCategories[0]);
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
-    const [selectedTitle, setSelectedTitle] = useState<string>(''); // ✅ added
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [selectedTitle, setSelectedTitle] = useState<string>("");
+    const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-    const handleGenerateTitles = async (prompt: string) => {
-        if (!prompt.trim()) return;
+    // mutateAsync pattern — exactly like Attendance
+    const { mutateAsync: generateTitles } = useGenerateBlogTitle();
 
-        setIsLoading(true);
+    const handleGenerateTitles = async () => {
+        const prompt = `${keyword} ${selectedCategory?.value || ""}`.trim();
+        if (!prompt) {
+            toast.error("Please enter a keyword");
+            return;
+        }
+
+        setIsGenerating(true);
         setGeneratedTitles([]);
-        setSelectedTitle('');
+        setSelectedTitle("");
 
         try {
-            const { data } = await api.post('/blog-title', { prompt });
-
-            if (data?.status === 'success' && data.data) {
-                const titles = data.data.split(/\r?\n/).filter(Boolean);
-                setGeneratedTitles(titles);
-            } else {
-                console.error('Failed to generate titles', data);
-            }
+            const rawTitles = await generateTitles({ prompt });
+            const titles = rawTitles.split(/\r?\n/).filter(Boolean);
+            setGeneratedTitles(titles);
+            toast.success("Blog titles generated!");
         } catch (err) {
-            console.error('API error:', err);
+            toast.error("Failed to generate titles");
         } finally {
-            setIsLoading(false);
+            setIsGenerating(false);
         }
     };
 
     return (
-        <div className=" grid grid-cols-1  md:grid-cols-2 lg:grid-cols-5 gap-2 h-full min-h-full">
-            {/* Left: Form */}
-            <div className='col-span-1 md:col-span-1 lg:col-span-2 flex flex-col  gap-2'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 h-full min-h-full">
+            {/* Left: Form + List */}
+            <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-2">
                 <BlogTitleForm
                     keyword={keyword}
                     onKeywordChange={setKeyword}
@@ -56,19 +51,19 @@ const GenerateBlogTitle: React.FC = () => {
                     selectedCategory={selectedCategory}
                     onCategoryChange={setSelectedCategory}
                     onGenerate={handleGenerateTitles}
-                    isLoading={isLoading}
+                    isLoading={isGenerating}
                 />
-                <div className='flex-1 overflow-hidden'>
+
+                <div className="flex-1 overflow-hidden">
                     <BlogTitleList onSelectTitle={setSelectedTitle} />
                 </div>
             </div>
 
-
-            {/* Right: Generated / Selected Title */}
+            {/* Right: Preview */}
             <div className="col-span-1 md:col-span-1 lg:col-span-3 flex flex-col">
-                <BlogTitleResult
+                <BlogTitlePreview
                     titles={selectedTitle ? [selectedTitle] : generatedTitles}
-                    isLoading={isLoading}
+                    isLoading={isGenerating}
                 />
             </div>
         </div>

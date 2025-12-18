@@ -1,7 +1,8 @@
-import { Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { path } from '../../routes/paths';
+import { Icon } from '@iconify/react';
 
 
-// Footer Navigation Links
 const companyLinks = [
     { name: "Home", href: "#" },
     { name: "About us", href: "#" },
@@ -20,14 +21,18 @@ export const FooterSection = () => {
                     {/* Column 1: Logo and Description */}
                     <div className="md:col-span-2">
                         {/* Logo - Matching the style and name from the image */}
-                        <div className="flex items-center space-x-2 text-blue-600 font-extrabold text-2xl">
-                            <Send className="w-6 h-6 transform rotate-[-30deg]" />
-                            <span>QuickGPT</span>
-                        </div>
+                        <Link to={path.HOME} className="flex items-center gap-2 group">
+                            <div className="bg-[#9810fa] p-1.5 rounded-md">
+                                <Icon icon="lucide:zap" className="text-white text-xl" />
+                            </div>
+                            <span className="text-gray-900 font-bold text-2xl tracking-tight">
+                                Quick<span className="text-[#9810fa]">GPT</span>
+                            </span>
+                        </Link>
 
                         {/* Description Text */}
                         <p className="mt-4 text-sm text-gray-600 max-w-sm">
-                            Experience the power of AI with Quickai. Transform your content creation with our suite of premium AI tools. Write articles, generate images, and enhance your workflow.
+                            Experience the power of AI with QuickGPT. Transform your content creation with our suite of premium AI tools. Write articles, generate images, and enhance your workflow.
                         </p>
                     </div>
 
@@ -41,7 +46,7 @@ export const FooterSection = () => {
                                 <li key={link.name}>
                                     <a
                                         href={link.href}
-                                        className="text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                                        className="text-gray-600 hover:text-purple-600 transition-colors text-sm"
                                     >
                                         {link.name}
                                     </a>
@@ -64,12 +69,12 @@ export const FooterSection = () => {
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="w-full sm:flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                                className="w-full sm:flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-purple-500 focus:border-purple-500 text-sm"
                                 aria-label="Email address for subscription"
                             />
                             <button
                                 type="submit"
-                                className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors text-sm shadow-md"
+                                className="w-full sm:w-auto px-6 py-2 bg-purple-600 text-white font-medium rounded-md hover:bg-purple-700 transition-colors text-sm shadow-md"
                             >
                                 Subscribe
                             </button>
@@ -81,7 +86,7 @@ export const FooterSection = () => {
                 {/* Bottom Bar: Copyright */}
                 <div className="mt-12 pt-6 border-t border-gray-100 text-center">
                     <p className="text-sm text-gray-500">
-                        Copyright © 2025 QuickGPT. All Right Reserved.
+                        Copyright © 2025 QuickGPT.  All Right Reserved. | Desing & Develop by Manoj Belbase
                     </p>
                 </div>
             </div>

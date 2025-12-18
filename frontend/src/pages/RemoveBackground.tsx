@@ -1,64 +1,62 @@
-// src/pages/RemoveBackground.tsx
-import React, { useState } from 'react';
-import BackgroundRemovalForm from '../components/remove_background/BackgroundRemovalForm';
-import ProcessedImageResult from '../components/remove_background/ProcessedImageResult';
+import React, { useState } from "react";
+import BackgroundRemovalForm from "../components/removeBackground/BackgroundRemovalForm";
+import RemovedBackgroundList from "../components/removeBackground/RemovedBackgroundList";
+import { ProcessedImagePreview } from "../components/removeBackground/ProcessedImagePreview";
+import { useRemoveBackground } from "../hooks/useRemoveBackground";
+import toast from "react-hot-toast";
 
 const RemoveBackground: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [processedImageUrl, setProcessedImageUrl] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    const handleFileChange = (file: File | null) => {
-        setSelectedFile(file);
-        setProcessedImageUrl(null); // Clear previous result when a new file is chosen
-    };
+    const { mutateAsync: removeBackground } = useRemoveBackground();
 
-    const handleRemoveBackground = () => {
-        if (!selectedFile) return;
+    const handleRemoveBackground = async () => {
+        if (!selectedFile) {
+            toast.error("Please select an image first");
+            return;
+        }
 
-        setIsLoading(true);
+        setIsProcessing(true);
         setProcessedImageUrl(null);
 
-        // Prepare payload for API integration
-        // Note: In a real app, you would use FormData to send the file to the API.
-        const payload = {
-            fileName: selectedFile.name,
-            fileType: selectedFile.type,
-            fileSize: selectedFile.size,
-            action: 'remove_background',
-        };
-
-        // Log the submission payload
-        console.log('Background Removal Payload (Ready for API):', payload);
-
-        // Simulate API call delay and successful processing
-        setTimeout(() => {
-            // Simulate receiving the processed image URL
-            // In a real application, this would be the URL of the processed transparent image.
-            const dummyProcessedImage = '/path/to/processed/image_transparent.png';
-
-            setProcessedImageUrl(dummyProcessedImage);
-            setIsLoading(false);
-        }, 3000);
+        try {
+            const resultUrl = await removeBackground(selectedFile);
+            setProcessedImageUrl(resultUrl);
+            toast.success("Background removed successfully!");
+        } catch (error: any) {
+            toast.error(error?.message || "Failed to remove background");
+        } finally {
+            setIsProcessing(false);
+        }
     };
 
     return (
-        <div className=" flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
+        <div className="min-h-screen bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-2xl mx-auto p-4">
+                {/* LEFT: Form + History */}
+                <div className="col-span-1 lg:col-span-2 flex flex-col gap-4">
+                    <BackgroundRemovalForm
+                        selectedFile={selectedFile}
+                        onFileChange={setSelectedFile}
+                        onRemoveBackground={handleRemoveBackground}
+                        isLoading={isProcessing}
+                    />
 
-            {/* Left Panel: Controls */}
-            <BackgroundRemovalForm
-                onFileChange={handleFileChange}
-                onRemoveBackground={handleRemoveBackground}
-                selectedFile={selectedFile}
-                isLoading={isLoading}
-            />
+                    <div className="flex-1 min-h-0">
+                        <RemovedBackgroundList onSelectImage={setProcessedImageUrl} />
+                    </div>
+                </div>
 
-            {/* Right Panel: Results */}
-            <ProcessedImageResult
-                imageUrl={processedImageUrl}
-                isLoading={isLoading}
-            />
-
+                {/* RIGHT: Preview */}
+                <div className="col-span-1 lg:col-span-2">
+                    <ProcessedImagePreview
+                        imageUrl={processedImageUrl}
+                        isLoading={isProcessing}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

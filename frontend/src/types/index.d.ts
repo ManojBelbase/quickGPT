@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 export interface RouteItem {
     path: string | "";
-    element: ReactNode;
+    element: any;
+    protected: boolean
 }
 
 export interface SidebarProps {
@@ -48,4 +49,155 @@ export export interface BlogTitle {
     prompt: string;
     content: string;
     created_at: string;
+}
+
+export interface UserImage {
+    id: string;
+    prompt: string;
+    content: string;
+    publish: boolean;
+    created_at: string;
+    likes?: any
+
+}
+
+export export interface ImageStyle {
+    name: string;
+    value: string;
+}
+export interface GeneratedImageResultProps {
+    images: string[];
+    isLoading: boolean;
+}
+export
+    interface GeneratedArticleResultProps {
+    content: string;
+    isLoading: boolean;
+}
+
+export interface BlogTitleResultProps {
+    titles: string[];
+    isLoading: boolean;
+}
+
+export interface BackgroundRemovalFormProps {
+    selectedFile: File | null;
+    onFileChange: (file: File | null) => void;
+    onRemoveBackground: () => void;
+    isLoading: boolean;
+}
+
+export interface RemovedImage {
+    id: string;
+    content: string;
+    created_at: string;
+}
+
+export interface Props {
+    onSelectImage?: (url: string) => void;
+}
+
+export interface CommunityCardProps {
+    image: UserImage;
+    onLike: () => void;
+    currentUserId: string;
+}
+
+export export interface SidebarLink {
+    id: number;
+    name: string;
+    path: string;
+    Icon: React.ElementType;
+}
+
+export interface ObjectRemovalFormProps {
+    selectedFile: File | null;
+    onFileChange: (file: File | null) => void;
+    objectDescription: string;
+    onDescriptionChange: (description: string) => void;
+    onObjectRemoval: () => void;
+    isLoading: boolean;
+}
+
+export
+    interface ProcessedImageResultProps {
+    imageUrl: string | null;
+    isLoading: boolean;
+}
+
+export interface RemovedObjectImage {
+    id: number;
+    prompt: string;
+    content: string;
+    type: string;
+    created_at: string;
+}
+
+export interface DashboardData {
+    plan: string;
+    free_remaining: number | string;
+    total_creations: number;
+    creations_by_type: { type: string; count: number }[];
+}
+
+// src/types/article.types.ts
+export interface Article {
+    id: string;
+    prompt: string;
+    content: string;
+    createdAt?: string;
+    [key: string]: any;
+}
+
+export interface GenerateArticleBody {
+    prompt: string;
+    length: number;
+}
+
+export interface GenerateArticleResponse {
+    status: string;
+    message?: string;
+    data: string; // generated article content
+}
+
+export interface BlogTitle {
+    id: string;
+    prompt: string;
+    content: string; // the generated titles (maybe as string or array)
+    createdAt?: string;
+}
+
+export interface GenerateBlogTitleBody {
+    prompt: string;
+}
+
+
+export interface UserImage {
+    id: string;
+    content: string;
+    prompt: string;
+    publish: boolean;
+    likes?: any;   // ← MUST BE string[], not string!
+    userId: string;
+    createdAt?: string;
+}
+
+export interface GenerateImageBody {
+    prompt: string;
+    publish: boolean;
+}
+
+export interface RemovedImage {
+    id: string;
+    content: string;
+    originalPrompt?: string;
+    createdAt?: string;
+}
+
+
+export interface ReplacedBackgroundImage {
+    id: string;
+    content: string;
+    prompt: string;
+    createdAt?: string;
 }

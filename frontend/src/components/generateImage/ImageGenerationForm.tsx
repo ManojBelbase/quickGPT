@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, Wand2, Loader2 } from 'lucide-react';
-import type { ImageStyle } from '../../pages/GenerateImages';
 import { Button } from '../ui/Button';
 import { Switch } from '../ui/Switch';
+import type { ImageStyle } from '../../types';
 
 interface ImageGenerationFormProps {
     prompt: string;
@@ -11,7 +11,7 @@ interface ImageGenerationFormProps {
     selectedStyle: ImageStyle;
     onStyleChange: (style: ImageStyle) => void;
     publish: boolean;
-    onPublishChange: (value: boolean) => void; // Proper boolean type
+    onPublishChange: (value: boolean) => void;
     onGenerate: () => void;
     isLoading: boolean;
 }
@@ -34,9 +34,9 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
     };
 
     return (
-        <div className="w-full lg:w-1/3 p-6 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full p-4 bg-white rounded-xl shadow-md h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <Wand2 className="w-5 h-5 mr-2 text-green-600" />
+                <Wand2 className="w-5 h-5 mr-2 text-purple-600" />
                 AI Image Generation
             </h2>
 
@@ -52,7 +52,7 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                         value={prompt}
                         onChange={(e) => onPromptChange(e.target.value)}
                         rows={4}
-                        className="w-full rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 disabled:opacity-50"
+                        className="w-full rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:opacity-50"
                         disabled={isLoading}
                     />
                 </div>
@@ -68,7 +68,7 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                                 onClick={() => onStyleChange(style)}
                                 className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
                   ${selectedStyle.value === style.value
-                                        ? 'bg-green-500 text-white border-green-500 shadow-sm'
+                                        ? 'bg-purple-500 text-white border-purple-500 shadow-sm'
                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                     }`}
                                 disabled={isLoading}
@@ -86,13 +86,13 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                         onCheckedChange={onPublishChange}
                         disabled={isLoading}
                     />
-                    <span className="text-sm font-medium text-gray-700">Publish immediately</span>
+                    <span className="text-sm font-medium text-gray-700">Publish to community</span>
                 </div>
 
                 {/* Generate Button */}
                 <Button
                     type="submit"
-                    className="w-full py-3 h-12 text-lg font-medium bg-green-600 hover:bg-green-700 transition-colors flex items-center justify-center"
+                    className="w-full py-3 h-12 text-lg font-medium bg-purple-600 hover:bg-purple-700 transition-colors flex items-center justify-center"
                     disabled={!prompt.trim() || isLoading}
                 >
                     {isLoading ? (

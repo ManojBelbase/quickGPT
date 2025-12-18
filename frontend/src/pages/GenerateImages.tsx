@@ -1,84 +1,78 @@
-import React, { useState } from 'react';
-import ImageGenerationForm from '../components/generate_image/ImageGenerationForm';
-import GeneratedImageResult from '../components/generate_image/GeneratedImageResult';
-import api from '../api/axiosInstance';
-
-// Define the Style structure
-export interface ImageStyle {
-    name: string;
-    value: string;
-}
-
-const imageStyles: ImageStyle[] = [
-    { name: 'Realistic', value: 'realistic' },
-    { name: 'Anime', value: 'anime' },
-    { name: 'Concept Art', value: 'concept_art' },
-    { name: 'Watercolor', value: 'watercolor' },
-    { name: 'Digital Painting', value: 'digital_painting' },
-    { name: '3D Render', value: '3d_render' },
-];
+import React, { useState } from "react";
+import ImageGenerationForm from "../components/generateImage/ImageGenerationForm";
+import ImageList from "../components/generateImage/ImageList";
+import ImagePreview from "../components/generateImage/ImagePreview";
+import { imageStyles } from "../const/imageStyles";
+import type { ImageStyle } from "../types";
+import { useGenerateImage } from "../hooks/useImages";
+import toast from "react-hot-toast";
 
 const GenerateImages: React.FC = () => {
-    const [prompt, setPrompt] = useState<string>('A golden retriever wearing sunglasses on a neon city street');
+    const [prompt, setPrompt] = useState("A golden retriever wearing sunglasses on a neon city street");
     const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
-    const [publish, setPublish] = useState<boolean>(false)
+    const [publish, setPublish] = useState<boolean>(false);
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isGenerating, setIsGenerating] = useState<boolean>(false);
+
+    // mutateAsync pattern — exactly like your other features
+    const { mutateAsync: generateImage } = useGenerateImage();
+
+    const handleSelectFromGallery = (imageUrl: string) => {
+        setGeneratedImages([imageUrl]);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const handleGenerateImages = async () => {
-        const trimmedPrompt = prompt.trim();
-        if (!trimmedPrompt) return;
+        if (!prompt.trim()) {
+            toast.error("Please enter a prompt");
+            return;
+        }
 
-        setIsLoading(true);
-        setGeneratedImages([]); // clear previous
+        setIsGenerating(true);
+        setGeneratedImages([]);
 
-        const fullPrompt = `${trimmedPrompt} [Style: ${selectedStyle.name}]`;
+        const fullPrompt = `${prompt.trim()} [Style: ${selectedStyle.name}]`;
 
         try {
-            const { data } = await api.post('/image', {
-                prompt: fullPrompt,
-                publish,
-            });
-
-            if (data?.status === 'success') {
-                const imageUrl = data.data.content;
-
-                // Option A: Set as array (best for your current grid layout)
-                setGeneratedImages([imageUrl]);
-
-                // Option B: Set as single string (if you change state type)
-                // setGeneratedImage(imageUrl);
-            } else {
-                console.error('Failed to generate images', data);
-            }
-        } catch (err) {
-            console.error('API error:', err);
+            const imageUrl = await generateImage({ prompt: fullPrompt, publish });
+            setGeneratedImages([imageUrl]);
+            toast.success("Image generated successfully!");
+        } catch (error: any) {
+            toast.error(error?.message || "Failed to generate image");
         } finally {
-            setIsLoading(false);
+            setIsGenerating(false);
         }
     };
 
     return (
-        <div className="flex flex-col lg:flex-row gap-2 sm:gap-4 min-h-full">
+        <div className="min-h-screen bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 h-full max-w-[1600px] mx-auto">
+                {/* LEFT SIDE: Controls & Gallery */}
+                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-2">
+                    <ImageGenerationForm
+                        prompt={prompt}
+                        onPromptChange={setPrompt}
+                        styles={imageStyles}
+                        selectedStyle={selectedStyle}
+                        onStyleChange={setSelectedStyle}
+                        publish={publish}
+                        onPublishChange={setPublish}
+                        onGenerate={handleGenerateImages}
+                        isLoading={isGenerating}
+                    />
 
-            {/* Left Panel: Controls */}
-            <ImageGenerationForm
-                prompt={prompt}
-                onPromptChange={setPrompt}
-                styles={imageStyles}
-                selectedStyle={selectedStyle}
-                onStyleChange={setSelectedStyle}
-                publish={publish}                    // ✅ Pass publish
-                onPublishChange={setPublish}         // ✅ Pass handler
-                onGenerate={handleGenerateImages}
-                isLoading={isLoading}
-            />
+                    <div className="flex-1 overflow-y-auto max-h-[calc(100vh-400px)] lg:max-h-none">
+                        <ImageList onSelectImage={handleSelectFromGallery} />
+                    </div>
+                </div>
 
-            {/* Right Panel: Results */}
-            <GeneratedImageResult
-                images={generatedImages}
-                isLoading={isLoading}
-            />
+                {/* RIGHT SIDE: Big Preview */}
+                <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col">
+                    <div className="sticky top-2">
+                        <ImagePreview images={generatedImages} isLoading={isGenerating} />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
