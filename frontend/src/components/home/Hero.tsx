@@ -39,10 +39,10 @@ export const Hero = () => {
 
                 {/* 3. The "Power" Headline */}
                 <h1 className="text-center text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[1.05] max-w-6xl">
-                    Automate your <br />
+                    Your AI-powered <br />
                     <span className="relative inline-block">
                         <span className="relative z-10 bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-                            Creative Flow
+                            creative studio
                         </span>
                         {/* Abstract underline decoration */}
                         <div className="absolute bottom-2 left-0 w-full h-3 bg-indigo-100 -z-10 rounded-full opacity-60" />
@@ -51,8 +51,7 @@ export const Hero = () => {
 
                 {/* 4. Elegant Subheading */}
                 <p className="mt-8 text-slate-600 text-center text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-                    The all-in-one AI platform that transforms complex workflows into
-                    one-click solutions. Research, write, and design in seconds.
+                    One platform for all your AI needs. Generate full articles, create custom images, and swap backgrounds in seconds. Create your content and share it with the world instantly.
                 </p>
 
                 {/* 5. High-Contrast Action Area */}
