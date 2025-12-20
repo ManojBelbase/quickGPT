@@ -16,7 +16,7 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
             </h2>
 
             {/* Container Box */}
-            <div className=" h-full border border-gray-200 rounded-lg p-2 relative flex flex-col items-center justify-center overflow-hidden">
+            <div className="min-h-[300px] sm:min-h-[500px] h-full border border-gray-200 rounded-lg p-2 relative flex flex-col items-center justify-center overflow-hidden">
 
                 {/* Displaying Result */}
                 {imageUrl && !isLoading && (

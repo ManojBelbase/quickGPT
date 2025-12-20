@@ -11,7 +11,7 @@ export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoa
                 Blog Title Preview
             </h2>
 
-            <div className="sm:min-h-[400px] border border-gray-200 rounded-lg p-2 sm:p-4 relative">
+            <div className="min-h-[200px] sm:min-h-[400px] border border-gray-200 rounded-lg p-2 sm:p-4 relative">
 
                 {/* Displaying Results */}
                 {titles.length > 0 && (

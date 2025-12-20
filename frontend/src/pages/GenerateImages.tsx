@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 const GenerateImages: React.FC = () => {
     const [prompt, setPrompt] = useState("A golden retriever wearing sunglasses on a neon city street");
     const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
-    const [publish, setPublish] = useState<boolean>(false);
+    const [publish, setPublish] = useState<boolean>(true);
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
 

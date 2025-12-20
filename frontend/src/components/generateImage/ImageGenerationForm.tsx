@@ -66,7 +66,7 @@ const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
                                 type="button"
                                 key={style.value}
                                 onClick={() => onStyleChange(style)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
+                                className={`py-2 px-4 text-sm cursor-pointer font-medium rounded-md transition-colors border
                   ${selectedStyle.value === style.value
                                         ? 'bg-purple-500 text-white border-purple-500 shadow-sm'
                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
