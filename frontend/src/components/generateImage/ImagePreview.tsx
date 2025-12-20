@@ -13,7 +13,7 @@ const ImagePreview: React.FC<GeneratedImageResultProps> = ({ images, isLoading }
                 Image Preview
             </h2>
 
-            <div className=" h-full border border-gray-200 rounded-lg p-2 relative">
+            <div className="min-h-[300px] sm:min-h-[600px] h-full border border-gray-200 rounded-lg p-2 relative">
 
                 {/* Displaying Results Grid */}
                 {images.length > 0 && (
