@@ -13,7 +13,7 @@ const ImagePreview: React.FC<GeneratedImageResultProps> = ({ images, isLoading }
                 Image Preview
             </h2>
 
-            <div className="min-h-[300px] sm:min-h-[600px] h-full border border-gray-200 rounded-lg p-2 relative">
+            <div className="min-h-[300px] sm:min-h-[600px] h-full mx-auto flex items-center justify-center border-t-2 border-gray-200 p-2 relative">
 
                 {/* Displaying Results Grid */}
                 {images.length > 0 && (
@@ -43,7 +43,7 @@ const ImagePreview: React.FC<GeneratedImageResultProps> = ({ images, isLoading }
 
                 {/* Initial/Empty State */}
                 {isInitialState && (
-                    <div className="flex flex-col items-center justify-center text-center h-full text-gray-500">
+                    <div className="flex flex-col items-center h-full justify-center text-center text-gray-500">
                         <Wand2 className="w-12 h-12 mb-3 text-gray-300" />
                         <p className="text-lg font-medium">Describe your image and click "Generate Images" to get started</p>
                         <p className="text-sm mt-1">Your AI-generated artwork will appear here in a grid.</p>

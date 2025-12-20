@@ -201,3 +201,10 @@ export interface ReplacedBackgroundImage {
     prompt: string;
     createdAt?: string;
 }
+
+export interface CopyButtonProps {
+    text: string;
+    className?: string;
+    title?: string;
+    size?: 'sm' | 'md' | 'lg';
+}
