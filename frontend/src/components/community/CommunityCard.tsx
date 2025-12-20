@@ -84,12 +84,13 @@ export const CommunityCard: React.FC<CommunityCardProps> = ({
             </div>
 
             {/* Mobile footer */}
-            <div className="sm:hidden p-4 flex justify-between items-center bg-white">
-                <p className="text-xs text-gray-700  w-2/3">{image.prompt}</p>
-                <div className="flex items-center gap-1 text-red-500 font-bold">
+            <div className="sm:hidden p-3 flex-col w-full justify-between items-center bg-white relative" >
+                <div className="flex items-center gap-1 text-red-500 font-bold absolute -top-82 right-3 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full">
                     <Heart className={`w-4 h-4 ${isLikedByCurrentUser ? 'fill-red-500' : ''}`} />
                     {image.likes?.length || 0}
                 </div>
+                <p className="text-xs text-gray-700  ">{image.prompt}</p>
+
             </div>
         </div>
     );
