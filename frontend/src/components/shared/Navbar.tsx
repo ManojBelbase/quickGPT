@@ -22,13 +22,13 @@ const Navbar = () => {
                 <div className="flex items-center gap-6">
                     {user ? (
                         <div className="flex items-center gap-4">
-                            <Link to={path.DASHBOARD} className="hidden md:block text-sm font-medium text-gray-600 hover:text-[#9810fa]">Dashboard</Link>
+                            <Link to={path.DASHBOARD} className="hidden cursor-pointer md:block text-sm font-medium text-gray-600 hover:text-[#9810fa]">Dashboard</Link>
                             <UserButton afterSignOutUrl="/" />
                         </div>
                     ) : (
                         <button
                             onClick={() => openSignIn()}
-                            className="bg-[#9810fa] text-white px-6 py-2 text-sm font-semibold rounded-md hover:bg-[#7b0cd4] transition-all"
+                            className="bg-[#9810fa] cursor-pointer text-white px-6 py-2 text-sm font-semibold rounded-md hover:bg-[#7b0cd4] transition-all"
                         >
                             Sign In
                         </button>
