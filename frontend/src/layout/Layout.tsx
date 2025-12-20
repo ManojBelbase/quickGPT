@@ -1,7 +1,9 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import Sidebar from "../components/shared/Sidebar";
+import { path } from "../routes/paths";
+import { Icon } from "@iconify/react";
 
 const Layout: React.FC = () => {
     const location = useLocation();
@@ -30,20 +32,25 @@ const Layout: React.FC = () => {
             <div className="flex flex-col flex-1 overflow-hidden md:ml-0 ">
 
                 {/* Top Header/Navigation */}
-                <header className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200 shadow-sm">
+                <header className="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 shadow-sm">
+                    {/* mobile logo */}
+                    <Link to={path.HOME} className="flex sm:hidden items-center gap-2 group">
+                        <div className="bg-[#9810fa] p-1.5 rounded-md">
+                            <Icon icon="lucide:zap" className="text-white text-lg" />
+                        </div>
+                        <span className="text-gray-900 font-bold text-lg tracking-tight">
+                            Quick<span className="text-[#9810fa]">GPT</span>
+                        </span>
+                    </Link>
 
                     {/* Mobile Menu Button (Hamburger) */}
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100"
+                        className="md:hidden  rounded-md text-gray-600 hover:bg-gray-100"
                         aria-label="Open menu"
                     >
-                        <Menu className="w-6 h-6" />
+                        <Menu className="w-5 h-5" />
                     </button>
-
-
-
-
                 </header>
 
                 <main className="flex-1 overflow-y-auto p-1 md:p-2 max-w-[1800px] mx-auto w-full">

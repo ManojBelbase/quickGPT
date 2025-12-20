@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <nav className="fixed top-0 w-full z-20 bg-white/80 backdrop-blur-md border-b border-gray-100">
-            <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 md:px-12">
+            <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-4 md:px-12">
                 <Link to={path.HOME} className="flex items-center gap-2 group">
                     <div className="bg-[#9810fa] p-1.5 rounded-md">
                         <Icon icon="lucide:zap" className="text-white text-xl" />

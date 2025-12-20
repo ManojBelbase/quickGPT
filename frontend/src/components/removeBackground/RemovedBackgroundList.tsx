@@ -19,7 +19,7 @@ const RemovedBackgroundList: React.FC<RemovedBackgroundListProps> = ({ onSelectI
     }
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-sm border-gray-200 h-fit">
+        <div className="bg-white p-2 sm:p-4 rounded-xl shadow-sm border-gray-200 h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
                 <Image className="w-5 h-5 mr-2 text-purple-600" />
                 Recent Removals
