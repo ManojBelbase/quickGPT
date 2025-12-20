@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { path } from '../../routes/paths';
 import { Icon } from '@iconify/react';
 
@@ -10,7 +10,9 @@ const companyLinks = [
     { name: "Privacy policy", href: "#" },
 ];
 
+
 export const FooterSection = () => {
+    const navigate = useNavigate()
     return (
         <footer className="bg-white border-t border-gray-100 mt-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -84,10 +86,11 @@ export const FooterSection = () => {
                 </div>
 
                 {/* Bottom Bar: Copyright */}
-                <div className="mt-12 pt-6 border-t border-gray-100 text-center">
-                    <p className="text-sm text-gray-500">
-                        Copyright © 2025 QuickGPT.  All Right Reserved. | Desing & Develop by Manoj Belbase
+                <div className="mt-12 pt-6 flex sm:flex-row flex-col gap-1 sm:gap-0 items-center mx-auto w-full justify-center border-t border-gray-100 text-center">
+                    <p className="text-sm text-gray-800  inline-flex items-center ">
+                        Copyright © 2025 QuickGPT.  All Right Reserved. <span className='sm:block hidden px-1'> {" "}|</span>
                     </p>
+                    <p className="text-sm text-gray-800 ml-1"> Design & Develop by <button onClick={() => navigate('https://manojbelbase.vercel.app/')} className='text-purple-600 cursor-pointer'>Manoj Belbase</button> </p>
                 </div>
             </div>
         </footer>

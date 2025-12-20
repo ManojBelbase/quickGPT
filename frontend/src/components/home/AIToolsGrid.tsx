@@ -31,7 +31,7 @@ export const AITools = () => {
                         The Toolbox
                     </span>
                     <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
-                        Your AI <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600"> Workspace.</span>
+                        POWERED BY <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">  AI</span>
                     </h2>
                     <p className="text-slate-500 max-w-2xl mx-auto text-lg leading-relaxed">
                         Stop switching between different apps. Use our one-click tools to generate blog posts, design visuals, and polish your images instantly.
