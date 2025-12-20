@@ -1,21 +1,41 @@
-import { Hash, Loader2 } from 'lucide-react';
+import { FileText, Hash, Loader2 } from 'lucide-react';
 import { AIResponseParser } from 'ai-response-parser';
 import type { BlogTitleResultProps } from '../../types';
+import React from 'react';
+import { CopyButton } from '../ui/CopyButton';
 export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) => {
     const isInitialState = !titles.length && !isLoading;
+    const plainText = React.useMemo(() => {
+        if (!titles || titles.length === 0) return '';
+        return titles.join('\n');
+    }, [titles]);
+
 
     return (
-        <div className="w-full  p-2 bg-white rounded-xl shadow-md">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <Hash className="w-5 h-5 mr-2 text-purple-600" />
-                Blog Title Preview
-            </h2>
+        <div className="w-full  p-2 bg-white rounded-md shadow-md">
+            <div className="flex items-center justify-between mb-4 ">
+                <h2 className="text-xl px-2 py-0.5 font-bold text-black flex items-center">
+                    <FileText className="w-5 h-5 mr-2 text-purple" />
+                    Blog Preview
+                </h2>
 
-            <div className="min-h-[200px] sm:min-h-[400px] border border-gray-200 rounded-lg p-2 sm:p-4 relative">
+                {plainText && !isLoading && (
+                    <div className="flex items-center gap-2">
+                        {/* Copy Rendered (as displayed) */}
+                        <CopyButton
+                            text={plainText}
+                            size="sm"
+                            title="Copy blog titles"
+                        />
+
+                    </div>
+                )}
+            </div>
+            <div className="min-h-[200px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">
 
                 {/* Displaying Results */}
                 {titles.length > 0 && (
-                    <div className="space-y-3">
+                    <div className="space-y-1.5 sm:space-y-3">
                         {titles.map((title, index) => (
                             <div key={index} className=" hover:bg-white transition-colors">
                                 <AIResponseParser content={title} themeName='light' textColor='#000000' />
