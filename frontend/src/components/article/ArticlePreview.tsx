@@ -6,7 +6,7 @@ import type { GeneratedArticleResultProps } from '../../types';
 
 export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content, isLoading }) => {
     return (
-        <div className="w-full p-4 bg-white rounded-xs shadow-sm">
+        <div className="w-full p-2 sm:p-4 bg-white rounded-xs shadow-sm">
             <h2 className="text-xl font-bold text-black flex items-center mb-4">
                 <FileText className="w-5 h-5 mr-2 text-purple" />
                 Article Preview

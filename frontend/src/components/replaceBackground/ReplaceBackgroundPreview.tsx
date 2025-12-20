@@ -8,7 +8,7 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
     const isInitialState = !imageUrl && !isLoading;
 
     return (
-        <div className="w-full p-4 bg-white rounded-xl shadow-md">
+        <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-md">
             {/* Header */}
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
                 <Scissors className="w-5 h-5 mr-2 text-purple-600" />
@@ -16,7 +16,7 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
             </h2>
 
             {/* Container Box */}
-            <div className="min-h-[600px] h-full border border-gray-200 rounded-lg p-2 relative flex flex-col items-center justify-center overflow-hidden">
+            <div className=" h-full border border-gray-200 rounded-lg p-2 relative flex flex-col items-center justify-center overflow-hidden">
 
                 {/* Displaying Result */}
                 {imageUrl && !isLoading && (

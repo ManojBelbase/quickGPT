@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
     const isPremium = dashboardData.plan === "premium";
 
     return (
-        <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans px-3 sm:px-0">
+        <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans a">
             <div className="space-y-2 sm:space-y-2">
 
                 {/* HEADER */}

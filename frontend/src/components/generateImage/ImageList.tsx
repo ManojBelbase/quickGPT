@@ -19,7 +19,7 @@ const ImageList: React.FC<ImageListProps> = ({ onSelectImage }) => {
     }
 
     return (
-        <div className="w-full p-4 bg-white border border-gray-200 rounded-xl shadow-md">
+        <div className="w-full p-2 sm:p-4 bg-white border border-gray-200 rounded-xl shadow-md">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Image className="w-5 h-5 mr-2 text-purple-600" />
                 My Gallery

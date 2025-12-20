@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
                 md:relative md:translate-x-0 md:flex`}
         >
             {/* User Profile Section (Top) */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between py-4 px-2 border-b border-gray-200">
                 <Link to={path.HOME} className="flex items-center gap-2 group">
                     <div className="bg-[#9810fa] p-1.5 rounded-md">
                         <Icon icon="lucide:zap" className="text-white text-xl" />

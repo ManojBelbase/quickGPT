@@ -1,4 +1,12 @@
-import { LayoutDashboard, FileText, Image, PenTool, Crop, Group } from "lucide-react";
+import {
+    LayoutDashboard,
+    FileText,
+    ImagePlus,
+    PenLine,
+    Scissors,
+    Layers,
+    Users,
+} from "lucide-react";
 import { path } from "../routes/paths";
 import type { SidebarLink } from "../types";
 
@@ -13,7 +21,7 @@ export const sidebarLinks: SidebarLink[] = [
         id: 2,
         name: "Write Article",
         path: path.WRITE_ARTICLE,
-        Icon: PenTool,
+        Icon: PenLine,
     },
     {
         id: 3,
@@ -25,30 +33,24 @@ export const sidebarLinks: SidebarLink[] = [
         id: 4,
         name: "Generate Images",
         path: path.GENERATE_IMAGE,
-        Icon: Image,
+        Icon: ImagePlus,
     },
     {
         id: 5,
         name: "Remove Background",
         path: path.REMOVE_BACKGROUND,
-        Icon: Crop,
+        Icon: Scissors,
     },
     {
         id: 6,
         name: "Replace Background",
         path: path.REPLACE_BACKGROUND,
-        Icon: PenTool,
+        Icon: Layers,
     },
-    // {
-    //     id: 7,
-    //     name: "Review Resume",
-    //     path: path.REVIEW_RESUME,
-    //     Icon: User,
-    // },
     {
         id: 8,
         name: "Community",
         path: path.COMMUNITY,
-        Icon: Group
-    }
+        Icon: Users,
+    },
 ];

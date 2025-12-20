@@ -46,7 +46,7 @@ const Community: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#fafafa]">
             {/* Hero Header */}
-            <div className="bg-white border-b border-gray-100 py-8 px-6 mb-8">
+            <div className="bg-white border-b border-gray-100 py-8 px-4 sm:px-6 mb-8">
                 <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">
                         Community Art Gallery
@@ -58,7 +58,7 @@ const Community: React.FC = () => {
             </div>
 
             {/* Gallery Grid */}
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-350 mx-auto px-4 sm:px-6">
                 {images.length === 0 ? (
                     <div className="text-center py-20">
                         <p className="text-gray-400 text-lg">No published images yet. Be the first!</p>

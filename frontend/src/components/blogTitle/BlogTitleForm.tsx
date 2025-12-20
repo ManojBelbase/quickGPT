@@ -27,7 +27,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
     };
 
     return (
-        <div className="w-full  p-4  rounded-xl shadow-md ">
+        <div className="w-full p-2 sm:p-4  rounded-xl shadow-md ">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
                 AI Title Generator
