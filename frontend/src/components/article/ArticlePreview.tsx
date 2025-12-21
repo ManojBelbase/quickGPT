@@ -1,33 +1,20 @@
 import React from 'react';
 import { FileText, Loader2, PenSquare } from 'lucide-react';
 import { AIResponseParser, parseAiResponseToPlainText } from 'ai-response-parser';
-import { CopyButton } from '../ui/CopyButton';
 import type { GeneratedArticleResultProps } from '../../types';
+import { PreviewHeader } from '../ui/PreviewHeader';
 
 export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content, isLoading }) => {
-
-
     const plainText = React.useMemo(() => content ? parseAiResponseToPlainText(content) : '', [content]);
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-md shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-black flex items-center">
-                    <FileText className="w-5 h-5 mr-2 text-purple" />
-                    Article Preview
-                </h2>
 
-                {content && !isLoading && (
-                    <div className="flex items-center gap-2">
-                        {/* Copy Rendered (as displayed) */}
-                        <CopyButton
-                            text={plainText}
-                            size="sm"
-                            title="Copy rendered article"
-                        />
-
-                    </div>
-                )}
-            </div>
+            <PreviewHeader
+                title="Article Preview"
+                icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
+                isCopy={true}
+                copyText={plainText}
+            />
 
             <div className="min-h-[600px] h-full overflow-y-scroll border-t-2  border-gray-200 p-2 sm:p-4 relative">
                 {content ? (

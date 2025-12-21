@@ -8,7 +8,7 @@ import { useGenerateImage } from "../hooks/useImages";
 import toast from "react-hot-toast";
 
 const GenerateImages: React.FC = () => {
-    const [prompt, setPrompt] = useState("A golden retriever wearing sunglasses on a neon city street");
+    const [prompt, setPrompt] = useState("");
     const [selectedStyle, setSelectedStyle] = useState<ImageStyle>(imageStyles[0]);
     const [publish, setPublish] = useState<boolean>(true);
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
@@ -69,7 +69,7 @@ const GenerateImages: React.FC = () => {
 
                 {/* RIGHT SIDE: Big Preview */}
                 <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col">
-                    <div className="sticky top-2">
+                    <div className="sticky ">
                         <ImagePreview images={generatedImages} isLoading={isGenerating} />
                     </div>
                 </div>

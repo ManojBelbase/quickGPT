@@ -38,7 +38,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
             disabled={!text}
             className={`
                 flex items-center cursor-pointer rounded-md font-medium
-                text-gray-700 bg-gray-100 hover:bg-gray-200
+                text-white bg-purple-700 hover:bg-purple-800
                 transition-colors focus:outline-none focus:ring-2
                 focus:ring-purple-500 disabled:opacity-50
                 ${sizeClasses} ${className}
@@ -46,12 +46,12 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
         >
             {copied ? (
                 <>
-                    <Check className="w-4 h-4 text-purple-600" />
+                    <Check className="w-4 h-4 text-white" />
                     <span>Copied!</span>
                 </>
             ) : (
                 <>
-                    <Copy className="w-4 h-4" />
+                    <Copy className="sm:w-4 sm:h-4 h-3 w-3" />
                     <span>Copy</span>
                 </>
             )}

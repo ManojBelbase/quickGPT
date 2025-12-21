@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Loader2, Wand2 } from "lucide-react";
+import { PreviewHeader } from "../ui/PreviewHeader";
 
 interface Props {
     imageUrl: string | null;
@@ -11,10 +12,14 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
 
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Image className="w-5 h-5 mr-2 text-purple-600" />
-                Image Preview
-            </h2>
+            <PreviewHeader
+                title="Image Preview"
+                icon={<Image className="w-5 h-5 mr-2 text-purple-600" />}
+                isDownload={true}
+                downloadUrl={imageUrl || ""}
+                downloadFilename="quickgpt-background-removed.png"
+            />
+
 
             <div className="min-h-[300px] sm:min-h-[500px] flex items-center justify-center h-full border-t-2 border-gray-200 relative overflow-hidden">
 
