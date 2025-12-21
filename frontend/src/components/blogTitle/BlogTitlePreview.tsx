@@ -2,7 +2,7 @@ import { FileText, Hash, Loader2 } from 'lucide-react';
 import { AIResponseParser } from 'ai-response-parser';
 import type { BlogTitleResultProps } from '../../types';
 import React from 'react';
-import { CopyButton } from '../ui/CopyButton';
+import { PreviewHeader } from '../ui/PreviewHeader';
 export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) => {
     const isInitialState = !titles.length && !isLoading;
     const plainText = React.useMemo(() => {
@@ -13,25 +13,15 @@ export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoa
 
     return (
         <div className="w-full  p-2 bg-white rounded-md shadow-md">
-            <div className="flex items-center justify-between mb-4 ">
-                <h2 className="text-xl px-2 py-0.5 font-bold text-black flex items-center">
-                    <FileText className="w-5 h-5 mr-2 text-purple" />
-                    Blog Preview
-                </h2>
+            <PreviewHeader
+                title="Titles Preview"
+                icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
+                isCopy={true}
+                copyText={plainText}
 
-                {plainText && !isLoading && (
-                    <div className="flex items-center gap-2">
-                        {/* Copy Rendered (as displayed) */}
-                        <CopyButton
-                            text={plainText}
-                            size="sm"
-                            title="Copy blog titles"
-                        />
+            />
 
-                    </div>
-                )}
-            </div>
-            <div className="min-h-[200px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">
+            <div className="min-h-[300px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">
 
                 {/* Displaying Results */}
                 {titles.length > 0 && (

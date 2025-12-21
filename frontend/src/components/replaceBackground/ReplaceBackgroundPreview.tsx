@@ -1,8 +1,7 @@
 import React from 'react';
-import { Scissors, Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, Image } from 'lucide-react';
 import type { ProcessedImageResultProps } from '../../types';
-
-
+import { PreviewHeader } from '../ui/PreviewHeader';
 
 export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ imageUrl, isLoading }) => {
     const isInitialState = !imageUrl && !isLoading;
@@ -10,10 +9,15 @@ export const ReplaceBackgroundPreview: React.FC<ProcessedImageResultProps> = ({ 
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-md">
             {/* Header */}
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Scissors className="w-5 h-5 mr-2 text-purple-600" />
-                Processed Image
-            </h2>
+
+            <PreviewHeader
+                title="Image Preview"
+                icon={<Image className="w-5 h-5 mr-2 text-purple-600" />}
+                isDownload={true}
+                downloadUrl={imageUrl || ""}
+                downloadFilename="quickgpt-background-replace.png"
+            />
+
 
             {/* Container Box */}
             <div className="min-h-[300px] sm:min-h-[600px] h-full border-t-2 border-gray-200  p-2 relative flex flex-col items-center justify-center overflow-hidden">
