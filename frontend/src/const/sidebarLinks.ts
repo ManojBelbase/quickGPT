@@ -6,6 +6,7 @@ import {
     Scissors,
     Layers,
     Users,
+    Text
 } from "lucide-react";
 import { path } from "../routes/paths";
 import type { SidebarLink } from "../types";
@@ -53,4 +54,10 @@ export const sidebarLinks: SidebarLink[] = [
         path: path.COMMUNITY,
         Icon: Users,
     },
+    {
+        id: 9,
+        name: "Summarize Text",
+        path: path.TEXT_SUMMARIZER,
+        Icon: Text
+    }
 ];

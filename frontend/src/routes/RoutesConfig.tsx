@@ -8,9 +8,11 @@ import type { RouteItem } from "../types"
 import { path } from "./paths"
 import GenerateImages from "../pages/GenerateImages"
 import ReplaceBackground from "../pages/ReplaceBackground"
+import TextSummarizer from "../pages/TextSummarizer"
 
 export const routesConfig: RouteItem[] = [
     { path: path.DASHBOARD, element: <Dashboard />, protected: true },
+    { path: path.TEXT_SUMMARIZER, element: <TextSummarizer />, protected: true },
     { path: path.WRITE_ARTICLE, element: <WriteArticle />, protected: true },
     { path: path.REVIEW_RESUME, element: <ReviewResume />, protected: true },
     { path: path.COMMUNITY, element: <Community />, protected: true },

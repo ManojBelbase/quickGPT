@@ -68,10 +68,10 @@ export const getSummaries = async (req: Request, res: Response): Promise<void> =
         const userId: string = req.auth().userId;
 
         const summaries = await sql`
-      SELECT id, prompt AS text, content AS summary, created_at
+      SELECT id, prompt, content, created_at
       FROM creations
       WHERE user_id = ${userId}
-        AND type = 'text-summary'
+      AND type = 'text-summary'
       ORDER BY created_at DESC
     `;
 

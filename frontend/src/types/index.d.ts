@@ -226,3 +226,16 @@ export
 
     className?: string;
 }
+
+export interface TextSummary {
+    id: string;
+    prompt: string; // the original text
+    content: string; // the generated summary
+    created_at: string;
+}
+
+export interface GenerateSummaryBody {
+    text: string;
+    length?: "short" | "medium" | "long";
+    style?: "neutral" | "bullet-points" | "formal" | "concise";
+}
