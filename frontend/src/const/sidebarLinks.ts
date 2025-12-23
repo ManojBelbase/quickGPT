@@ -7,6 +7,7 @@ import {
     Layers,
     Users,
     Text,
+    SparkleIcon,
     Code
 } from "lucide-react";
 import { path } from "../routes/paths";
@@ -35,7 +36,7 @@ export const sidebarLinks: SidebarLink[] = [
         id: 11,
         name: "Generate Social Post",
         path: path.SOCIAL_POST_GENERATOR,
-        Icon: Code,
+        Icon: SparkleIcon,
     },
     {
         id: 2,

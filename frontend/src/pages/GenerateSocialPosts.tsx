@@ -1,10 +1,9 @@
-// src/pages/GenerateSocialPosts.tsx
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useGenerateSocialPost } from "../hooks/useSocialPosts";
 import SocialPostForm from "../components/socialPost/SocialPostForm";
 import SocialPostList from "../components/socialPost/SocialPostList";
-import SocialPostPreview from "../components/socialPost/SocialPostPreview";
+import { SocialPostPreview } from "../components/socialPost/SocialPostPreview";
 
 const GenerateSocialPosts: React.FC = () => {
     const [prompt, setPrompt] = useState("");
@@ -63,7 +62,7 @@ const GenerateSocialPosts: React.FC = () => {
                     />
 
                     <div className="flex-1 overflow-y-auto">
-                        <SocialPostList posts={[generatedPost].filter(Boolean)} />
+                        <SocialPostList onSelectPost={setGeneratedPost} />
                     </div>
                 </div>
 

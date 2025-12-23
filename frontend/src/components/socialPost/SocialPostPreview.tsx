@@ -1,49 +1,64 @@
-import React from "react";
-import { Loader2, Wand2 } from "lucide-react";
+import React from 'react';
+import { Loader2, Sparkles } from 'lucide-react';
+import { AIResponseParser } from 'ai-response-parser';
+import { PreviewHeader } from '../ui/PreviewHeader';
 
 interface SocialPostPreviewProps {
     posts: string[];
     isLoading: boolean;
 }
 
-const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isLoading }) => {
-    const isInitialState = !posts.length && !isLoading;
+export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isLoading }) => {
+    const isInitialState = posts.length === 0 && !isLoading;
+
 
     return (
-        <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-md">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
-                <Wand2 className="w-5 h-5 mr-2 text-purple-600" />
-                Post Preview
-            </h2>
+        <div className="w-full p-2 bg-white rounded-md shadow-md">
+            <PreviewHeader
+                title="Post Preview"
+                icon={<Sparkles className="w-5 h-5 mr-2 text-purple-600" />}
+                isCopy={true}
+                copyText={posts.join('\n')}
+            />
 
-            <div className="min-h-[300px] sm:min-h-[600px] h-full mx-auto flex items-center justify-center border-t-2 border-gray-200 p-2 relative">
+            <div className="min-h-[300px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">
+                {/* Displaying Results */}
                 {posts.length > 0 && (
-                    <div className="w-full space-y-4">
-                        {posts.map((post, idx) => (
-                            <div key={idx} className="bg-gray-50 p-4 rounded-md border border-gray-200 shadow-sm">
-                                <p className="text-gray-800 text-sm">{post}</p>
+                    <div className="space-y-4">
+                        {posts.map((post, index) => (
+                            <div
+                                key={index}
+                                className="bg-gray-50/50 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                            >
+                                <AIResponseParser
+                                    content={post}
+                                    themeName="light"
+                                    textColor="#000000"
+                                />
                             </div>
                         ))}
                     </div>
                 )}
 
+                {/* Loading State */}
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90">
                         <Loader2 className="h-8 w-8 text-purple-600 animate-spin" />
                         <p className="mt-4 text-gray-600 font-medium">
-                            Generating social post...
+                            Generating your perfect post...
                         </p>
                     </div>
                 )}
 
+                {/* Initial/Empty State */}
                 {isInitialState && (
-                    <div className="flex flex-col items-center h-full justify-center text-center text-gray-500">
-                        <Wand2 className="w-12 h-12 mb-3 text-gray-300" />
+                    <div className="flex flex-col items-center justify-center text-center h-full text-gray-500">
+                        <Sparkles className="w-12 h-12 mb-3 text-gray-300" />
                         <p className="text-lg font-medium">
-                            Describe your post and click "Generate Post"
+                            Enter your prompt and click "Generate Post" to get started
                         </p>
                         <p className="text-sm mt-1">
-                            Your AI-generated social post will appear here.
+                            Your generated social media post will appear here.
                         </p>
                     </div>
                 )}
@@ -51,5 +66,3 @@ const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isLoading 
         </div>
     );
 };
-
-export default SocialPostPreview;
