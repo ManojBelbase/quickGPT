@@ -88,7 +88,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
                         <div className="font-bold text-sm text-gray-900 truncate">
                             {user?.fullName || "Guest User"}
                         </div>
-                        {/* <div className="text-[11px] text-gray-500 truncate">Free Plan</div> */}
                     </div>
                 </div>
             </div>

@@ -19,6 +19,12 @@ export const sidebarLinks: SidebarLink[] = [
         Icon: LayoutDashboard,
     },
     {
+        id: 9,
+        name: "Summarize Text",
+        path: path.TEXT_SUMMARIZER,
+        Icon: Text
+    },
+    {
         id: 2,
         name: "Write Article",
         path: path.WRITE_ARTICLE,
@@ -54,10 +60,5 @@ export const sidebarLinks: SidebarLink[] = [
         path: path.COMMUNITY,
         Icon: Users,
     },
-    {
-        id: 9,
-        name: "Summarize Text",
-        path: path.TEXT_SUMMARIZER,
-        Icon: Text
-    }
+
 ];

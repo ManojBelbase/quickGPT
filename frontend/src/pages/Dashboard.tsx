@@ -110,35 +110,57 @@ const Dashboard: React.FC = () => {
 
                 {/* TOOLS GRID */}
                 <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-4">
-                    {tools.map((tool) => (
-                        <button
-                            key={tool.title}
-                            onClick={() => navigate(tool.path)}
-                            className="group relative bg-white border border-slate-200 
-                            p-5 sm:p-6 md:p-8 rounded-2xl 
-                            hover:shadow-2xl hover:shadow-indigo-200/40 
-                            hover:-translate-y-2 transition-all duration-300 
-                            flex flex-col items-center text-center"
-                        >
-                            <div
-                                className={`${tool.color} text-white 
-                                p-4 sm:p-5 rounded-2xl mb-3 sm:mb-4 
-                                shadow-xl group-hover:rotate-12 transition-transform`}
-                            >
-                                {tool.icon}
-                            </div>
-                            <span className="text-xs sm:text-sm font-bold text-slate-700">
-                                {tool.title}
-                            </span>
+                    {tools.map((tool) => {
+                        const Icon = tool.icon;
+                        const isUpcoming = tool.tag === 'Upcoming';
 
-                            {tool.pro && (
-                                <div className="absolute top-2 sm:top-3 right-2 sm:right-3">
-                                    <Zap size={12} className="text-amber-400 fill-amber-400" />
+                        return (
+                            <button
+                                key={tool.title}
+                                onClick={() => !isUpcoming && navigate(tool.path)}
+                                disabled={isUpcoming}
+                                className={`group relative bg-white border border-slate-200 p-5 sm:p-6 md:p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 ${isUpcoming
+                                    ? 'opacity-60 cursor-not-allowed'
+                                    : 'hover:shadow-2xl hover:shadow-indigo-200/40 hover:-translate-y-2'
+                                    }`}
+                            >
+                                {/* ICON */}
+                                <div
+                                    className={`${tool.color} text-white 
+          p-4 sm:p-5 rounded-2xl mb-3 sm:mb-4 
+          shadow-xl group-hover:rotate-12 transition-transform`}
+                                >
+                                    <Icon size={20} />
                                 </div>
-                            )}
-                        </button>
-                    ))}
+
+                                {/* TITLE */}
+                                <span className="text-xs sm:text-sm font-bold text-slate-700">
+                                    {tool.title}
+                                </span>
+
+                                {/* TAG BADGES */}
+                                {tool.tag && (
+                                    <span
+                                        className={`absolute top-2 left-2 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider
+            ${tool.tag === 'New' && 'bg-green-100 text-green-700'}
+            ${tool.tag === 'Popular' && 'bg-indigo-100 text-indigo-700'}
+            ${tool.tag === 'Upcoming' && 'bg-slate-200 text-slate-600'}`}
+                                    >
+                                        {tool.tag}
+                                    </span>
+                                )}
+
+                                {/* PRO BADGE */}
+                                {tool.pro && (
+                                    <div className="absolute top-2 right-2">
+                                        <Zap size={12} className="text-amber-400 fill-amber-400" />
+                                    </div>
+                                )}
+                            </button>
+                        );
+                    })}
                 </section>
+
 
                 {/* USAGE + UPGRADE */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4">

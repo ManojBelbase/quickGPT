@@ -11,7 +11,7 @@ const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoad
     const isInitialState = !summary && !isLoading;
 
     return (
-        <div className="w-full p-4 bg-white rounded-md shadow-md">
+        <div className="w-full p-2 sm:p-4 bg-white rounded-md shadow-md">
             <PreviewHeader
                 title="Summary Preview"
                 icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
@@ -19,9 +19,9 @@ const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoad
                 copyText={summary}
             />
 
-            <div className="min-h-[300px] sm:min-h-[600px] border-t-2 border-gray-200 p-4 relative">
+            <div className="min-h-[300px] sm:min-h-[600px] border-t-2 border-gray-200 p-2 relative">
                 {summary && (
-                    <div className="prose max-w-none">
+                    <div className="">
                         <AIResponseParser content={summary} themeName="light" textColor="#000000" />
                     </div>
                 )}
