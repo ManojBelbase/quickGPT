@@ -3,27 +3,25 @@ import { FileText, Trash2, Loader2 } from "lucide-react";
 import { useGetArticles, useDeleteArticle } from "../../hooks/useArticles";
 import type { ArticleListProps } from "../../types";
 import toast from "react-hot-toast";
+import ConfirmModal from "../shared/ConfirmModel";
 
 const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
     const { data: articles = [], isLoading, isError } = useGetArticles();
     const { mutateAsync: deleteArticle } = useDeleteArticle();
 
     const [deletingId, setDeletingId] = React.useState<string | null>(null);
+    const [confirmId, setConfirmId] = React.useState<string | null>(null);
 
-    const handleDelete = async (e: React.MouseEvent, id: string) => {
-        e.stopPropagation();
-
-        if (!confirm("Delete this article permanently?")) return;
-
+    const handleDelete = async (id: string) => {
         setDeletingId(id);
-
         try {
             await deleteArticle(id);
             toast.success("Article deleted successfully");
-        } catch (error) {
+        } catch {
             toast.error("Failed to delete article");
         } finally {
             setDeletingId(null);
+            setConfirmId(null); // close modal
         }
     };
 
@@ -68,7 +66,10 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                             </div>
 
                             <button
-                                onClick={(e) => handleDelete(e, article.id)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setConfirmId(article.id);
+                                }}
                                 disabled={deletingId === article.id}
                                 className="text-red-500 hover:text-red-600 shrink-0 disabled:opacity-50 transition"
                             >
@@ -82,6 +83,15 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
                     </div>
                 ))}
             </div>
+
+            {/* Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!confirmId}
+                title="Delete this article?"
+                message="This action is permanent. Are you sure?"
+                onConfirm={() => confirmId && handleDelete(confirmId)}
+                onCancel={() => setConfirmId(null)}
+            />
         </div>
     );
 };

@@ -43,7 +43,6 @@ export const useDeleteArticle = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["articles"] });
-            toast.success("Article deleted");
         },
         onError: () => {
             toast.error("Failed to delete article");

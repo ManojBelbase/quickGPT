@@ -19,12 +19,13 @@ const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoad
                 copyText={summary}
             />
 
-            <div className="min-h-[300px] sm:min-h-[600px] border-t-2 border-gray-200 p-2 relative">
-                {summary && (
-                    <div className="">
+            <div className="min-h-[300px] sm:min-h-[600px] h-full border-t-2 border-gray-200 p-2 relative">
+                {
+                    summary && !isLoading && (
+
                         <AIResponseParser content={summary} themeName="light" textColor="#000000" />
-                    </div>
-                )}
+                    )
+                }
 
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90">
@@ -34,7 +35,7 @@ const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoad
                 )}
 
                 {isInitialState && (
-                    <div className="flex flex-col items-center justify-center text-center h-full text-gray-500">
+                    <div className="flex flex-col h-full   mx-auto items-center justify-center text-center  text-gray-500">
                         <FileText className="w-12 h-12 mb-3 text-gray-300" />
                         <p className="text-lg font-medium">Paste text and generate a summary</p>
                         <p className="text-sm mt-1">Your summary will appear here.</p>
