@@ -8,6 +8,7 @@ import {
     FileSearch2,
     Layers,
     Code,
+    Sparkles, // ← added for social post (matches your Article/Code form icons)
 } from 'lucide-react';
 import { path } from '../routes/paths';
 import type { Tool } from '../types';
@@ -38,7 +39,14 @@ export const tools: Tool[] = [
         path: path.BLOG_TITLE,
         color: 'bg-emerald-500',
     },
-
+    // NEW: Social Media Post Generator
+    {
+        title: 'Social Post Generator',
+        icon: Sparkles,
+        path: path.SOCIAL_POST_GENERATOR,
+        color: 'bg-indigo-500',
+        tag: 'Popular',
+    },
     {
         title: 'AI Image Generator',
         icon: ImageIcon,
@@ -68,7 +76,6 @@ export const tools: Tool[] = [
         color: 'bg-teal-500',
         tag: 'Upcoming',
     },
-
     {
         title: 'More Coming Soon...',
         icon: MoreHorizontal,
