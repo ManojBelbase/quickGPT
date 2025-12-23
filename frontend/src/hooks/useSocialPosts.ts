@@ -26,6 +26,7 @@ export const useGenerateSocialPost = () => {
             tone,
             length,
             includeHashtags,
+            generateImage,
         }: SocialPostBody) => {
             const { data } = await api.post<{
                 status: string;
@@ -37,6 +38,7 @@ export const useGenerateSocialPost = () => {
                 tone,
                 length,
                 includeHashtags,
+                generateImage
             });
 
             if (data.status !== "success") {

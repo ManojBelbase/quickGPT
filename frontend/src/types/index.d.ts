@@ -108,6 +108,7 @@ export export interface SidebarLink {
     name: string;
     path: string;
     Icon: React.ElementType;
+    tag?: string
 }
 
 export interface ObjectRemovalFormProps {
@@ -314,6 +315,8 @@ export interface SocialPostBody {
     tone: string
     length: "short" | "medium" | "long"
     includeHashtags: boolean
+    generateImage: boolean
+
 }
 interface SocialPostParams {
     prompt: string;              // user input: "promote my new coffee shop"
@@ -331,6 +334,7 @@ export interface SocialPostBody {
     tone: "professional" | "casual" | "friendly" | "persuasive" | "inspirational";
     length: "short" | "medium" | "long";
     includeHashtags: boolean;
+    generateImage: boolean
 }
 
 export interface SocialPostFormProps {
@@ -346,6 +350,8 @@ export interface SocialPostFormProps {
     onIncludeHashtagsChange: (value: boolean) => void;
     onGenerate: () => void;
     isLoading: boolean;
+    generateImage: boolean;
+    onGenerateImageChange: (val: boolean) => void;
 }
 
 

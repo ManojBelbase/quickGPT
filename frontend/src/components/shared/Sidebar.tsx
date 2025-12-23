@@ -30,6 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
             >
                 <Icon className="w-5 h-5" />
                 <span>{name}</span>
+                {link.tag && <span className="ml-auto bg-purple-100  text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">{link.tag}</span>}
             </div>
         );
     };

@@ -30,6 +30,8 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
     length,
     onLengthChange,
     includeHashtags,
+    generateImage,
+    onGenerateImageChange,
     onIncludeHashtagsChange,
     onGenerate,
     isLoading,
@@ -58,7 +60,7 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
                         placeholder="e.g., Announce the launch of our new eco-friendly product line..."
                         value={prompt}
                         onChange={(e) => onPromptChange(e.target.value)}
-                        rows={4}
+                        rows={2}
                         className="w-full rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:opacity-50"
                         disabled={isLoading}
                         required
@@ -129,14 +131,27 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
                 </div>
 
                 {/* Hashtags Toggle */}
-                <div className="flex items-center gap-3">
-                    <Switch
-                        checked={includeHashtags}
-                        onCheckedChange={onIncludeHashtagsChange}
-                        disabled={isLoading}
-                    />
-                    <span className="text-sm font-medium text-gray-700">Include hashtags</span>
+                <div className="flex items-start gap-4 sm:items-center flex-col sm:flex-row justify-between">
+                    <div className="flex items-center gap-3">
+                        <Switch
+                            checked={includeHashtags}
+                            onCheckedChange={onIncludeHashtagsChange}
+                            disabled={isLoading}
+                        />
+                        <span className="text-sm font-medium text-gray-700">Include hashtags</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Switch
+                            checked={generateImage}
+                            onCheckedChange={onGenerateImageChange}
+                            disabled={isLoading}
+                        />
+                        <span className="text-sm font-medium text-gray-700">Generate image with caption</span>
+                    </div>
+
                 </div>
+
+                {/* Generate Image Toggle */}
 
                 {/* Generate Button */}
                 <Button

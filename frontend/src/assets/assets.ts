@@ -3,7 +3,7 @@ import {
     Hash,
     Image,
     Eraser,
-    FileText,
+    // FileText,
     Text,
     MoreHorizontal,
     Layers,
@@ -70,18 +70,15 @@ export const AiToolsData: AiToolData[] = [
         bg: { from: '#B153EA', to: '#E549A3' },
         path: path.BLOG_TITLE,
     },
-    // NEW: Social Media Post Generator
     {
         title: 'Social Post Generator',
         description:
             'Create engaging, platform-optimized posts for LinkedIn, Twitter, Facebook, Instagram, and more in seconds.',
         Icon: Sparkles,
-        bg: { from: '#8B5CF6', to: '#A78BFA' }, // Nice purple-indigo gradient to fit the AI theme
+        bg: { from: '#8B5CF6', to: '#A78BFA' },
         path: path.SOCIAL_POST_GENERATOR,
-        tag: 'Upcoming',
-
-
-        pro: false, // or true if you want it premium
+        tag: 'Popular',
+        pro: true,
     },
     {
         title: 'Background Removal',
@@ -102,16 +99,16 @@ export const AiToolsData: AiToolData[] = [
         path: path.REPLACE_BACKGROUND,
         pro: true,
     },
-    {
-        title: 'Resume Reviewer',
-        description:
-            'Get your resume reviewed by AI to improve your chances of landing your dream job.',
-        Icon: FileText,
-        bg: { from: '#12B7AC', to: '#08B6CE' },
-        path: path.REVIEW_RESUME,
-        tag: 'Upcoming',
-        pro: true,
-    },
+    // {
+    //     title: 'Resume Reviewer',
+    //     description:
+    //         'Get your resume reviewed by AI to improve your chances of landing your dream job.',
+    //     Icon: FileText,
+    //     bg: { from: '#12B7AC', to: '#08B6CE' },
+    //     path: path.REVIEW_RESUME,
+    //     tag: 'Upcoming',
+    //     pro: true,
+    // },
     {
         title: 'More Coming Soon...',
         Icon: MoreHorizontal,
