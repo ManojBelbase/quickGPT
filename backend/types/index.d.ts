@@ -32,3 +32,22 @@ export interface CodeGeneratorPromptOptions {
     prompt: string
 
 }
+export const ALLOWED_TONES = {
+    professional: "professional",
+    casual: "casual",
+    friendly: "friendly",
+    persuasive: "persuasive",
+    inspirational: "inspirational",
+} as const;
+
+export interface SocialPostParams {
+    prompt: string;              // user input: "promote my new coffee shop"
+    platform: string;            // 'linkedin' | 'facebook' | 'twitter' | 'instagram'
+    tone?: string;               // 'professional' | 'casual' | 'funny'
+    length?: 'short' | 'medium' | 'long';
+    includeHashtags?: boolean;
+    tone?: Tone; // optional backend-controlled tone
+
+}
+export type Tone = keyof typeof ALLOWED_TONES;
+
