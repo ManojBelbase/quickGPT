@@ -37,6 +37,8 @@ export const sidebarLinks: SidebarLink[] = [
         name: "Generate Social Post",
         path: path.SOCIAL_POST_GENERATOR,
         Icon: SparkleIcon,
+        tag: "Pro"
+
     },
     {
         id: 2,
@@ -55,18 +57,24 @@ export const sidebarLinks: SidebarLink[] = [
         name: "Generate Images",
         path: path.GENERATE_IMAGE,
         Icon: ImagePlus,
+        tag: "Pro"
+
     },
     {
         id: 5,
         name: "Remove Background",
         path: path.REMOVE_BACKGROUND,
         Icon: Scissors,
+        tag: "Pro"
+
     },
     {
         id: 6,
         name: "Replace Background",
         path: path.REPLACE_BACKGROUND,
         Icon: Layers,
+        tag: "Pro"
+
     },
     {
         id: 8,

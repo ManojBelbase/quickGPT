@@ -11,8 +11,10 @@ const GenerateSocialPosts: React.FC = () => {
     const [tone, setTone] = useState<"professional" | "casual" | "friendly" | "humorous">("professional");
     const [length, setLength] = useState<"short" | "medium" | "long">("medium");
     const [includeHashtags, setIncludeHashtags] = useState(true);
+    const [generateImage, setGenerateImage] = useState(false);
     const [generatedPost, setGeneratedPost] = useState<string>("");
     const [isGenerating, setIsGenerating] = useState(false);
+
 
     const { mutateAsync: generatePost } = useGenerateSocialPost();
 
@@ -31,6 +33,7 @@ const GenerateSocialPosts: React.FC = () => {
                 tone,
                 length,
                 includeHashtags,
+                generateImage,
             });
             setGeneratedPost(post);
             toast.success("Post generated successfully!");
@@ -57,6 +60,8 @@ const GenerateSocialPosts: React.FC = () => {
                         onLengthChange={(value) => setLength(value as "short" | "medium" | "long")}
                         includeHashtags={includeHashtags}
                         onIncludeHashtagsChange={setIncludeHashtags}
+                        generateImage={generateImage}
+                        onGenerateImageChange={setGenerateImage}
                         onGenerate={handleGeneratePost}
                         isLoading={isGenerating}
                     />

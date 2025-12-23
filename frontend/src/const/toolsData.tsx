@@ -46,6 +46,7 @@ export const tools: Tool[] = [
         path: path.SOCIAL_POST_GENERATOR,
         color: 'bg-indigo-500',
         tag: 'Popular',
+        pro: true,
     },
     {
         title: 'AI Image Generator',

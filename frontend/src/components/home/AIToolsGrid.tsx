@@ -118,11 +118,11 @@ export const AITools = () => {
                     })}
                 </div>
 
-                {/* <div className="mt-20 text-center">
-                        <p className="text-slate-400 text-sm italic">
-                            More tools being added every week...
-                        </p>
-                    </div> */}
+                <div className="mt-20 text-center">
+                    <p className="text-slate-400 text-sm italic">
+                        More tools being added every week...
+                    </p>
+                </div>
             </div>
         </section>
     );
