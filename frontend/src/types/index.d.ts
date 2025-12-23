@@ -298,3 +298,57 @@ export interface ImageGenerationFormProps {
     onGenerate: () => void;
     isLoading: boolean;
 }
+
+export interface UserSocialPost {
+    id: string;
+    content: string;
+    prompt: string;
+    platform: string;
+    audience: string;
+    createdAt: string;
+}
+
+export interface SocialPostBody {
+    prompt: string;
+    platform: "linkedin" | "facebook" | "twitter" | "instagram";
+    tone: string
+    length: "short" | "medium" | "long"
+    includeHashtags: boolean
+}
+interface SocialPostParams {
+    prompt: string;              // user input: "promote my new coffee shop"
+    platform: string;            // 'linkedin' | 'facebook' | 'twitter' | 'instagram'
+    tone?: string;               // 'professional' | 'casual' | 'funny'
+    length?: 'short' | 'medium' | 'long';
+    includeHashtags?: boolean;
+}
+
+export type SocialPlatform = "linkedin" | "facebook" | "twitter" | "instagram";
+
+export interface SocialPostBody {
+    prompt: string;
+    platform: SocialPlatform;
+    tone: "professional" | "casual" | "friendly" | "persuasive" | "inspirational";
+    length: "short" | "medium" | "long";
+    includeHashtags: boolean;
+}
+
+export interface SocialPostFormProps {
+    prompt: string;
+    onPromptChange: (value: string) => void;
+    platform: SocialPlatform;
+    onPlatformChange: (value: SocialPlatform) => void;
+    tone: Tone;
+    onToneChange: (value: Tone) => void;
+    length: "short" | "medium" | "long";
+    onLengthChange: (value: "short" | "medium" | "long") => void;
+    includeHashtags: boolean;
+    onIncludeHashtagsChange: (value: boolean) => void;
+    onGenerate: () => void;
+    isLoading: boolean;
+}
+
+
+
+
+export type Tone = keyof typeof ALLOWED_TONES;

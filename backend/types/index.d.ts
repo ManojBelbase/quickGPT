@@ -44,3 +44,17 @@ export interface SocialPostParams {
 }
 export type Tone = keyof typeof ALLOWED_TONES;
 
+export interface SocialPostFormProps {
+    prompt: string;
+    onPromptChange: (value: string) => void;
+    platform: SocialPlatform;
+    onPlatformChange: (value: SocialPlatform) => void;
+    tone: Tone;
+    onToneChange: (value: Tone) => void;
+    length: "short" | "medium" | "long";
+    onLengthChange: (value: "short" | "medium" | "long") => void;
+    includeHashtags: boolean;
+    onIncludeHashtagsChange: (value: boolean) => void;
+    onGenerate: () => void;
+    isLoading: boolean;
+}

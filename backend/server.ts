@@ -52,7 +52,7 @@ app.use("/api/remove-background", removeBackgroundRouter);
 app.use("/api/replace-background", ReplaceBackgroundRouter);
 app.use('/api/text-summarizer', textSummarizerRouter)
 app.use('/api/code-generator', codeGeneratorRouter)
-app.use('/social-media-post', socialMediaPostRouter);
+app.use('/api/social-post', socialMediaPostRouter);
 app.use("/api/dashboard", dashboardStatsRouter);
 
 export default app; 
