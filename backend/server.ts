@@ -8,6 +8,7 @@ import imageRouter from "./routes/image.route";
 import removeBackgroundRouter from "./routes/removeBg.route";
 import ReplaceBackgroundRouter from "./routes/removeObject.route";
 import dashboardStatsRouter from "./routes/dashboard.route";
+import textSummarizerRouter from "./routes/textSummarizer.route";
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/api/blog-title", blogTitleRouter);
 app.use("/api/image", imageRouter);
 app.use("/api/remove-background", removeBackgroundRouter);
 app.use("/api/replace-background", ReplaceBackgroundRouter);
+app.use('/api/text-summarizer', textSummarizerRouter)
 app.use("/api/dashboard", dashboardStatsRouter);
 
 export default app; 

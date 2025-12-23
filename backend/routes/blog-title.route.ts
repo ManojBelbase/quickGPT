@@ -9,3 +9,4 @@ blogTitleRouter.get('/', auth, getBlogTitles);
 blogTitleRouter.delete('/:id', auth, deleteBlogTitle);
 
 export default blogTitleRouter;
+

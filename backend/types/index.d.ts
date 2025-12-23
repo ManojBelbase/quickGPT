@@ -21,3 +21,9 @@ export interface ArticlePromptOptions {
 export interface BlogTitlePromptOptions {
     prompt: string
 }
+
+export interface TextSummarizerPromptOptions {
+    text: string;
+    length?: "short" | "medium" | "long";
+    style?: "neutral" | "bullet-points" | "formal" | "concise";
+}
