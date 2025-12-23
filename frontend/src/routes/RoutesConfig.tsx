@@ -10,12 +10,14 @@ import GenerateImages from "../pages/GenerateImages"
 import ReplaceBackground from "../pages/ReplaceBackground"
 import TextSummarizer from "../pages/TextSummarizer"
 import GenerateCode from "../pages/GenerateCode"
+import GenerateSocialPosts from "../pages/GenerateSocialPosts"
 
 export const routesConfig: RouteItem[] = [
     { path: path.DASHBOARD, element: <Dashboard />, protected: true },
     { path: path.TEXT_SUMMARIZER, element: <TextSummarizer />, protected: true },
     { path: path.WRITE_ARTICLE, element: <WriteArticle />, protected: true },
     { path: path.CODE_GENERATOR, element: <GenerateCode />, protected: true },
+    { path: path.SOCIAL_POST_GENERATOR, element: <GenerateSocialPosts />, protected: true },
     { path: path.REVIEW_RESUME, element: <ReviewResume />, protected: true },
     { path: path.COMMUNITY, element: <Community />, protected: true },
     { path: path.BLOG_TITLE, element: <GenerateBlogTitle />, protected: true },

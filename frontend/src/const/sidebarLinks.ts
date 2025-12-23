@@ -32,6 +32,12 @@ export const sidebarLinks: SidebarLink[] = [
         Icon: Code,
     },
     {
+        id: 11,
+        name: "Generate Social Post",
+        path: path.SOCIAL_POST_GENERATOR,
+        Icon: Code,
+    },
+    {
         id: 2,
         name: "Write Article",
         path: path.WRITE_ARTICLE,
@@ -67,5 +73,6 @@ export const sidebarLinks: SidebarLink[] = [
         path: path.COMMUNITY,
         Icon: Users,
     },
+
 
 ];

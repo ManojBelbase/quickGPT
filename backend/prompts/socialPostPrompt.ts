@@ -15,7 +15,7 @@ export const buildSocialPostPrompt = ({
     platform,
     length = "medium",
     includeHashtags = true,
-    tone = "professional", // default backend tone
+    tone = "professional",
 }: SocialPostParams): string => {
     const staticTone = ALLOWED_TONES[tone as keyof typeof ALLOWED_TONES];
 
