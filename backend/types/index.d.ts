@@ -32,13 +32,6 @@ export interface CodeGeneratorPromptOptions {
     prompt: string
 
 }
-export const ALLOWED_TONES = {
-    professional: "professional",
-    casual: "casual",
-    friendly: "friendly",
-    persuasive: "persuasive",
-    inspirational: "inspirational",
-} as const;
 
 export interface SocialPostParams {
     prompt: string;              // user input: "promote my new coffee shop"

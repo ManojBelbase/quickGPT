@@ -1,5 +1,12 @@
-import { ALLOWED_TONES, SocialPostParams } from "../types";
+import { SocialPostParams } from "../types";
 
+export const ALLOWED_TONES = {
+    professional: "professional",
+    casual: "casual",
+    friendly: "friendly",
+    persuasive: "persuasive",
+    inspirational: "inspirational",
+} as const;
 
 export type Tone = keyof typeof ALLOWED_TONES;
 
