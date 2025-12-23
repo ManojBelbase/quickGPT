@@ -62,7 +62,8 @@ export const AiToolsData: AiToolData[] = [
             'Generate clean, efficient, and production-ready code snippets using AI for faster development.',
         Icon: Code2,
         bg: { from: '#0EA5E9', to: '#2563EB' },
-        path: path.CODE_GENERATOR,
+        path: "#",
+        tag: "Upcoming"
     },
 
     {
