@@ -1,8 +1,8 @@
-// src/components/blogTitle/BlogTitleList.tsx
 import React from "react";
 import { FileText, Trash2, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useDeleteBlogTitle, useGetBlogTitles } from "../../hooks/useBlogTitles";
+import ConfirmModal from "../shared/ConfirmModel";
 
 interface BlogTitleListProps {
     onSelectTitle?: (title: string) => void;
@@ -10,15 +10,11 @@ interface BlogTitleListProps {
 
 const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
     const { data: titles = [], isLoading, isError } = useGetBlogTitles();
-
-    // mutateAsync delete — same as your ArticleList
     const { mutateAsync: deleteTitle } = useDeleteBlogTitle();
     const [deletingId, setDeletingId] = React.useState<string | null>(null);
+    const [confirmId, setConfirmId] = React.useState<string | null>(null);
 
-    const handleDelete = async (e: React.MouseEvent, id: string) => {
-        e.stopPropagation();
-        if (!confirm("Delete this blog title permanently?")) return;
-
+    const handleDelete = async (id: string) => {
         setDeletingId(id);
         try {
             await deleteTitle(id);
@@ -27,6 +23,7 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
             toast.error("Failed to delete");
         } finally {
             setDeletingId(null);
+            setConfirmId(null);
         }
     };
 
@@ -37,10 +34,7 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
             <h2 className="text-lg font-semibold mb-4">Your Blog Titles</h2>
 
             {isLoading && <p className="text-gray-500">Loading...</p>}
-
-            {!isLoading && titles.length === 0 && (
-                <p className="text-gray-400 text-sm">No blog titles found</p>
-            )}
+            {!isLoading && titles.length === 0 && <p className="text-gray-400 text-sm">No blog titles found</p>}
 
             <div className="space-y-2">
                 {titles.map((title) => (
@@ -57,7 +51,10 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
                         </div>
 
                         <button
-                            onClick={(e) => handleDelete(e, title.id)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setConfirmId(title.id); // open modal
+                            }}
                             disabled={deletingId === title.id}
                             className="text-red-500 hover:text-red-600 transition"
                         >
@@ -70,6 +67,15 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
                     </div>
                 ))}
             </div>
+
+            {/* Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!confirmId}
+                title="Delete this blog title?"
+                message="This action is permanent. Are you sure?"
+                onConfirm={() => confirmId && handleDelete(confirmId)}
+                onCancel={() => setConfirmId(null)}
+            />
         </div>
     );
 };

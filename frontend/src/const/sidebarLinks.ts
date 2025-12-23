@@ -32,7 +32,7 @@ export const sidebarLinks: SidebarLink[] = [
     },
     {
         id: 3,
-        name: "Blog Title",
+        name: "Generate Blog Title",
         path: path.BLOG_TITLE,
         Icon: FileText,
     },

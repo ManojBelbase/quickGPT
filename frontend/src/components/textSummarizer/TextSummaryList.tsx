@@ -2,6 +2,7 @@ import { FileText, Trash2, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useDeleteSummary, useGetSummaries } from "../../hooks/useTextSummaries";
 import React from "react";
+import ConfirmModal from "../shared/ConfirmModel";
 
 interface TextSummaryListProps {
     onSelectSummary?: (summary: string) => void;
@@ -11,26 +12,27 @@ const TextSummaryList: React.FC<TextSummaryListProps> = ({ onSelectSummary }) =>
     const { data: summaries = [], isLoading, isError } = useGetSummaries();
     const { mutateAsync: deleteSummary } = useDeleteSummary();
     const [deletingId, setDeletingId] = React.useState<string | null>(null);
+    const [confirmId, setConfirmId] = React.useState<string | null>(null);
 
-    const handleDelete = async (e: React.MouseEvent, id: string) => {
-        e.stopPropagation();
-        if (!confirm("Delete this summary permanently?")) return;
 
+
+    const handleDelete = async (id: string) => {
         setDeletingId(id);
         try {
-            await deleteSummary(id);
+            await deleteSummary(id); // your API call
             toast.success("Summary deleted");
         } catch {
             toast.error("Failed to delete");
         } finally {
             setDeletingId(null);
+            setConfirmId(null);
         }
     };
 
     if (isError) return <p className="text-red-600 text-sm p-4">Failed to load summaries</p>;
 
     return (
-        <div className="bg-white tp-2 sm:p-4 rounded-xl shadow-sm overflow-y-auto">
+        <div className="bg-white tp-2 p-2 sm:p-4 rounded-sm sm:rounded-md border border-gray-200 shadow-sm overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">Your Summaries</h2>
 
             {isLoading && <p className="text-gray-500">Loading...</p>}
@@ -54,7 +56,7 @@ const TextSummaryList: React.FC<TextSummaryListProps> = ({ onSelectSummary }) =>
                         </div>
 
                         <button
-                            onClick={(e) => handleDelete(e, item.id)}
+                            onClick={() => setConfirmId(item.id)}
                             disabled={deletingId === item.id}
                             className="text-red-500 hover:text-red-600 transition"
                         >
@@ -67,6 +69,14 @@ const TextSummaryList: React.FC<TextSummaryListProps> = ({ onSelectSummary }) =>
                     </div>
                 ))}
             </div>
+            <ConfirmModal
+                isOpen={!!confirmId}
+                title="Delete this summary?"
+                message="This action is permanent. Are you sure?"
+                onConfirm={() => confirmId && handleDelete(confirmId)}
+                onCancel={() => setConfirmId(null)}
+            />
+
         </div>
     );
 };

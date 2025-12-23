@@ -21,7 +21,7 @@ const TextSummarizerForm: React.FC<TextSummarizerFormProps> = ({
     };
 
     return (
-        <div className="w-full p-4 rounded-xl shadow-md bg-white">
+        <div className="w-full p-2 sm:p-4 rounded-sm sm:rounded-md shadow-md bg-white">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <FileText className="w-5 h-5 mr-2 text-purple-600" />
                 AI Text Summarizer
