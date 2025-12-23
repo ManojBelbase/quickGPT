@@ -4,6 +4,12 @@ import { buildSocialPostPrompt } from "../prompts/socialPostPrompt";
 import { openRouter } from "../config/openRouter";
 import sql from "../config/db";
 import { clerkClient } from "@clerk/express";
+import axios from "axios";
+import { cloudinary } from "../config/cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
+const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
+
 export const generateSocialPost = async (
     req: Request,
     res: Response
@@ -11,21 +17,19 @@ export const generateSocialPost = async (
     try {
         const userId = req.auth().userId;
 
-        const {
-            prompt,
-            platform,
-            tone,
-            length,
-            includeHashtags,
-        } = req.body;
+        const { prompt, platform, tone, length, includeHashtags, generateImage = true } =
+            req.body;
 
         const plan: string | undefined = req.plan;
         const free_usage: number | undefined = req.free_usage;
 
-        if (plan !== "premium" && (free_usage ?? 0) >= 10) {
-            response(res, 403, "Limit reached. Upgrade to continue.");
+        // Premium user check
+        if (plan !== "premium") {
+            response(res, 403, "This feature is only available for premium users.");
+            return;
         }
-        // Build AI prompt
+
+        // Build AI prompt for social post caption
         const formattedPrompt = buildSocialPostPrompt({
             prompt,
             platform,
@@ -34,7 +38,7 @@ export const generateSocialPost = async (
             includeHashtags,
         });
 
-        // Call OpenRouter
+        // Generate social post caption via AI
         const aiResponse = await openRouter.post("/chat/completions", {
             model: "xiaomi/mimo-v2-flash:free",
             messages: [{ role: "user", content: formattedPrompt }],
@@ -42,23 +46,49 @@ export const generateSocialPost = async (
             max_tokens: 300,
         });
 
-        const content =
-            aiResponse.data?.choices?.[0]?.message?.content?.trim();
+        let content = aiResponse.data?.choices?.[0]?.message?.content?.trim();
+        if (!content) content = prompt;
 
-        if (!content) {
-            response(res, 500, "AI did not return any content");
+        if (generateImage && plan === "premium" && CLIPDROP_API_KEY) {
+            try {
+                const form = new FormData();
+                form.append("prompt", prompt);
+
+                const apiResponse = await axios.post(
+                    "https://clipdrop-api.co/text-to-image/v1",
+                    form,
+                    {
+                        headers: {
+                            "x-api-key": CLIPDROP_API_KEY,
+                        },
+                        responseType: "arraybuffer",
+                    }
+                );
+
+                const base64Image = Buffer.from(apiResponse.data).toString("base64");
+                const dataUri = `data:image/png;base64,${base64Image}`;
+
+                const uploadResult = await cloudinary.uploader.upload(dataUri, {
+                    folder: "quickGPT/generated_images",
+                });
+
+                // Append image URL to content
+                content = `${content} ${uploadResult.secure_url}`;
+            } catch (imgError) {
+                console.error("Image generation failed:", imgError);
+            }
         }
 
-        // Save creation
+        // Save creation to DB
         await sql`
-            INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (
-                ${userId},
-                ${JSON.stringify({ prompt, platform, tone, length })},
-                ${content},
-                'social-post'
-            )
-        `;
+      INSERT INTO creations (user_id, prompt, content, type)
+      VALUES (
+        ${userId},
+        ${prompt},
+        ${content},
+        'social-post'
+      )
+    `;
 
         // Update free usage
         if (plan !== "premium") {
@@ -70,11 +100,11 @@ export const generateSocialPost = async (
         }
 
         response(res, 200, "Success", content);
-    } catch (error) {
-        response(res, 500, "Something went wrong");
+    } catch (error: any) {
+        console.error(error);
+        response(res, 500, "Something went wrong", error.message);
     }
 };
-
 export const getSocialPosts = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId: string = req.auth().userId;
