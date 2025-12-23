@@ -21,7 +21,7 @@ export const CodePreview: React.FC<GeneratedCodeResultProps> = ({ content, isLoa
                 {content ? (
                     <AIResponseParser
                         content={content}
-                        themeName="github"
+                        themeName="light"
                         textColor="#000000"
                     />
                 ) : isLoading ? (

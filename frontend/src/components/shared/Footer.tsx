@@ -90,7 +90,7 @@ export const FooterSection = () => {
                     <p className="text-sm text-gray-800  inline-flex items-center ">
                         Copyright © 2025 QuickGPT.  All Right Reserved. <span className='sm:block hidden px-1'> {" "}|</span>
                     </p>
-                    <p className="text-sm text-gray-800 ml-1"> Design & Develop by <button onClick={() => navigate('https://manojbelbase.vercel.app/')} className='text-purple-600 cursor-pointer'>Manoj Belbase</button> </p>
+                    <p className="text-sm text-gray-800 ml-1"> Design & Develop by <button onClick={() => navigate('https://manojbelbase.com.np/')} className='text-purple-600 cursor-pointer'>Manoj Belbase</button> </p>
                 </div>
             </div>
         </footer>
