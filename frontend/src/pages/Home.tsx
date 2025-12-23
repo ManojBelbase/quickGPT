@@ -1,21 +1,36 @@
-import { AITools } from "../components/home/AIToolsGrid"
-import { Hero } from "../components/home/Hero"
-import Plans from "../components/home/Plans"
-import { Testimonials } from "../components/home/Testimonials"
-import { FooterSection } from "../components/shared/Footer"
-import Navbar from "../components/shared/Navbar"
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Navbar from "../components/shared/Navbar";
+import { Hero } from "../components/home/Hero";
+import { AITools } from "../components/home/AIToolsGrid";
+import { Testimonials } from "../components/home/Testimonials";
+import Plans from "../components/home/Plans";
+import { FooterSection } from "../components/shared/Footer";
 
 const Home = () => {
+    const { hash } = useLocation();
+
+    useEffect(() => {
+        if (hash) {
+            const el = document.querySelector(hash);
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        }
+    }, [hash]);
+
     return (
         <>
             <Navbar />
             <Hero />
             <AITools />
             <Testimonials />
-            <Plans />
+            <div id="plans" className="scroll-mt-24">
+                <Plans />
+            </div>
             <FooterSection />
         </>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

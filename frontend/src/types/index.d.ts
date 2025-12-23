@@ -201,3 +201,28 @@ export interface ReplacedBackgroundImage {
     prompt: string;
     createdAt?: string;
 }
+
+export interface CopyButtonProps {
+    text: string;
+    className?: string;
+    title?: string;
+    size?: 'sm' | 'md' | 'lg';
+}
+
+export
+    interface PreviewHeaderProps {
+    title: string;
+    icon: React.ReactNode;
+
+    isCopy?: boolean;
+    copyText?: string;
+    copyTitle?: string;
+
+    isDownload?: boolean;
+    downloadUrl?: string;
+    downloadFilename?: string;
+
+    actionButton?: React.ReactNode;
+
+    className?: string;
+}

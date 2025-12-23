@@ -27,7 +27,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
     };
 
     return (
-        <div className="w-full  p-4 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full p-2 sm:p-4  rounded-xl shadow-md ">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Sparkles className="w-5 h-5 mr-2 text-purple-600" />
                 AI Title Generator
@@ -61,7 +61,7 @@ const BlogTitleForm: React.FC<BlogTitleFormProps> = ({
                                 type="button"
                                 key={category.value}
                                 onClick={() => onCategoryChange(category)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
+                                className={`py-2 px-4 text-sm font-medium rounded-md cursor-pointer transition-colors border
                                     ${selectedCategory.value === category.value
                                         ? 'bg-purple-500 text-white border-purple-500 shadow-sm'
                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'

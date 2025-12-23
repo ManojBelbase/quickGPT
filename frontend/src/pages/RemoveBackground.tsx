@@ -26,17 +26,17 @@ const RemoveBackground: React.FC = () => {
             setProcessedImageUrl(resultUrl);
             toast.success("Background removed successfully!");
         } catch (error: any) {
-            toast.error(error?.message || "Failed to remove background");
+            toast.error(error?.response.data.message || "Failed to generate image");
         } finally {
             setIsProcessing(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-2xl mx-auto p-4">
+        <div className=" bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 max-w-screen-2xl mx-auto ">
                 {/* LEFT: Form + History */}
-                <div className="col-span-1 lg:col-span-2 flex flex-col gap-4">
+                <div className="col-span-1 lg:col-span-2 flex flex-col gap-2">
                     <BackgroundRemovalForm
                         selectedFile={selectedFile}
                         onFileChange={setSelectedFile}

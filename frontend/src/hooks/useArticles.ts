@@ -1,4 +1,3 @@
-// src/hooks/useArticles.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosInstance";
 import toast from "react-hot-toast";
@@ -27,13 +26,10 @@ export const useGenerateArticle = () => {
             if (data.status !== "success") throw new Error(data.message || "Generation failed");
             return data.data;
         },
-        onSuccess: (content) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["articles"] });
-            toast.success(content);
         },
-        onError: () => {
-            toast.error("Failed to generate article");
-        },
+
     });
 };
 

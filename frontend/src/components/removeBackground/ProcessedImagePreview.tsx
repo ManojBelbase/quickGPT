@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Loader2, Wand2 } from "lucide-react";
+import { PreviewHeader } from "../ui/PreviewHeader";
 
 interface Props {
     imageUrl: string | null;
@@ -10,13 +11,17 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
     const isInitialState = !imageUrl && !isLoading;
 
     return (
-        <div className="w-full p-4 bg-white rounded-xl shadow-xl">
-            <h2 className="text-xl font-bold text-gray-900 flex items-center mb-2 sm:mb-4">
-                <Image className="w-5 h-5 mr-2 text-purple-600" />
-                Image Preview
-            </h2>
+        <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-sm">
+            <PreviewHeader
+                title="Image Preview"
+                icon={<Image className="w-5 h-5 mr-2 text-purple-600" />}
+                isDownload={true}
+                downloadUrl={imageUrl || ""}
+                downloadFilename="quickgpt-background-removed.png"
+            />
 
-            <div className="min-h-[500px]  rounded-lg  relative overflow-hidden">
+
+            <div className="min-h-[300px] sm:min-h-[500px] flex items-center justify-center h-full border-t-2 border-gray-200 relative overflow-hidden">
 
                 {/* Display Processed Image */}
                 {imageUrl && !isLoading && (
@@ -31,7 +36,7 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
 
                 {/* Loading State Overlay */}
                 {isLoading && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg">
+                    <div className="absolute inset-0 flex flex-col h-full items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg">
                         <Loader2 className="h-10 w-10 text-purple-600 animate-spin" />
                         <p className="mt-4 text-gray-700 font-medium text-lg">
                             Removing background...
@@ -44,7 +49,7 @@ export const ProcessedImagePreview: React.FC<Props> = ({ imageUrl, isLoading }) 
 
                 {/* Initial Empty State */}
                 {isInitialState && (
-                    <div className="h-full flex flex-col items-center justify-center text-center text-gray-500">
+                    <div className="h-full flex flex-col  items-center justify-center text-center text-gray-500">
                         <Wand2 className="w-16 h-16 mb-4 text-gray-300" />
                         <p className="text-lg font-medium">
                             Upload an image to remove its background

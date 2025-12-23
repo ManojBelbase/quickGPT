@@ -5,6 +5,7 @@ import { path } from '../../routes/paths';
 import type { SidebarLink, SidebarProps } from '../../types';
 import { Icon } from '@iconify/react';
 import { X } from 'lucide-react';
+
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
     const navigate = useNavigate();
     const { user } = useUser();
@@ -21,9 +22,9 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
         return (
             <div
                 onClick={() => handleNavigation(path)}
-                className={`flex items-center space-x-3 p-3 text-base rounded-xs cursor-pointer transition-colors
+                className={`flex items-center space-x-3 p-3 text-sm rounded-md mx-2 mb-1 cursor-pointer transition-colors
                     ${isActive
-                        ? 'bg-purple-600 text-white font-medium'
+                        ? 'bg-purple-600 text-white font-medium shadow-sm shadow-purple-200'
                         : 'text-gray-600 hover:bg-gray-100'
                     }`}
             >
@@ -41,44 +42,55 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}
                 md:relative md:translate-x-0 md:flex`}
         >
-            {/* User Profile Section (Top) */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            {/* Logo Section */}
+            <div className="flex items-center justify-between py-5 px-4 border-b border-gray-100">
                 <Link to={path.HOME} className="flex items-center gap-2 group">
                     <div className="bg-[#9810fa] p-1.5 rounded-md">
                         <Icon icon="lucide:zap" className="text-white text-xl" />
                     </div>
-                    <span className="text-gray-900 font-bold text-2xl tracking-tight">
+                    <span className="text-gray-900 font-bold text-xl tracking-tight">
                         Quick<span className="text-[#9810fa]">GPT</span>
                     </span>
                 </Link>
-                {/* Close Button for Mobile */}
-                <button
-                    onClick={onClose}
-                    className="md:hidden p-1 rounded-full text-gray-500 hover:bg-gray-100"
-                    aria-label="Close menu"
-                >
+                <button onClick={onClose} className="md:hidden p-1 text-gray-500 hover:bg-gray-100 rounded-md">
                     <X className="w-6 h-6" />
                 </button>
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex-1 overflow-y-auto">
+            <nav className="flex-1 overflow-y-auto pt-4">
                 {sidebarLinks.map((link) => (
                     <SidebarItem key={link.id} link={link} />
                 ))}
             </nav>
 
-            {/* Footer User Info (Bottom Left) */}
-            <div className="p-4 border-t border-gray-200 flex items-center justify-between">
-                <div className="flex items-center text-sm gap-2">
+            {/* --- POLITE SYSTEM NOTE --- */}
+            <div className="mx-2 sm:mx-4 mb-4 p-2 sm:p-3 bg-indigo-50/50 rounded-lg border border-indigo-100/50">
+                <div className="flex items-center gap-2 text-indigo-600 mb-1">
+                    <Icon icon="lucide:message-circle" className="text-sm" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">Support</span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-snug">
+                    Facing an issue? I'm here to help. Reach out anytime for assistance!                  <a
+                        href="mailto:manojbelbase56@gmail.com?subject=QuickGPT%20Feedback&body=Hi%20there%2C%20I%27m%20facing%20an%20issue%20with..."
+                        className="block mt-1.5 text-[#9810fa] font-bold hover:underline transition-all"
+                    >
+                        Email me directly →
+                    </a>
+                </p>
+            </div>
 
-                    <UserButton />
-                    <div>
-                        <div className="font-medium">{user?.fullName || "Guest User"}</div>
-                        <div className="text-xs text-gray-500">Premium Plan</div>
+            {/* Footer User Info */}
+            <div className="p-4 border-t border-gray-100 bg-white">
+                <div className="flex items-center gap-3">
+                    <UserButton afterSignOutUrl="/" />
+                    <div className="overflow-hidden">
+                        <div className="font-bold text-sm text-gray-900 truncate">
+                            {user?.fullName || "Guest User"}
+                        </div>
+                        {/* <div className="text-[11px] text-gray-500 truncate">Free Plan</div> */}
                     </div>
                 </div>
-
             </div>
         </div>
     );

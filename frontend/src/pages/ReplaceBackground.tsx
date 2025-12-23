@@ -1,4 +1,3 @@
-// src/pages/ReplaceBackground.tsx
 import React, { useState } from "react";
 import ReplaceBackgroundForm from "../components/replaceBackground/ReplaceBackgroundForm";
 import ReplaceBackgroundList from "../components/replaceBackground/ReplaceBackgroundList";
@@ -26,13 +25,12 @@ const ReplaceBackground: React.FC = () => {
 
         try {
             const rawContent = await replaceBackground({ file: selectedFile, prompt });
-            // Extract clean Cloudinary URL
             const match = rawContent.match(/https:\/\/res\.cloudinary\.com\/[^\s"]+/);
             const cleanUrl = match ? match[0] : rawContent;
             setProcessedImageUrl(cleanUrl);
             toast.success("Background replaced successfully!");
         } catch (error: any) {
-            toast.error(error?.message || "Failed to replace background");
+            toast.error(error?.response.data.message || "Failed to generate image");
         } finally {
             setIsProcessing(false);
         }
@@ -40,9 +38,9 @@ const ReplaceBackground: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-screen-2xl mx-auto p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 max-w-screen-2xl mx-auto ">
                 {/* LEFT: Form + History */}
-                <div className="col-span-1 lg:col-span-2 flex flex-col gap-4">
+                <div className="col-span-1 lg:col-span-2 flex flex-col gap-2">
                     <ReplaceBackgroundForm
                         selectedFile={selectedFile}
                         onFileChange={setSelectedFile}

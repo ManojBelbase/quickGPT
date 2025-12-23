@@ -37,11 +37,11 @@ const ArticleList: React.FC<ArticleListProps> = ({ onSelectArticle }) => {
 
     return (
         <div className="bg-white rounded-xs shadow-sm flex flex-col">
-            <div className="px-4 pt-2 shrink-0">
+            <div className="px-2 sm:px-4 pt-2 shrink-0">
                 <h2 className="text-lg font-semibold">Your Articles</h2>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            <div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-2">
                 {isLoading && (
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Loader2 className="w-4 h-4 animate-spin" />

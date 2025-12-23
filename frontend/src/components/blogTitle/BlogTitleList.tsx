@@ -33,7 +33,7 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
     if (isError) return <p className="text-red-600 text-sm p-4">Failed to load titles</p>;
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-sm h-[500px] overflow-y-auto">
+        <div className="bg-white p-2 sm:p-4 rounded-xl shadow-sm  overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">Your Blog Titles</h2>
 
             {isLoading && <p className="text-gray-500">Loading...</p>}
@@ -42,11 +42,11 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
                 <p className="text-gray-400 text-sm">No blog titles found</p>
             )}
 
-            <div className="space-y-3">
+            <div className="space-y-2">
                 {titles.map((title) => (
                     <div
                         key={title.id}
-                        className="flex items-center justify-between cursor-pointer border p-3 rounded-md hover:bg-gray-50 transition"
+                        className="flex items-center justify-between cursor-pointer border border-gray-200 p-2 rounded-md hover:bg-gray-50 transition"
                         onClick={() => onSelectTitle?.(title.content)}
                     >
                         <div className="flex items-center gap-2 min-w-0">
