@@ -27,3 +27,8 @@ export interface TextSummarizerPromptOptions {
     length?: "short" | "medium" | "long";
     style?: "neutral" | "bullet-points" | "formal" | "concise";
 }
+
+export interface CodeGeneratorPromptOptions {
+    prompt: string
+
+}
