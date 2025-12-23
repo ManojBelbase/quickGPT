@@ -10,6 +10,7 @@ import ReplaceBackgroundRouter from "./routes/removeObject.route";
 import dashboardStatsRouter from "./routes/dashboard.route";
 import textSummarizerRouter from "./routes/textSummarizer.route";
 import codeGeneratorRouter from './routes/code-generate.route'
+import socialMediaPostRouter from "./routes/social-media-post.route";
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/api/remove-background", removeBackgroundRouter);
 app.use("/api/replace-background", ReplaceBackgroundRouter);
 app.use('/api/text-summarizer', textSummarizerRouter)
 app.use('/api/code-generator', codeGeneratorRouter)
+app.use('/social-media-post', socialMediaPostRouter);
 app.use("/api/dashboard", dashboardStatsRouter);
 
 export default app; 
