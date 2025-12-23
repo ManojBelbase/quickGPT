@@ -262,3 +262,27 @@ export interface Tool {
     tag?: ToolTag;
     pro?: boolean;
 }
+
+export interface GeneratedCode {
+    id: string;
+    prompt: string;
+    content: string;
+    created_at: string;
+}
+
+export interface GenerateCodeBody {
+    prompt: string;
+    language?: string;
+}
+
+export interface GeneratedCodeResultProps {
+    content: string;
+    isLoading: boolean;
+}
+
+export interface CodeFormProps {
+    prompt: string;
+    onPromptChange: (value: string) => void;
+    onGenerate: () => void;
+    isLoading: boolean;
+}
