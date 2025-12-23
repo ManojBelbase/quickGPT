@@ -1,12 +1,78 @@
 import {
-    FileText, Type, Image as ImageIcon, Eraser,
+    FileText,
+    Type,
+    Image as ImageIcon,
+    Eraser,
+    Text,
+    MoreHorizontal,
+    FileSearch2,
     Layers,
+    Code,
 } from 'lucide-react';
 import { path } from '../routes/paths';
-export const tools = [
-    { title: 'Article', icon: <FileText size={20} />, path: path.WRITE_ARTICLE, color: 'bg-purple-500' },
-    { title: 'Blog Title', icon: <Type size={20} />, path: path.BLOG_TITLE, color: 'bg-emerald-500' },
-    { title: 'AI Image', icon: <ImageIcon size={20} />, path: path.GENERATE_IMAGE, color: 'bg-violet-500', pro: true },
-    { title: 'Remove BG', icon: <Eraser size={20} />, path: path.REMOVE_BACKGROUND, color: 'bg-rose-500', pro: true },
-    { title: 'Replace BG', icon: <Layers size={20} />, path: path.REPLACE_BACKGROUND, color: 'bg-amber-500', pro: true },
+import type { Tool } from '../types';
+
+export const tools: Tool[] = [
+    {
+        title: 'Text Summarizer',
+        icon: Text,
+        path: path.TEXT_SUMMARIZER,
+        color: 'bg-blue-500',
+        tag: 'New',
+    },
+    {
+        title: 'Article Writer',
+        icon: FileText,
+        path: path.WRITE_ARTICLE,
+        color: 'bg-purple-500',
+    },
+    {
+        title: 'Blog Title Generator',
+        icon: Type,
+        path: path.BLOG_TITLE,
+        color: 'bg-emerald-500',
+    },
+    {
+        title: 'Code Generator',
+        icon: Code,
+        path: path.CODE_GENERATOR,
+        color: 'bg-cyan-500',
+        tag: 'Upcoming',
+    },
+    {
+        title: 'AI Image Generator',
+        icon: ImageIcon,
+        path: path.GENERATE_IMAGE,
+        color: 'bg-violet-500',
+        tag: 'Popular',
+        pro: true,
+    },
+    {
+        title: 'Remove Background',
+        icon: Eraser,
+        path: path.REMOVE_BACKGROUND,
+        color: 'bg-rose-500',
+        pro: true,
+    },
+    {
+        title: 'Replace Background',
+        icon: Layers,
+        path: path.REPLACE_BACKGROUND,
+        color: 'bg-amber-500',
+        pro: true,
+    },
+    {
+        title: 'Resume Reviewer',
+        icon: FileSearch2,
+        path: path.REVIEW_RESUME,
+        color: 'bg-teal-500',
+        tag: 'Upcoming',
+    },
+
+    {
+        title: 'More Coming Soon...',
+        icon: MoreHorizontal,
+        path: '#',
+        color: 'bg-slate-400',
+    },
 ];

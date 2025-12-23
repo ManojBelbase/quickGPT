@@ -33,7 +33,7 @@ const BlogTitleList: React.FC<BlogTitleListProps> = ({ onSelectTitle }) => {
     if (isError) return <p className="text-red-600 text-sm p-4">Failed to load titles</p>;
 
     return (
-        <div className="bg-white p-2 sm:p-4 rounded-xl shadow-sm  overflow-y-auto">
+        <div className="bg-white p-2 sm:p-4 rounded-sm sm:rounded-sm shadow-sm overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">Your Blog Titles</h2>
 
             {isLoading && <p className="text-gray-500">Loading...</p>}

@@ -9,10 +9,8 @@ export const getDashboardStats = async (
 ): Promise<void> => {
     try {
         const userId = req.auth().userId;
-        console.log(userId, "user")
 
         const user = await clerkClient.users.getUser(userId);
-        console.log(user, "user")
 
         const plan = user.privateMetadata?.plan ?? "free";
         const free_usage = Number(user.privateMetadata?.free_usage ?? 0);

@@ -239,3 +239,26 @@ export interface GenerateSummaryBody {
     length?: "short" | "medium" | "long";
     style?: "neutral" | "bullet-points" | "formal" | "concise";
 }
+
+export interface TextSummarizerFormProps {
+    text: string;
+    onTextChange: (value: string) => void;
+    length: "short" | "medium" | "long";
+    onLengthChange: (value: "short" | "medium" | "long") => void;
+    style: "neutral" | "bullet-points" | "formal" | "concise";
+    onStyleChange: (value: "neutral" | "bullet-points" | "formal" | "concise") => void;
+    onGenerate: () => void;
+    isLoading: boolean;
+}
+
+
+export type ToolTag = 'New' | 'Popular' | 'Upcoming';
+
+export interface Tool {
+    title: string;
+    icon: LucideIcon;
+    path: string;
+    color: string;
+    tag?: ToolTag;
+    pro?: boolean;
+}

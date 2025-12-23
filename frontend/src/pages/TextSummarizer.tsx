@@ -36,9 +36,9 @@ const TextSummarizer: React.FC = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
             {/* Left: Form + History List */}
-            <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-4">
+            <div className="col-span-1 md:col-span-1 lg:col-span-2 flex flex-col gap-2">
                 <TextSummarizerForm
                     text={text}
                     onTextChange={setText}

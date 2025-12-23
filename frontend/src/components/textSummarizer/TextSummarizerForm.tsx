@@ -1,18 +1,8 @@
-// src/components/textSummarizer/TextSummarizerForm.tsx
 import React from "react";
 import { FileText, Loader2 } from "lucide-react";
 import { Button } from "../ui/Button";
+import type { TextSummarizerFormProps } from "../../types";
 
-interface TextSummarizerFormProps {
-    text: string;
-    onTextChange: (value: string) => void;
-    length: "short" | "medium" | "long";
-    onLengthChange: (value: "short" | "medium" | "long") => void;
-    style: "neutral" | "bullet-points" | "formal" | "concise";
-    onStyleChange: (value: "neutral" | "bullet-points" | "formal" | "concise") => void;
-    onGenerate: () => void;
-    isLoading: boolean;
-}
 
 const TextSummarizerForm: React.FC<TextSummarizerFormProps> = ({
     text,
@@ -43,13 +33,14 @@ const TextSummarizerForm: React.FC<TextSummarizerFormProps> = ({
                     <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-2">
                         Text to Summarize
                     </label>
+
                     <textarea
-                        id="text-input"
+                        id="image-prompt"
                         placeholder="Paste your article, essay, or long text here..."
                         value={text}
                         onChange={(e) => onTextChange(e.target.value)}
-                        rows={6}
-                        className="w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500"
+                        rows={4}
+                        className="w-full rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 disabled:opacity-50"
                         disabled={isLoading}
                     />
                 </div>
@@ -63,7 +54,7 @@ const TextSummarizerForm: React.FC<TextSummarizerFormProps> = ({
                                 type="button"
                                 key={opt}
                                 onClick={() => onLengthChange(opt)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
+                                className={`py-2 cursor-pointer px-4 text-sm font-medium rounded-md transition-colors border
                   ${length === opt ? "bg-purple-500 text-white border-purple-500" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"}`}
                                 disabled={isLoading}
                             >
@@ -82,7 +73,7 @@ const TextSummarizerForm: React.FC<TextSummarizerFormProps> = ({
                                 type="button"
                                 key={opt}
                                 onClick={() => onStyleChange(opt)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border
+                                className={`py-2 cursor-pointer px-4 text-sm font-medium rounded-md transition-colors border
                   ${style === opt ? "bg-purple-500 text-white border-purple-500" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"}`}
                                 disabled={isLoading}
                             >
