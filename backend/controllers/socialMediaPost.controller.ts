@@ -22,11 +22,9 @@ export const generateSocialPost = async (
         const plan: string | undefined = req.plan;
         const free_usage: number | undefined = req.free_usage;
 
-        // 🚨 Stop execution if free limit is reached
         if (plan !== "premium" && (free_usage ?? 0) >= 10) {
             response(res, 403, "Limit reached. Upgrade to continue.");
         }
-
         // Build AI prompt
         const formattedPrompt = buildSocialPostPrompt({
             prompt,
