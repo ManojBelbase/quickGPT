@@ -31,8 +31,8 @@ export const Hero = () => {
                 {/* 2. Animated Announcement Badge */}
                 <div className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-indigo-100 shadow-sm mb-10 transition-all hover:border-indigo-300 cursor-pointer">
                     <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse" />
-                    <span className="text-xs font-semibold text-slate-600 tracking-wide">
-                        New: AI Image Generation is here
+                    <span onClick={() => navigate(path.CODE_GENERATOR)} className="text-xs font-semibold text-slate-600 tracking-wide">
+                        New: AI Code Generation is here
                     </span>
                     <ArrowRight size={14} className="text-indigo-400 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -51,7 +51,7 @@ export const Hero = () => {
 
                 {/* 4. Elegant Subheading */}
                 <p className="mt-8 text-slate-600 text-center text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-                    One platform for all your AI needs. Generate full articles, create custom images, and swap backgrounds in seconds. Create your content and share it with the world instantly.
+                    One platform for all your AI needs. Generate articles, summarize text, create code, design custom images, and swap backgrounds in seconds. Create and share your content instantly.
                 </p>
 
                 {/* 5. High-Contrast Action Area */}

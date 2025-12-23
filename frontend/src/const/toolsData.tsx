@@ -21,6 +21,12 @@ export const tools: Tool[] = [
         tag: 'New',
     },
     {
+        title: 'Code Generator',
+        icon: Code,
+        path: path.CODE_GENERATOR,
+        color: 'bg-cyan-500',
+    },
+    {
         title: 'Article Writer',
         icon: FileText,
         path: path.WRITE_ARTICLE,
@@ -32,13 +38,7 @@ export const tools: Tool[] = [
         path: path.BLOG_TITLE,
         color: 'bg-emerald-500',
     },
-    {
-        title: 'Code Generator',
-        icon: Code,
-        path: path.CODE_GENERATOR,
-        color: 'bg-cyan-500',
-        tag: 'Upcoming',
-    },
+
     {
         title: 'AI Image Generator',
         icon: ImageIcon,

@@ -38,15 +38,25 @@ export const AiToolsData: AiToolData[] = [
         pro: false,
     },
 
-    {
-        title: 'Blog Title Generator',
-        description:
-            'Find the perfect, catchy title for your blog posts with our AI-powered generator.',
-        Icon: Hash,
-        bg: { from: '#B153EA', to: '#E549A3' },
-        path: path.BLOG_TITLE,
-    },
 
+
+    {
+        title: 'Code Generator',
+        description:
+            'Generate clean, efficient, and production-ready code snippets using AI for faster development.',
+        Icon: Code2,
+        bg: { from: '#0EA5E9', to: '#2563EB' },
+        path: path.CODE_GENERATOR,
+        tag: "Popular"
+    },
+    {
+        title: 'Image Generation',
+        description: 'Create stunning visuals with our AI image generation tool and experience the power of AI.',
+        Icon: Image,
+        bg: { from: '#20C363', to: '#11B97E' },
+        path: path.GENERATE_IMAGE,
+        pro: true
+    },
     {
         title: 'Article Writer',
         description:
@@ -57,23 +67,15 @@ export const AiToolsData: AiToolData[] = [
         tag: "Popular"
     },
     {
-        title: 'Code Generator',
+        title: 'Blog Title Generator',
         description:
-            'Generate clean, efficient, and production-ready code snippets using AI for faster development.',
-        Icon: Code2,
-        bg: { from: '#0EA5E9', to: '#2563EB' },
-        path: "#",
-        tag: "Upcoming"
+            'Find the perfect, catchy title for your blog posts with our AI-powered generator.',
+        Icon: Hash,
+        bg: { from: '#B153EA', to: '#E549A3' },
+        path: path.BLOG_TITLE,
     },
 
-    {
-        title: 'Image Generation',
-        description: 'Create stunning visuals with our AI image generation tool and experience the power of AI.',
-        Icon: Image,
-        bg: { from: '#20C363', to: '#11B97E' },
-        path: path.GENERATE_IMAGE,
-        pro: true
-    },
+
     {
         title: 'Background Removal',
         description:

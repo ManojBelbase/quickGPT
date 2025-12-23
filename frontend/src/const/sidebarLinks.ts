@@ -6,7 +6,8 @@ import {
     Scissors,
     Layers,
     Users,
-    Text
+    Text,
+    Code
 } from "lucide-react";
 import { path } from "../routes/paths";
 import type { SidebarLink } from "../types";
@@ -23,6 +24,12 @@ export const sidebarLinks: SidebarLink[] = [
         name: "Summarize Text",
         path: path.TEXT_SUMMARIZER,
         Icon: Text
+    },
+    {
+        id: 10,
+        name: "Generate Code",
+        path: path.CODE_GENERATOR,
+        Icon: Code,
     },
     {
         id: 2,
