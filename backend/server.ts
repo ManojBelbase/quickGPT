@@ -11,6 +11,7 @@ import dashboardStatsRouter from "./routes/dashboard.route";
 import textSummarizerRouter from "./routes/textSummarizer.route";
 import codeGeneratorRouter from './routes/code-generate.route'
 import socialMediaPostRouter from "./routes/social-media-post.route";
+
 const app = express();
 
 // CORS

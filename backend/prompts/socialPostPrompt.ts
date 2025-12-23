@@ -51,3 +51,4 @@ Rules to follow strictly:
 The result must be clean, natural, and copy-paste ready.
 `.trim();
 };
+
