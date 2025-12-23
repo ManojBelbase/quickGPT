@@ -2,19 +2,9 @@ import React from 'react';
 import { Image, Wand2, Loader2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Switch } from '../ui/Switch';
-import type { ImageStyle } from '../../types';
+import type { ImageGenerationFormProps } from '../../types';
 
-interface ImageGenerationFormProps {
-    prompt: string;
-    onPromptChange: (value: string) => void;
-    styles: ImageStyle[];
-    selectedStyle: ImageStyle;
-    onStyleChange: (style: ImageStyle) => void;
-    publish: boolean;
-    onPublishChange: (value: boolean) => void;
-    onGenerate: () => void;
-    isLoading: boolean;
-}
+
 
 const ImageGenerationForm: React.FC<ImageGenerationFormProps> = ({
     prompt,

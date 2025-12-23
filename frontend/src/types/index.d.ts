@@ -286,3 +286,15 @@ export interface CodeFormProps {
     onGenerate: () => void;
     isLoading: boolean;
 }
+
+export interface ImageGenerationFormProps {
+    prompt: string;
+    onPromptChange: (value: string) => void;
+    styles: ImageStyle[];
+    selectedStyle: ImageStyle;
+    onStyleChange: (style: ImageStyle) => void;
+    publish: boolean;
+    onPublishChange: (value: boolean) => void;
+    onGenerate: () => void;
+    isLoading: boolean;
+}

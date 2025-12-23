@@ -9,11 +9,11 @@ import {
     Layers,
     type LucideIcon,
     Code2,
+    Sparkles, // ← Added for social post generator
 } from 'lucide-react';
 import { path } from '../routes/paths';
 
-
-type ToolTag = 'New' | 'Upcoming' | "Popular";
+type ToolTag = 'New' | 'Upcoming' | 'Popular';
 
 interface AiToolData {
     title: string;
@@ -22,9 +22,8 @@ interface AiToolData {
     bg: { from: string; to: string };
     path: string;
     tag?: ToolTag;
-    pro?: Boolean
+    pro?: boolean;
 }
-
 
 export const AiToolsData: AiToolData[] = [
     {
@@ -37,9 +36,6 @@ export const AiToolsData: AiToolData[] = [
         tag: 'New',
         pro: false,
     },
-
-
-
     {
         title: 'Code Generator',
         description:
@@ -47,7 +43,7 @@ export const AiToolsData: AiToolData[] = [
         Icon: Code2,
         bg: { from: '#0EA5E9', to: '#2563EB' },
         path: path.CODE_GENERATOR,
-        tag: "Popular"
+        tag: 'Popular',
     },
     {
         title: 'Image Generation',
@@ -55,7 +51,7 @@ export const AiToolsData: AiToolData[] = [
         Icon: Image,
         bg: { from: '#20C363', to: '#11B97E' },
         path: path.GENERATE_IMAGE,
-        pro: true
+        pro: true,
     },
     {
         title: 'Article Writer',
@@ -64,7 +60,7 @@ export const AiToolsData: AiToolData[] = [
         Icon: SquarePen,
         bg: { from: '#3588F2', to: '#0BB0D7' },
         path: path.WRITE_ARTICLE,
-        tag: "Popular"
+        tag: 'Popular',
     },
     {
         title: 'Blog Title Generator',
@@ -74,8 +70,19 @@ export const AiToolsData: AiToolData[] = [
         bg: { from: '#B153EA', to: '#E549A3' },
         path: path.BLOG_TITLE,
     },
+    // NEW: Social Media Post Generator
+    {
+        title: 'Social Post Generator',
+        description:
+            'Create engaging, platform-optimized posts for LinkedIn, Twitter, Facebook, Instagram, and more in seconds.',
+        Icon: Sparkles,
+        bg: { from: '#8B5CF6', to: '#A78BFA' }, // Nice purple-indigo gradient to fit the AI theme
+        path: path.SOCIAL_POST_GENERATOR,
+        tag: 'Upcoming',
 
 
+        pro: false, // or true if you want it premium
+    },
     {
         title: 'Background Removal',
         description:
@@ -84,6 +91,7 @@ export const AiToolsData: AiToolData[] = [
         bg: { from: '#F76C1C', to: '#F04A3C' },
         path: path.REMOVE_BACKGROUND,
         pro: true,
+
     },
     {
         title: 'Replace Background',
@@ -92,7 +100,7 @@ export const AiToolsData: AiToolData[] = [
         Icon: Layers,
         bg: { from: '#5C6AF1', to: '#427DF5' },
         path: path.REPLACE_BACKGROUND,
-        pro: true
+        pro: true,
     },
     {
         title: 'Resume Reviewer',
@@ -102,12 +110,12 @@ export const AiToolsData: AiToolData[] = [
         bg: { from: '#12B7AC', to: '#08B6CE' },
         path: path.REVIEW_RESUME,
         tag: 'Upcoming',
-        pro: true
+        pro: true,
     },
     {
         title: 'More Coming Soon...',
         Icon: MoreHorizontal,
-        description: "More tools being added every week...",
+        description: 'More tools being added every week...',
         bg: { from: '#CBD5E1', to: '#94A3B8' },
         path: '#',
     },
