@@ -3,11 +3,7 @@ import { Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { AIResponseParser } from 'ai-response-parser';
 import { PreviewHeader } from '../ui/PreviewHeader';
 import { sharePost } from '../../utils/sharePost';
-
-interface SocialPostPreviewProps {
-    posts: string[];
-    isLoading: boolean;
-}
+import type { SocialPostPreviewProps } from '../../types';
 
 export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isLoading }) => {
     const isInitialState = posts.length === 0 && !isLoading;
@@ -42,7 +38,7 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
     };
 
     return (
-        <div className="w-full p-2 h-full bg-white rounded-md shadow-md">
+        <div className="w-full p-2 h-full bg-white sm:rounded-lg shadow-sm">
             <PreviewHeader
                 title="Post Preview"
                 icon={<Sparkles className="w-5 h-5 mr-2 text-purple-600" />}
@@ -93,9 +89,23 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
                 )}
 
                 {isInitialState && (
-                    <div className="flex flex-col h-full items-center justify-center text-center text-gray-500">
-                        <Sparkles className="w-12 h-12 mb-3 text-gray-300" />
-                        <p className="text-lg font-medium">Ready to generate</p>
+                    <div className="flex flex-col h-full items-center justify-center p-8 animate-in fade-in zoom-in duration-700">
+                        <div className="relative mb-6">
+                            {/* Soft Background Glow */}
+                            <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full" />
+
+                            {/* Icon with Gradient */}
+                            <div className="relative bg-white/10 p-4 rounded-2xl border border-gray-100 shadow-sm">
+                                <Sparkles className="w-12 h-12 text-blue-500 animate-pulse" />
+                            </div>
+                        </div>
+
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                            Ready to create magic?
+                        </h3>
+                        <p className="text-gray-500 max-w-240px leading-relaxed">
+                            Type your prompt and let QuickGPT handle the rest.
+                        </p>
                     </div>
                 )}
             </div>

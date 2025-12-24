@@ -3,10 +3,13 @@ import { AIResponseParser, parseAiResponseToPlainText } from 'ai-response-parser
 import type { GeneratedCodeResultProps } from '../../types';
 import { PreviewHeader } from '../ui/PreviewHeader';
 import React from 'react';
+import { sharePost } from '../../utils/sharePost';
 
 export const CodePreview: React.FC<GeneratedCodeResultProps> = ({ content, isLoading }) => {
     const plainText = React.useMemo(() => content ? parseAiResponseToPlainText(content) : '', [content]);
-
+    const handleShare = () => {
+        sharePost({ caption: plainText });
+    }
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-md shadow-sm">
 
@@ -15,6 +18,8 @@ export const CodePreview: React.FC<GeneratedCodeResultProps> = ({ content, isLoa
                 icon={<Code className="w-5 h-5 mr-2 text-purple-600" />}
                 isCopy={true}
                 copyText={plainText}
+                onShare={handleShare}
+
             />
 
             <div className="min-h-[600px] h-full overflow-y-scroll border-t-2 border-gray-200 p-2 sm:p-4 relative">

@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
 
     return (
         <div
-            className={`flex flex-col w-64 h-full bg-white border-r border-gray-200
+            className={`flex flex-col w-66 h-full bg-white border-r border-gray-200
                 transition-transform duration-300 ease-in-out
                 fixed inset-y-0 left-0 z-50
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}

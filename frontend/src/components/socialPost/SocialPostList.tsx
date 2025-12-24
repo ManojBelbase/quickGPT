@@ -1,9 +1,8 @@
-// src/components/socialPost/SocialPostList.tsx
-import React from "react";
 import { Trash2, Loader2, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
 import { useDeleteSocialPost, useGetUserSocialPosts } from "../../hooks/useSocialPosts";
 import ConfirmModal from "../shared/ConfirmModel";
+import React from "react";
 
 interface SocialPostListProps {
     onSelectPost?: (post: string) => void;
@@ -32,7 +31,7 @@ const SocialPostList: React.FC<SocialPostListProps> = ({ onSelectPost }) => {
     if (isError) return <p className="text-red-600 text-sm p-4">Failed to load posts</p>;
 
     return (
-        <div className="bg-white p-2 sm:p-4 rounded-sm sm:rounded-sm shadow-sm overflow-y-auto">
+        <div className="bg-white p-2 sm:p-4 rounded-sm sm:rounded-xl shadow-sm border border-gray-200 overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">Your Generated Posts</h2>
 
             {isLoading && <p className="text-gray-500">Loading...</p>}
@@ -55,10 +54,10 @@ const SocialPostList: React.FC<SocialPostListProps> = ({ onSelectPost }) => {
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setConfirmId(post.id); // open modal
+                                setConfirmId(post.id);
                             }}
                             disabled={deletingId === post.id}
-                            className="text-red-500 hover:text-red-600 transition"
+                            className="text-red-500 cursor-pointer hover:text-red-600 transition"
                         >
                             {deletingId === post.id ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />

@@ -3,9 +3,13 @@ import { FileText, Loader2, PenSquare } from 'lucide-react';
 import { AIResponseParser, parseAiResponseToPlainText } from 'ai-response-parser';
 import type { GeneratedArticleResultProps } from '../../types';
 import { PreviewHeader } from '../ui/PreviewHeader';
+import { sharePost } from '../../utils/sharePost';
 
 export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content, isLoading }) => {
     const plainText = React.useMemo(() => content ? parseAiResponseToPlainText(content) : '', [content]);
+    const handleShare = () => {
+        sharePost({ caption: plainText });
+    }
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-md shadow-sm">
 
@@ -14,6 +18,7 @@ export const ArticlePreview: React.FC<GeneratedArticleResultProps> = ({ content,
                 icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
                 isCopy={true}
                 copyText={plainText}
+                onShare={handleShare}
             />
 
             <div className="min-h-[600px] h-full overflow-y-scroll border-t-2  border-gray-200 p-2 sm:p-4 relative">

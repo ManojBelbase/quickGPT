@@ -57,7 +57,7 @@ export const PreviewHeader: React.FC<ExtendedPreviewHeaderProps> = ({
                 {onShare && copyText && (
                     <button
                         onClick={onShare}
-                        className="flex items-center cursor-pointer gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition"
+                        className="flex items-center cursor-pointer gap-1 px-3 py-1.5 text-sm font-medium text-white bg-purple-700 hover:bg-purple-800 rounded-md transition"
                         title="Share to social media"
                     >
                         <Share2 className="w-4 h-4" />
