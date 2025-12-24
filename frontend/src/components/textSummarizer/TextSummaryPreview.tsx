@@ -1,14 +1,14 @@
 import { FileText, Loader2 } from "lucide-react";
 import { AIResponseParser } from "ai-response-parser";
 import { PreviewHeader } from "../ui/PreviewHeader";
-
-interface TextSummaryPreviewProps {
-    summary: string;
-    isLoading: boolean;
-}
+import { sharePost } from "../../utils/sharePost";
+import type { TextSummaryPreviewProps } from "../../types";
 
 const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoading }) => {
     const isInitialState = !summary && !isLoading;
+    const handleShare = () => {
+        sharePost({ caption: summary });
+    }
 
     return (
         <div className="w-full p-2 sm:p-4 bg-white rounded-md shadow-md">
@@ -17,6 +17,7 @@ const TextSummaryPreview: React.FC<TextSummaryPreviewProps> = ({ summary, isLoad
                 icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
                 isCopy={!!summary}
                 copyText={summary}
+                onShare={handleShare}
             />
 
             <div className="min-h-[300px] sm:min-h-[600px] h-full border-t-2 border-gray-200 p-2 relative">

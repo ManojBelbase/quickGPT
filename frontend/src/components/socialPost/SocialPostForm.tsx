@@ -1,29 +1,8 @@
 import { Wand2, Loader2 } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Switch } from "../ui/Switch";
-import type { SocialPlatform, SocialPostFormProps } from "../../types";
-
-export const ALLOWED_TONES = {
-    professional: "professional",
-    casual: "casual",
-    friendly: "friendly",
-    persuasive: "persuasive",
-    inspirational: "inspirational",
-} as const;
-
-export const platforms: SocialPlatform[] = [
-    "linkedin",
-    "facebook",
-    "twitter",
-    "instagram",
-] as const;
-const lengths = [
-    { label: "Short(max 40 words) ", value: "short" },
-    { label: "Medium(40-80 words)", value: "medium" },
-    { label: "Long(80+ words)", value: "long" },
-] as const;
-
-
+import type { SocialPostFormProps } from "../../types";
+import { ALLOWED_TONES, lengths, platforms } from "../../const/const";
 
 const SocialPostForm: React.FC<SocialPostFormProps> = ({
     prompt,
@@ -48,7 +27,7 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
     };
 
     return (
-        <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-md h-fit">
+        <div className="w-full p-2 sm:p-4 bg-white rounded-xl shadow-sm h-fit">
             <h2 className="text-xl font-bold text-gray-900 flex items-center mb-6">
                 <Wand2 className="w-5 h-5 mr-2 text-purple-600" />
                 Social Post Generator

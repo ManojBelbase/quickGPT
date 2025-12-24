@@ -16,7 +16,6 @@ export const Hero = () => {
         }
     };
 
-
     return (
         <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#FAFBFF]">
 

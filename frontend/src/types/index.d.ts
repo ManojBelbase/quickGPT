@@ -358,3 +358,12 @@ export interface SocialPostFormProps {
 
 
 export type Tone = keyof typeof ALLOWED_TONES;
+
+export interface SocialPostPreviewProps {
+    posts: string[];
+    isLoading: boolean;
+}
+export interface TextSummaryPreviewProps {
+    summary: string;
+    isLoading: boolean;
+}

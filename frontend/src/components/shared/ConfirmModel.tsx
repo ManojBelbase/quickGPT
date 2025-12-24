@@ -67,7 +67,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                 </div>
 
                 {/* Footer / Buttons */}
-                <div className="bg-gray-50 px-6 py-4 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                <div className="bg-gray-50 px-6 py-4 flex  sm:flex-row justify-end gap-3">
                     <button
                         className="px-4 py-2 text-sm cursor-pointer font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all focus:ring-2 focus:ring-gray-200"
                         onClick={onCancel}

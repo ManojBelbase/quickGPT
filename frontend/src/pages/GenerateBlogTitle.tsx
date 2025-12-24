@@ -13,8 +13,6 @@ const GenerateBlogTitle: React.FC = () => {
     const [generatedTitles, setGeneratedTitles] = useState<string[]>([]);
     const [selectedTitle, setSelectedTitle] = useState<string>("");
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
-
-    // mutateAsync pattern — exactly like Attendance
     const { mutateAsync: generateTitles } = useGenerateBlogTitle();
 
     const handleGenerateTitles = async () => {
@@ -23,7 +21,6 @@ const GenerateBlogTitle: React.FC = () => {
             toast.error("Please enter a keyword");
             return;
         }
-
         setIsGenerating(true);
         setGeneratedTitles([]);
         setSelectedTitle("");

@@ -13,9 +13,7 @@ export const sharePost = async ({ caption, imageUrl }: SharePostOptions) => {
 
     if (navigator.share) {
         try {
-            // --- IMAGE FLOW ---
             if (imageUrl) {
-                // 1. Copy caption ONLY when image is present
                 await safeCopy(finalCaption);
 
                 // 2. Prepare the file
@@ -34,8 +32,7 @@ export const sharePost = async ({ caption, imageUrl }: SharePostOptions) => {
                 return;
             }
 
-            // --- TEXT ONLY FLOW ---
-            // (No safeCopy here as per your request)
+
             await navigator.share({
                 title: "AI Generated Post ✨",
                 text: finalCaption,
@@ -56,7 +53,7 @@ export const sharePost = async ({ caption, imageUrl }: SharePostOptions) => {
         downloadImage(imageUrl);
         toast.success("Image downloaded and caption copied!");
     } else {
-        await safeCopy(finalCaption); // Usually fallback needs a copy anyway
+        await safeCopy(finalCaption);
         toast.success("Caption copied!");
     }
 };

@@ -3,6 +3,7 @@ import { AIResponseParser } from 'ai-response-parser';
 import type { BlogTitleResultProps } from '../../types';
 import React from 'react';
 import { PreviewHeader } from '../ui/PreviewHeader';
+import { sharePost } from '../../utils/sharePost';
 export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoading }) => {
     const isInitialState = !titles.length && !isLoading;
     const plainText = React.useMemo(() => {
@@ -10,6 +11,9 @@ export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoa
         return titles.join('\n');
     }, [titles]);
 
+    const handleShare = () => {
+        sharePost({ caption: plainText });
+    };
 
     return (
         <div className="w-full  p-2 bg-white rounded-md shadow-md">
@@ -18,7 +22,7 @@ export const BlogTitlePreview: React.FC<BlogTitleResultProps> = ({ titles, isLoa
                 icon={<FileText className="w-5 h-5 mr-2 text-purple-600" />}
                 isCopy={true}
                 copyText={plainText}
-
+                onShare={handleShare}
             />
 
             <div className="min-h-[300px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">

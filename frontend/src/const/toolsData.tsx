@@ -8,7 +8,7 @@ import {
     FileSearch2,
     Layers,
     Code,
-    Sparkles, // ← added for social post (matches your Article/Code form icons)
+    Sparkles,
 } from 'lucide-react';
 import { path } from '../routes/paths';
 import type { Tool } from '../types';
