@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { sidebarLinks } from '../../const/sidebarLinks';
-import { useUser, UserButton } from '@clerk/clerk-react';
+import { useUser, UserButton, useClerk } from '@clerk/clerk-react';
 import { path } from '../../routes/paths';
 import type { SidebarLink, SidebarProps } from '../../types';
 import { Icon } from '@iconify/react';
@@ -9,31 +9,43 @@ import { X } from 'lucide-react';
 const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
     const navigate = useNavigate();
     const { user } = useUser();
+    const { openSignIn } = useClerk();
 
     const handleNavigation = (path: string) => {
+        if (!user) {
+            openSignIn();
+            onClose();
+            return;
+        }
+
         navigate(path);
         onClose();
     };
 
     const SidebarItem: React.FC<{ link: SidebarLink }> = ({ link }) => {
         const isActive = currentPath === link.path;
-        const { Icon, name, path } = link;
+        const { Icon, name, tag } = link;
 
         return (
             <div
-                onClick={() => handleNavigation(path)}
+                onClick={() => handleNavigation(link.path)}
                 className={`flex items-center space-x-3 p-3 text-sm rounded-md mx-2 mb-1 cursor-pointer transition-colors
-                    ${isActive
+        ${isActive
                         ? 'bg-purple-600 text-white font-medium shadow-sm shadow-purple-200'
                         : 'text-gray-900 hover:bg-gray-100'
                     }`}
             >
                 <Icon className="w-5 h-5" />
                 <span>{name}</span>
-                {link.tag && <span className="ml-auto bg-purple-100  text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">{link.tag}</span>}
+                {tag && (
+                    <span className="ml-auto bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                        {tag}
+                    </span>
+                )}
             </div>
         );
     };
+
 
     return (
         <div
