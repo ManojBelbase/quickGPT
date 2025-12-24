@@ -25,7 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPath, isOpen, onClose }) => {
                 className={`flex items-center space-x-3 p-3 text-sm rounded-md mx-2 mb-1 cursor-pointer transition-colors
                     ${isActive
                         ? 'bg-purple-600 text-white font-medium shadow-sm shadow-purple-200'
-                        : 'text-gray-600 hover:bg-gray-100'
+                        : 'text-gray-900 hover:bg-gray-100'
                     }`}
             >
                 <Icon className="w-5 h-5" />

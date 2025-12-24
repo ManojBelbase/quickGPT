@@ -11,7 +11,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, iconType })
             <div>
                 <div className="text-3xl font-bold text-gray-800">{value}</div>
                 <div className="text-sm font-medium text-gray-500 mt-1">{title}</div>
-            </div>
+            </div>d
             <div className={`p-3 rounded-xl ${iconBg}`}>
                 {icon}
             </div>

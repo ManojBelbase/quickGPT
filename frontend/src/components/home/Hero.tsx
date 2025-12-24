@@ -31,7 +31,9 @@ export const Hero = () => {
                 {/* 2. Animated Announcement Badge */}
                 <div className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-indigo-100 shadow-sm mb-10 transition-all hover:border-indigo-300 cursor-pointer">
                     <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse" />
-                    <span onClick={() => navigate(path.CODE_GENERATOR)} className="text-xs font-semibold text-slate-600 tracking-wide">
+
+
+                    <span onClick={!user ? handleStartCreating : () => navigate(path.CODE_GENERATOR)} className="text-xs font-semibold text-slate-600 tracking-wide">
                         New: AI Code Generation is here
                     </span>
                     <ArrowRight size={14} className="text-indigo-400 group-hover:translate-x-1 transition-transform" />

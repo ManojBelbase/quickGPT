@@ -46,6 +46,16 @@ export const AiToolsData: AiToolData[] = [
         tag: 'Popular',
     },
     {
+        title: 'Social Post Generator',
+        description:
+            'Create engaging, platform-optimized posts for LinkedIn, Twitter, Facebook, Instagram, and more in seconds.',
+        Icon: Sparkles,
+        bg: { from: '#8B5CF6', to: '#A78BFA' },
+        path: path.SOCIAL_POST_GENERATOR,
+        tag: 'Popular',
+        pro: true,
+    },
+    {
         title: 'Image Generation',
         description: 'Create stunning visuals with our AI image generation tool and experience the power of AI.',
         Icon: Image,
@@ -53,8 +63,9 @@ export const AiToolsData: AiToolData[] = [
         path: path.GENERATE_IMAGE,
         pro: true,
     },
+
     {
-        title: 'Article Writer',
+        title: 'Article Generator',
         description:
             'Generate high-quality, engaging articles on any topic with our AI writing technology.',
         Icon: SquarePen,
@@ -70,16 +81,7 @@ export const AiToolsData: AiToolData[] = [
         bg: { from: '#B153EA', to: '#E549A3' },
         path: path.BLOG_TITLE,
     },
-    {
-        title: 'Social Post Generator',
-        description:
-            'Create engaging, platform-optimized posts for LinkedIn, Twitter, Facebook, Instagram, and more in seconds.',
-        Icon: Sparkles,
-        bg: { from: '#8B5CF6', to: '#A78BFA' },
-        path: path.SOCIAL_POST_GENERATOR,
-        tag: 'Popular',
-        pro: true,
-    },
+
     {
         title: 'Background Removal',
         description:

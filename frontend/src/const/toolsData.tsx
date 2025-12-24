@@ -26,9 +26,18 @@ export const tools: Tool[] = [
         icon: Code,
         path: path.CODE_GENERATOR,
         color: 'bg-cyan-500',
+        tag: 'New',
     },
     {
-        title: 'Article Writer',
+        title: 'Social Post Generator',
+        icon: Sparkles,
+        path: path.SOCIAL_POST_GENERATOR,
+        color: 'bg-indigo-500',
+        tag: 'Popular',
+        pro: true,
+    },
+    {
+        title: 'Article Generator',
         icon: FileText,
         path: path.WRITE_ARTICLE,
         color: 'bg-purple-500',
@@ -40,14 +49,7 @@ export const tools: Tool[] = [
         color: 'bg-emerald-500',
     },
     // NEW: Social Media Post Generator
-    {
-        title: 'Social Post Generator',
-        icon: Sparkles,
-        path: path.SOCIAL_POST_GENERATOR,
-        color: 'bg-indigo-500',
-        tag: 'Popular',
-        pro: true,
-    },
+
     {
         title: 'AI Image Generator',
         icon: ImageIcon,
