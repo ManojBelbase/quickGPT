@@ -21,7 +21,7 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
 
     // Combine all clean texts (what you want to share)
     const allCleanTexts = posts.map(post => parseContent(post).cleanText).filter(Boolean);
-    const shareText = allCleanTexts.join('\n\n\n'); // Clear separation between posts
+    const shareText = allCleanTexts.join('\n\n\n');
 
     // Get the first image (or null)
     const getFirstImageUrl = () => {
@@ -32,47 +32,67 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
         return null;
     };
 
-    // Native share (mobile) or fallback to copy (desktop)
     const handleShare = async () => {
-        // First, try to fetch image as Blob if present
-        let imageFile: File | undefined;
+        const caption = shareText || "Check out this AI-generated post ✨";
+        const imageUrl = getFirstImageUrl();
 
-        const firstImageUrl = getFirstImageUrl();
-        if (firstImageUrl && posts.length === 1) { // Best for single post with image
-            try {
-                const response = await fetch(firstImageUrl);
-                if (response.ok) {
-                    const blob = await response.blob();
-                    imageFile = new File([blob], "ai-generated-post-image.png", { type: blob.type });
-                }
-            } catch (err) {
-                console.warn("Failed to fetch image for sharing:", err);
-            }
-        }
-
-        // Web Share API (mobile native share)
+        // Native Share supported
         if (navigator.share) {
             try {
-                const shareData: ShareData = {
-                    title: "AI Generated Social Post ✨",
-                    text: shareText,
-                    files: imageFile ? [imageFile] : undefined,
-                };
+                // IMAGE + TEXT FLOW
+                if (imageUrl) {
+                    const response = await fetch(imageUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], "ai-generated-post.png", {
+                        type: blob.type,
+                    });
 
-                await navigator.share(shareData);
-                return; // Success
+                    // Share image
+                    await navigator.share({
+                        title: "AI Generated Post ✨",
+                        text: caption,
+                        files: [file],
+                    });
+
+                    // Copy caption separately (IMPORTANT)
+                    await navigator.clipboard.writeText(caption);
+
+
+                    return;
+                }
+
+                // TEXT ONLY FLOW
+                await navigator.share({
+                    title: "AI Generated Post ✨",
+                    text: caption,
+                });
+                return;
             } catch (err) {
-                console.warn("Native share cancelled or failed:", err);
-                // Fall through to copy
+                console.warn("Native share failed:", err);
             }
         }
 
-        // Fallback: Copy text to clipboard (desktop or if share fails)
+        // DESKTOP FALLBACK
         try {
-            await navigator.clipboard.writeText(shareText);
-            alert("Content copied to clipboard! You can paste it directly into any platform.");
-        } catch (err) {
-            alert("Failed to copy. Please manually select and copy the preview text.");
+            await navigator.clipboard.writeText(caption);
+
+            if (imageUrl) {
+                const link = document.createElement("a");
+                link.href = imageUrl;
+                link.download = "ai-generated-post.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            alert(
+                "Caption copied to clipboard!" +
+                (imageUrl
+                    ? "\nImage downloaded — upload it and paste the caption."
+                    : "")
+            );
+        } catch {
+            alert("Unable to share automatically. Please copy manually.");
         }
     };
 
