@@ -11,6 +11,7 @@ import dashboardStatsRouter from "./routes/dashboard.route";
 import textSummarizerRouter from "./routes/textSummarizer.route";
 import codeGeneratorRouter from './routes/code-generate.route'
 import socialMediaPostRouter from "./routes/social-media-post.route";
+import chatRouter from "./routes/chat.route";
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.get("/", (_req, res) => {
     res.send("QuickGPT Server running 🚀");
 });
 
+app.use('/api/chat', chatRouter)
 // 🔐 PROTECT ONLY API ROUTES
 app.use("/api", requireAuth());
 
