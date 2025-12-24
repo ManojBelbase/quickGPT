@@ -2,6 +2,7 @@ import React from 'react';
 import { Loader2, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { AIResponseParser } from 'ai-response-parser';
 import { PreviewHeader } from '../ui/PreviewHeader';
+import { sharePost } from '../../utils/sharePost';
 
 interface SocialPostPreviewProps {
     posts: string[];
@@ -19,11 +20,12 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
         return { cleanText, imageUrl };
     };
 
-    // Combine all clean texts (what you want to share)
-    const allCleanTexts = posts.map(post => parseContent(post).cleanText).filter(Boolean);
+    const allCleanTexts = posts
+        .map(post => parseContent(post).cleanText)
+        .filter(Boolean);
+
     const shareText = allCleanTexts.join('\n\n\n');
 
-    // Get the first image (or null)
     const getFirstImageUrl = () => {
         for (const post of posts) {
             const { imageUrl } = parseContent(post);
@@ -32,68 +34,11 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
         return null;
     };
 
-    const handleShare = async () => {
-        const caption = shareText || "Check out this AI-generated post ✨";
-        const imageUrl = getFirstImageUrl();
-
-        // Native Share supported
-        if (navigator.share) {
-            try {
-                // IMAGE + TEXT FLOW
-                if (imageUrl) {
-                    const response = await fetch(imageUrl);
-                    const blob = await response.blob();
-                    const file = new File([blob], "ai-generated-post.png", {
-                        type: blob.type,
-                    });
-
-                    // Share image
-                    await navigator.share({
-                        title: "AI Generated Post ✨",
-                        text: caption,
-                        files: [file],
-                    });
-
-                    // Copy caption separately (IMPORTANT)
-                    await navigator.clipboard.writeText(caption);
-
-
-                    return;
-                }
-
-                // TEXT ONLY FLOW
-                await navigator.share({
-                    title: "AI Generated Post ✨",
-                    text: caption,
-                });
-                return;
-            } catch (err) {
-                console.warn("Native share failed:", err);
-            }
-        }
-
-        // DESKTOP FALLBACK
-        try {
-            await navigator.clipboard.writeText(caption);
-
-            if (imageUrl) {
-                const link = document.createElement("a");
-                link.href = imageUrl;
-                link.download = "ai-generated-post.png";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-
-            alert(
-                "Caption copied to clipboard!" +
-                (imageUrl
-                    ? "\nImage downloaded — upload it and paste the caption."
-                    : "")
-            );
-        } catch {
-            alert("Unable to share automatically. Please copy manually.");
-        }
+    const handleShare = () => {
+        sharePost({
+            caption: shareText,
+            imageUrl: getFirstImageUrl(),
+        });
     };
 
     return (
@@ -103,7 +48,7 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
                 icon={<Sparkles className="w-5 h-5 mr-2 text-purple-600" />}
                 isCopy={posts.length > 0}
                 copyText={shareText}
-                onShare={handleShare}  // Now shares the content directly
+                onShare={handleShare}
             />
 
             <div className="min-h-[300px] h-full sm:min-h-[600px] border-t-2 border-gray-200 p-2 sm:p-4 relative">
@@ -118,10 +63,12 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
                                         themeName="light"
                                         textColor="#000000"
                                     />
+
                                     {imageUrl && (
                                         <div className="relative rounded-xl overflow-hidden border border-gray-200 shadow-sm">
                                             <div className="absolute top-2 left-2 z-10 bg-black/50 text-white px-2 py-1 rounded text-[10px] flex items-center backdrop-blur-sm">
-                                                <ImageIcon className="w-3 h-3 mr-1" /> AI Generated Image
+                                                <ImageIcon className="w-3 h-3 mr-1" />
+                                                AI Generated Image
                                             </div>
                                             <img
                                                 src={imageUrl}
@@ -136,7 +83,6 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
                     </div>
                 )}
 
-                {/* Loading */}
                 {isLoading && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 z-20">
                         <Loader2 className="h-8 w-8 text-purple-600 animate-spin" />
@@ -146,7 +92,6 @@ export const SocialPostPreview: React.FC<SocialPostPreviewProps> = ({ posts, isL
                     </div>
                 )}
 
-                {/* Initial */}
                 {isInitialState && (
                     <div className="flex flex-col h-full items-center justify-center text-center text-gray-500">
                         <Sparkles className="w-12 h-12 mb-3 text-gray-300" />
