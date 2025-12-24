@@ -17,8 +17,13 @@ export const platforms: SocialPlatform[] = [
     "twitter",
     "instagram",
 ] as const;
+const lengths = [
+    { label: "Short(max 40 words) ", value: "short" },
+    { label: "Medium(40-80 words)", value: "medium" },
+    { label: "Long(80+ words)", value: "long" },
+] as const;
 
-const lengths = ["short", "medium", "long"] as const;
+
 
 const SocialPostForm: React.FC<SocialPostFormProps> = ({
     prompt,
@@ -76,7 +81,7 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
                                 key={p}
                                 type="button"
                                 onClick={() => onPlatformChange(p)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border ${platform === p
+                                className={`py-2 px-4 cursor-pointer text-sm font-medium rounded-md transition-colors border ${platform === p
                                     ? "bg-purple-600 text-white border-purple-600 shadow-sm"
                                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                                     }`}
@@ -97,7 +102,7 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
                                 key={t}
                                 type="button"
                                 onClick={() => onToneChange(t)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border ${tone === t
+                                className={`py-2 px-4 cursor-pointer text-sm font-medium rounded-md transition-colors border ${tone === t
                                     ? "bg-purple-600 text-white border-purple-600"
                                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                                     }`}
@@ -115,16 +120,16 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
                     <div className="flex flex-wrap gap-2">
                         {lengths.map((l) => (
                             <button
-                                key={l}
+                                key={l.value}
                                 type="button"
-                                onClick={() => onLengthChange(l)}
-                                className={`py-2 px-4 text-sm font-medium rounded-md transition-colors border ${length === l
+                                onClick={() => onLengthChange(l.value)}
+                                className={`py-2 cursor-pointer px-4 text-sm font-medium rounded-md transition-colors border ${length === l.value
                                     ? "bg-purple-600 text-white border-purple-600"
                                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                                     }`}
                                 disabled={isLoading}
                             >
-                                {l.charAt(0).toUpperCase() + l.slice(1)}
+                                {l.label}
                             </button>
                         ))}
                     </div>
@@ -151,7 +156,6 @@ const SocialPostForm: React.FC<SocialPostFormProps> = ({
 
                 </div>
 
-                {/* Generate Image Toggle */}
 
                 {/* Generate Button */}
                 <Button

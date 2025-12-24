@@ -19,7 +19,6 @@ const getVariantClasses = (variant: ButtonVariant) => {
             return "text-gray-700 hover:bg-gray-100";
         case "default":
         default:
-            // This style matches the purple 'Generate article' button
             return "bg-purple-600 text-white hover:bg-purple-700 shadow-md";
     }
 };

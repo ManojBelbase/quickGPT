@@ -119,7 +119,7 @@ const Dashboard: React.FC = () => {
                                 key={tool.title}
                                 onClick={() => !isUpcoming && navigate(tool.path)}
                                 disabled={isUpcoming}
-                                className={`group relative bg-white border border-slate-200 p-5 sm:p-6 md:p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 ${isUpcoming
+                                className={`group relative cursor-pointer bg-white border border-slate-200 p-5 sm:p-6 md:p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 ${isUpcoming
                                     ? 'opacity-60 cursor-not-allowed'
                                     : 'hover:shadow-2xl hover:shadow-indigo-200/40 hover:-translate-y-2'
                                     }`}
@@ -236,7 +236,12 @@ const Dashboard: React.FC = () => {
                                     {[
                                         "Unlimited AI Image Generation",
                                         "Magic Background Removal & Replace",
+                                        "AI Text-to-Image Generation",
+                                        "Generate Social Media Posts",
                                         "Priority Processing & Support",
+                                        "Access to Exclusive New Features",
+                                        "Early Access to Beta Tools",
+
                                     ].map((feat) => (
                                         <li
                                             key={feat}
@@ -253,7 +258,7 @@ const Dashboard: React.FC = () => {
 
                             <button
                                 onClick={() => navigate("/#plans")}
-                                className="w-full mt-8 py-3 sm:py-4 
+                                className="w-full mt-8 py-3 sm:py-4 cursor-pointer 
                                 bg-indigo-500 hover:bg-indigo-400 
                                 rounded-xl font-black text-xs sm:text-sm 
                                 transition-all shadow-2xl shadow-indigo-500/40 
