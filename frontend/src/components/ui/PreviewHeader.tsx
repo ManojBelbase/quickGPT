@@ -1,12 +1,12 @@
 // PreviewHeader.tsx
 import React from 'react';
-import { Share2 } from 'lucide-react'; // or any icon
+import { Share2 } from 'lucide-react';
 import { CopyButton } from '../ui/CopyButton';
 import { DownloadButton } from '../ui/DownloadButton';
 import type { PreviewHeaderProps } from '../../types';
 
 interface ExtendedPreviewHeaderProps extends PreviewHeaderProps {
-    onShare?: () => void; // new prop for share action
+    onShare?: () => void;
 }
 
 export const PreviewHeader: React.FC<ExtendedPreviewHeaderProps> = ({
@@ -54,10 +54,10 @@ export const PreviewHeader: React.FC<ExtendedPreviewHeaderProps> = ({
 
             <div className="flex items-center gap-2">
                 {rightContent}
-                {onShare && (
+                {onShare && copyText && (
                     <button
                         onClick={onShare}
-                        className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition"
+                        className="flex items-center cursor-pointer gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition"
                         title="Share to social media"
                     >
                         <Share2 className="w-4 h-4" />
