@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Send, Bot, Sparkles, RotateCcw, X } from "lucide-react";
+import { useChat } from "../../hooks/useChat";
 import { Icon } from "@iconify/react";
 import { AIResponseParser } from "ai-response-parser";
-import { useChat } from "../../hooks/useChat";
 
 const ChatAssistant: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -264,7 +264,7 @@ const ChatAssistant: React.FC = () => {
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={`
-                    flex items-center cursor-pointer justify-center h-12 w-12 sm:w-14 sm:h-14 rounded-full shadow-2xl transition-all duration-500 transform 
+                    flex items-center cursor-pointer justify-center h-10 w-10 sm:w-14 sm:h-14 rounded-full shadow-2xl transition-all duration-500 transform 
                     ${isOpen ? "bg-slate-900 rotate-360deg scale-90" : "bg-purple-600 hover:bg-purple-700 hover:scale-110 active:scale-95"}
                 `}
                 >
@@ -272,8 +272,8 @@ const ChatAssistant: React.FC = () => {
                         <X className="w-6 h-6 text-white" />
                     ) : (
                         <div className="relative">
-                            <Bot className="sm:w-8 sm:h-8 h-7 w-7 text-white text-xl" />
-                            <span className="absolute -top-1 -right-1 h-2 w-2 sm:w-3 sm:h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
+                            <Bot className="sm:w-8 sm:h-8 h-6 w-6 text-white text-xl" />
+                            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
                         </div>
                     )}
                 </button>

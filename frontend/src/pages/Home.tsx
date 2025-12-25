@@ -6,6 +6,7 @@ import { AITools } from "../components/home/AIToolsGrid";
 import { Testimonials } from "../components/home/Testimonials";
 import Plans from "../components/home/Plans";
 import { FooterSection } from "../components/shared/Footer";
+import ChatAssistant from "../components/home/ChatAssistant";
 
 const Home = () => {
     const { hash } = useLocation();
@@ -29,6 +30,7 @@ const Home = () => {
                 <Plans />
             </div>
             <FooterSection />
+            <ChatAssistant />
         </>
     );
 };
