@@ -1,8 +1,8 @@
 import express from 'express';
-import { generateChatResponse } from '../controllers/chat.controller';
-import { chatRateLimiter } from '../config/chatRateLimiter';
+import { generateChatResponse, getChatHistory } from '../controllers/chat.controller';
 const chatRouter = express.Router();
 
-chatRouter.post('/', chatRateLimiter, generateChatResponse);
+chatRouter.post('/', generateChatResponse);
+chatRouter.get('/', getChatHistory);
 
 export default chatRouter;
