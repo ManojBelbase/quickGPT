@@ -162,14 +162,15 @@ const ChatAssistant: React.FC = () => {
                                         </p>
 
                                         {[
+                                            { label: "Can you tell me what you can do?", icon: "🤖" },
                                             { label: "How do I use AI tools?", icon: "🚀" },
-                                            { label: "Generate social media captions", icon: "💬" },
-                                            { label: "What can you do for me?", icon: "🤖" },
-                                        ].map((action, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => setInput(action.label)}
-                                                className="
+                                            { label: "Can you assist me with coding or debugging?", icon: "💻" }
+
+                                            ,].map((action, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => setInput(action.label)}
+                                                    className="
                     w-full cursor-pointer
                     flex items-center justify-between
                     p-3 sm:p-3
@@ -184,20 +185,20 @@ const ChatAssistant: React.FC = () => {
                     transition-all
                     group
                 "
-                                            >
-                                                <span className="flex items-center gap-2.5 sm:gap-3">
-                                                    <span className="text-sm">{action.icon}</span>
-                                                    {action.label}
-                                                </span>
-                                                <Send className="
+                                                >
+                                                    <span className="flex items-center gap-2.5 sm:gap-3">
+                                                        <span className="text-sm">{action.icon}</span>
+                                                        {action.label}
+                                                    </span>
+                                                    <Send className="
                     w-3 h-3
                     opacity-100 sm:opacity-0
                     sm:group-hover:opacity-100
                     transition-opacity
                     text-purple-500
                 " />
-                                            </button>
-                                        ))}
+                                                </button>
+                                            ))}
                                     </div>
                                 </div>
 
