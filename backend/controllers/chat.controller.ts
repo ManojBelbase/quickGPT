@@ -4,7 +4,7 @@ import { buildChatPrompt } from "../prompts/chatPrompt";
 import { response } from "../utils/responseHandler";
 import { openRouterForChatBot } from "../config/openRouter";
 import sql from "../config/db";
-import { MAX_REQUESTS, RATE_LIMIT_WINDOW_MS } from "../config/chatRateLimiter";
+import { getRandomRateLimitMessage, MAX_REQUESTS, RATE_LIMIT_WINDOW_MS } from "../config/chatRateLimiter";
 
 
 export const generateChatResponse = async (
@@ -34,8 +34,9 @@ export const generateChatResponse = async (
 
         const userMessageCount = Number(recentMessages[0]?.count || 0);
 
+        // Usage in your API
         if (userMessageCount >= MAX_REQUESTS) {
-            response(res, 429, "Even AI needs a breather! You can send your next message in 1 minute.");
+            response(res, 429, getRandomRateLimitMessage());
         }
 
         // ✅ 2️⃣ Store USER message
