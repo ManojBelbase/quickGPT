@@ -58,3 +58,9 @@ export interface SocialPostFormProps {
     onGenerate: () => void;
     isLoading: boolean;
 }
+
+export interface DashboardBotPromptOptions {
+    userContent: any,
+    question: string
+
+}

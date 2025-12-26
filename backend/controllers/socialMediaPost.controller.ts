@@ -139,7 +139,7 @@ export const deleteSocialPost = async (req: Request, res: Response): Promise<voi
       SELECT id FROM creations
       WHERE id = ${id}
         AND user_id = ${userId}
-        AND type = 'social-post'
+        AND  = 'social-post'
     `;
 
         if (!post) {

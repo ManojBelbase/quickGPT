@@ -12,6 +12,7 @@ import textSummarizerRouter from "./routes/textSummarizer.route";
 import codeGeneratorRouter from './routes/code-generate.route'
 import socialMediaPostRouter from "./routes/social-media-post.route";
 import chatRouter from "./routes/chat.route";
+import dashboardBotRouter from "./routes/dashboardBot.route";
 
 const app = express();
 
@@ -61,5 +62,6 @@ app.use('/api/text-summarizer', textSummarizerRouter)
 app.use('/api/code-generator', codeGeneratorRouter)
 app.use('/api/social-post', socialMediaPostRouter);
 app.use("/api/dashboard", dashboardStatsRouter);
+app.use('/api/dashboard-bot', dashboardBotRouter)
 
 export default app; 
