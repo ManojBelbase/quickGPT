@@ -5,13 +5,12 @@ export const useDashboardBot = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (message: string) => {
-            // Pointing to your new dashboard bot controller
+        mutationFn: async ({ message, userFullName }: { message: string; userFullName: string }) => {
             const { data } = await api.post<{
                 status: number;
                 message: string;
                 data: string;
-            }>("/dashboard-bot", { message });
+            }>("/dashboard-bot", { message, userFullName });
 
             return data.data;
         },

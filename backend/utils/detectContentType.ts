@@ -1,39 +1,43 @@
-// Map all relevant user keywords to exact DB types
-export const TYPE_KEYWORDS: { [keyword: string]: string } = {
-    // Articles & Blogs
-    article: "article",
-    articles: "article",
-    blog: "blog-title",
+// utils/contentTypeHelper.ts
+
+// 1️⃣ Mapping of keywords to internal type IDs
+const contentTypeMap: Record<string, string> = {
+    "blog": "blog-title",
     "blog title": "blog-title",
     "blog titles": "blog-title",
-
-    // Text Summaries
-    summary: "text-summary",
-    "text summary": "text-summary",
-
-    // Social Posts
-    social: "social-post",
+    "article": "blog-title",
+    "social": "social-post",
     "social post": "social-post",
-
-    // Objects
-    "remove object": "remove-object",
-
-    // Code Generation
-    code: "code-generation",
-    coding: "code-generation",
-    "code generation": "code-generation",
-    "coding question": "code-generation",
-    "code question": "code-generation",
+    "social posts": "social-post",
+    "code": "code-snippet",
+    "code snippet": "code-snippet",
+    "code snippets": "code-snippet",
+    "all": "all",
 };
 
-/**
- * Detects the relevant DB content type based on a user message.
- * Returns exact DB type if matched, otherwise "all".
- */
-export const detectContentType = (message: string): string | "all" => {
-    const msgLower = message.toLowerCase();
-    for (const [keyword, type] of Object.entries(TYPE_KEYWORDS)) {
-        if (msgLower.includes(keyword)) return type; // return exact DB type
+// 2️⃣ Mapping of type IDs to friendly display names
+const contentTypeDisplayNames: Record<string, string> = {
+    "all": "creations",
+    "blog-title": "blog titles",
+    "social-post": "social posts",
+    "code-snippet": "code snippets",
+};
+
+
+// 3️⃣ Function to detect content type from user message
+export function detectContentType(message: string): string {
+    const lower = message.toLowerCase();
+
+    for (const key in contentTypeMap) {
+        if (lower.includes(key)) {
+            return contentTypeMap[key]; // internal type ID
+        }
     }
-    return "all";
-};
+
+    return "all"; // default
+}
+
+// 4️⃣ Function to get friendly display name from type ID
+export function getContentTypeDisplayName(type: string): string {
+    return contentTypeDisplayNames[type] || "creations";
+}

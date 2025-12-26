@@ -67,7 +67,7 @@ const Dashboard: React.FC = () => {
 
                     <div className="z-10 text-center md:text-left">
                         <h1 className="text-xl sm:text-3xl md:text-4xl font-black tracking-tight 
-                        bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 
+                        bg-linear-to-r from-slate-900 via-slate-700 to-slate-900 
                         bg-clip-text text-transparent">
                             Dashboard
                         </h1>
@@ -192,7 +192,7 @@ const Dashboard: React.FC = () => {
 
                                     <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200">
                                         <div
-                                            className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-1000"
+                                            className="h-full bg-linear-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-1000"
                                             style={{
                                                 width: `${(item.count / Math.max(dashboardData.total_creations, 1)) * 100}%`,
                                             }}
@@ -205,7 +205,7 @@ const Dashboard: React.FC = () => {
 
                     {/* Upgrade Card */}
                     <div className="lg:col-span-5 relative group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-violet-900 
+                        <div className="absolute inset-0 bg-liear-to-br from-indigo-600 to-violet-900 
                         rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
 
                         <div className="relative h-full bg-slate-950 rounded-2xl 

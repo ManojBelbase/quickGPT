@@ -13,6 +13,7 @@ export const generateArticle = async (
 ): Promise<void> => {
     try {
         const userId = req.auth().userId;
+
         const { prompt, length } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage ?? 0;

@@ -24,8 +24,8 @@ importers:
         specifier: ^5.91.1
         version: 5.91.1(@tanstack/react-query@5.90.12(react@19.2.1))(react@19.2.1)
       ai-response-parser:
-        specifier: ^1.3.3
-        version: 1.3.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        specifier: ^1.3.4
+        version: 1.3.4(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       axios:
         specifier: ^1.13.2
         version: 1.13.2
@@ -750,8 +750,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  ai-response-parser@1.3.3:
-    resolution: {integrity: sha512-b4eAre50n4MrmlLrHlDD9rFoprogwWGlsZZJQwryh5TDGQhSoQhIF4p3IRRncLmMMFGeLhoXPeiDfbPSx6RrMg==}
+  ai-response-parser@1.3.4:
+    resolution: {integrity: sha512-ZpqjlMcu4JGac+DLkvdydi/EoOQ0sJWeJogDrFaINpaZstVN/aqKAnF+sxZqkiPMWYUvtFHriAt/4eyooOprCg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -2128,7 +2128,7 @@ snapshots:
 
   acorn@8.15.0: {}
 
-  ai-response-parser@1.3.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  ai-response-parser@1.3.4(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
