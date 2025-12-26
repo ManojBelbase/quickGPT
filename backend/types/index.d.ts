@@ -62,5 +62,6 @@ export interface SocialPostFormProps {
 export interface DashboardBotPromptOptions {
     userContent: any,
     question: string
+    fullName: string
 
 }
