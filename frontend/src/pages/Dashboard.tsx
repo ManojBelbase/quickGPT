@@ -11,6 +11,7 @@ import {
     Zap,
     Loader2,
 } from "lucide-react";
+import DashboardAssistant from "../components/dashboard/DashboardChatAssistant";
 
 const Dashboard: React.FC = () => {
     const { user, isLoaded } = useUser();
@@ -56,17 +57,17 @@ const Dashboard: React.FC = () => {
     const isPremium = dashboardData.plan === "premium";
 
     return (
-        <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans a">
-            <div className="space-y-2 sm:space-y-2">
+        <div className="min-h-screen bg-[#FDFDFF] text-slate-900 font-sans relative pb-20">
+            <div className="max-w-7xl mx-auto space-y-4 p-4 sm:p-6">
 
                 {/* HEADER */}
                 <header className="relative overflow-hidden bg-white border border-gray-200 
-                p-5 sm:p-6 md:p-8 rounded-2xl shadow-lgq 
+                p-5 sm:p-6 md:p-8 rounded-2xl shadow-sm 
                 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-6">
 
                     <div className="z-10 text-center md:text-left">
                         <h1 className="text-xl sm:text-3xl md:text-4xl font-black tracking-tight 
-                        bg-linear-to-r from-slate-900 via-slate-700 to-slate-900 
+                        bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 
                         bg-clip-text text-transparent">
                             Dashboard
                         </h1>
@@ -91,7 +92,7 @@ const Dashboard: React.FC = () => {
                             className="bg-slate-900 w-fit text-white px-4 sm:px-6 py-2.5 sm:py-3 
                             rounded-xl font-bold text-xs sm:text-sm 
                             hover:scale-105 active:scale-95 transition-all 
-                            flex items-center gap-2 shadow-lg  sm:w-auto justify-center"
+                            flex items-center gap-2 shadow-lg sm:w-auto justify-center"
                         >
                             {isPremium ? (
                                 <>Pro Member</>
@@ -124,33 +125,29 @@ const Dashboard: React.FC = () => {
                                     : 'hover:shadow-2xl hover:shadow-indigo-200/40 hover:-translate-y-2'
                                     }`}
                             >
-                                {/* ICON */}
                                 <div
                                     className={`${tool.color} text-white 
-          p-4 sm:p-5 rounded-2xl mb-3 sm:mb-4 
-          shadow-xl group-hover:rotate-12 transition-transform`}
+                                    p-4 sm:p-5 rounded-2xl mb-3 sm:mb-4 
+                                    shadow-xl group-hover:rotate-12 transition-transform`}
                                 >
                                     <Icon size={20} />
                                 </div>
 
-                                {/* TITLE */}
                                 <span className="text-xs sm:text-sm font-bold text-slate-700">
                                     {tool.title}
                                 </span>
 
-                                {/* TAG BADGES */}
                                 {tool.tag && (
                                     <span
                                         className={`absolute top-2 left-2 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider
-            ${tool.tag === 'New' && 'bg-green-100 text-green-700'}
-            ${tool.tag === 'Popular' && 'bg-indigo-100 text-indigo-700'}
-            ${tool.tag === 'Upcoming' && 'bg-slate-200 text-slate-600'}`}
+                                        ${tool.tag === 'New' && 'bg-green-100 text-green-700'}
+                                        ${tool.tag === 'Popular' && 'bg-indigo-100 text-indigo-700'}
+                                        ${tool.tag === 'Upcoming' && 'bg-slate-200 text-slate-600'}`}
                                     >
                                         {tool.tag}
                                     </span>
                                 )}
 
-                                {/* PRO BADGE */}
                                 {tool.pro && (
                                     <div className="absolute top-2 right-2">
                                         <Zap size={12} className="text-amber-400 fill-amber-400" />
@@ -162,44 +159,42 @@ const Dashboard: React.FC = () => {
                 </section>
 
 
-                {/* USAGE + UPGRADE */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4">
+                {/* USAGE + UPGRADE SECTION */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
                     {/* Usage Analysis */}
                     <div className="lg:col-span-7 bg-white border border-slate-200 
-                    rounded-2xl p-6 sm:p-8 md:p-10 shadow-lg">
+                    rounded-2xl p-6 sm:p-8 shadow-sm">
 
-                        <div className="flex items-center justify-between mb-6 sm:mb-10">
+                        <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 sm:p-3 bg-indigo-50 text-indigo-600 rounded-xl">
-                                    <BarChart size={20} className="sm:w-6 sm:h-6" />
+                                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                                    <BarChart size={20} />
                                 </div>
-                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold">
-                                    Usage Analysis
-                                </h2>
+                                <h2 className="text-lg sm:text-xl font-bold">Usage Analysis</h2>
                             </div>
-                            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                Total: {dashboardData.total_creations}
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                Analytics
                             </span>
                         </div>
 
-                        <div className="space-y-6 sm:space-y-8">
+                        <div className="space-y-6">
                             {dashboardData.creations_by_type.map((item) => (
                                 <div key={item.type}>
                                     <div className="flex justify-between items-end mb-2">
                                         <span className="text-xs sm:text-sm font-bold text-slate-700 capitalize">
                                             {item.type.replace(/-/g, " ")}
                                         </span>
-                                        <span className="text-xs sm:text-sm font-black text-indigo-600 bg-indigo-50 px-2 sm:px-3 py-1 rounded-full">
+                                        <span className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
                                             {item.count}
                                         </span>
                                     </div>
 
-                                    <div className="w-full bg-slate-100 h-3 sm:h-4 rounded-full overflow-hidden border border-slate-200">
+                                    <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200">
                                         <div
-                                            className="h-full bg-linear-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-1000"
+                                            className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-1000"
                                             style={{
-                                                width: `${(item.count / dashboardData.total_creations) * 100}%`,
+                                                width: `${(item.count / Math.max(dashboardData.total_creations, 1)) * 100}%`,
                                             }}
                                         />
                                     </div>
@@ -210,45 +205,33 @@ const Dashboard: React.FC = () => {
 
                     {/* Upgrade Card */}
                     <div className="lg:col-span-5 relative group">
-                        <div className="absolute inset-0 bg-linear-to-br from-indigo-600 to-violet-900 
-                        rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-violet-900 
+                        rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
 
                         <div className="relative h-full bg-slate-950 rounded-2xl 
-                        p-6 sm:p-8 md:p-10 text-white flex flex-col justify-between 
-                        border border-white/10">
+                        p-6 sm:p-8 text-white flex flex-col justify-between 
+                        border border-white/10 overflow-hidden">
 
                             <div>
-                                <div className="w-12 sm:w-14 h-12 sm:h-14 bg-white/10 rounded-2xl 
-                                flex items-center justify-center mb-5 sm:mb-6">
-                                    <Sparkles className="text-amber-300 w-6 h-6 sm:w-8 sm:h-8" />
+                                <div className="w-12 h-12 bg-white/10 rounded-xl 
+                                flex items-center justify-center mb-6">
+                                    <Sparkles className="text-amber-300 w-6 h-6" />
                                 </div>
 
-                                <h3 className="text-2xl sm:text-3xl font-black leading-tight mb-3 sm:mb-4">
+                                <h3 className="text-2xl font-black leading-tight mb-4">
                                     Unlock The <br />
                                     <span className="text-indigo-400">Full Potential</span>
                                 </h3>
 
-                                <p className="text-xs sm:text-sm text-slate-400 mb-5 sm:mb-6">
-                                    Upgrade to Pro for high-fidelity AI generation, unlimited edits, and priority processing.
-                                </p>
-
-                                <ul className="space-y-3 sm:space-y-4">
+                                <ul className="space-y-3">
                                     {[
-                                        "Unlimited AI Image Generation",
-                                        "Magic Background Removal & Replace",
-                                        "AI Text-to-Image Generation",
-                                        "Generate Social Media Posts",
-                                        "Priority Processing & Support",
-                                        "Access to Exclusive New Features",
+                                        "Unlimited AI Generations",
+                                        "Priority AI Processing",
                                         "Early Access to Beta Tools",
-
                                     ].map((feat) => (
-                                        <li
-                                            key={feat}
-                                            className="flex items-center gap-3 text-xs sm:text-sm text-slate-300"
-                                        >
-                                            <div className="p-1 bg-indigo-500 rounded-full">
-                                                <CheckCircle2 size={12} className="text-white" />
+                                        <li key={feat} className="flex items-center gap-3 text-xs text-slate-300">
+                                            <div className="p-0.5 bg-indigo-500 rounded-full">
+                                                <CheckCircle2 size={10} className="text-white" />
                                             </div>
                                             {feat}
                                         </li>
@@ -258,18 +241,20 @@ const Dashboard: React.FC = () => {
 
                             <button
                                 onClick={() => navigate("/#plans")}
-                                className="w-full mt-8 py-3 sm:py-4 cursor-pointer 
-                                bg-indigo-500 hover:bg-indigo-400 
-                                rounded-xl font-black text-xs sm:text-sm 
-                                transition-all shadow-2xl shadow-indigo-500/40 
-                                flex items-center justify-center gap-2"
+                                className="w-full mt-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 
+                                rounded-xl font-bold text-sm transition-all shadow-xl 
+                                flex items-center justify-center gap-2 group"
                             >
-                                Go Premium Now <ArrowUpRight size={18} />
+                                Go Premium Now
+                                <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>
                         </div>
                     </div>
-
                 </div>
+
+                {/* FLOATING AI ASSISTANT */}
+                <DashboardAssistant />
+
             </div>
         </div>
     );
