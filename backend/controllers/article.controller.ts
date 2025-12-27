@@ -3,17 +3,14 @@ import { openRouter } from "../config/openRouter";
 import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
-
-
 import { buildArticlePrompt } from "../prompts/articlePrompt";
-
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 export const generateArticle = async (
     req: Request,
     res: Response
 ): Promise<void> => {
     try {
         const userId = req.auth().userId;
-
         const { prompt, length } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage ?? 0;
@@ -23,10 +20,7 @@ export const generateArticle = async (
             return;
         }
 
-        const formattedPrompt = buildArticlePrompt({
-            title: prompt,
-            length,
-        });
+        const formattedPrompt = buildArticlePrompt({ title: prompt, length });
 
         const aiResponse = await openRouter.post("/chat/completions", {
             model: "meta-llama/llama-3.3-70b-instruct:free",
@@ -35,13 +29,17 @@ export const generateArticle = async (
             max_tokens: Math.min(length * 1.3, 1200),
         });
 
-        const content =
-            aiResponse.data.choices?.[0]?.message?.content ?? "";
+        const content = aiResponse.data.choices?.[0]?.message?.content ?? "";
 
+        // Generate embedding
+        const embedding = await generateGeminiEmbedding(content);
+
+        // Save article + embedding
         await sql`
-      INSERT INTO creations(user_id, prompt, content, type)
-      VALUES(${userId}, ${prompt}, ${content}, 'article')
-    `;
+          INSERT INTO creations(user_id, prompt, content, type, embedding)
+          VALUES(${userId}, ${prompt}, ${content}, 'article', ${embedding})
+          RETURNING id
+        `;
 
         if (plan !== "premium") {
             await clerkClient.users.updateUserMetadata(userId, {

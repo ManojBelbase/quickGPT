@@ -4,23 +4,22 @@ import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
 import { buildBlogTitlePrompt } from "../prompts/blogTitlePrompt";
+import { generateEmbeddingInBackground } from "../utils/generateEmbeddingInBackground";
 
 export const generateBlogTitle = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId: string = req.auth().userId;
-
         const { prompt } = req.body;
-        const plan: string | undefined = req.plan;
-        const free_usage: number | undefined = req.free_usage;
 
         // Free users limit
+        const plan: string | undefined = req.plan;
+        const free_usage: number | undefined = req.free_usage;
         if (plan !== "premium" && (free_usage ?? 0) >= 10) {
             response(res, 403, "Limit Reached. Upgrade to continue.");
             return;
         }
 
-        const formattedPrompt = buildBlogTitlePrompt({ prompt: prompt });
-
+        const formattedPrompt = buildBlogTitlePrompt({ prompt });
 
         // 🔥 OpenRouter AI call
         const aiResponse = await openRouter.post("/chat/completions", {
@@ -30,28 +29,36 @@ export const generateBlogTitle = async (req: Request, res: Response): Promise<vo
             max_tokens: 1000,
         });
 
-        const content: string =
-            aiResponse.data.choices?.[0]?.message?.content ?? "";
+        const content: string = aiResponse.data.choices?.[0]?.message?.content ?? "";
 
-        await sql`
+        // Save immediately without embedding
+        const creation = await sql`
             INSERT INTO creations (user_id, prompt, content, type)
             VALUES (${userId}, ${prompt}, ${content}, 'blog-title')
+            RETURNING id
         `;
 
+        const creationId = creation[0].id;
+
+        // Respond immediately to user
+        response(res, 200, "Success", content);
+
+        // Queue embedding generation in background
+        generateEmbeddingInBackground(creationId, content);
+
+        // Update free usage
         if (plan !== "premium") {
             await clerkClient.users.updateUserMetadata(userId, {
-                privateMetadata: {
-                    free_usage: (free_usage ?? 0) + 1,
-                },
+                privateMetadata: { free_usage: (free_usage ?? 0) + 1 },
             });
         }
 
-        response(res, 200, "Success", content);
     } catch (error: any) {
         console.error(error.response?.data || error.message);
         response(res, 500, "Something went wrong", error.response?.data ?? error.message);
     }
 };
+
 
 export const getBlogTitles = async (
     req: Request,
