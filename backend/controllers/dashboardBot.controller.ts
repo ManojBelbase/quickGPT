@@ -69,7 +69,7 @@ export const generateDashboardBotResponse = async (req: any, res: Response): Pro
           ORDER BY count DESC
         `;
                 if (!stats.length) {
-                    response(res, 200, "Success", "You haven’t created anything yet.");
+                    response(res, 200, "Success", "You haven't created anything yet.");
                     return;
                 }
                 const total = stats.reduce((s, r) => s + r.count, 0);
@@ -101,7 +101,7 @@ export const generateDashboardBotResponse = async (req: any, res: Response): Pro
                         else if (typeof c.embedding === "string") {
                             try { vector = JSON.parse(c.embedding); } catch { }
                         }
-                        const sim = vector.length ? cosineSimilarity(messageEmbedding as any, vector) : 0;
+                        const sim = vector.length ? cosineSimilarity(messageEmbedding as [], vector) : 0;
                         return { ...c, similarity: sim };
                     })
                     .sort((a, b) => b.similarity - a.similarity)
@@ -124,7 +124,7 @@ export const generateDashboardBotResponse = async (req: any, res: Response): Pro
                 const aiResponse = await openRouterForChatBot.post("/chat/completions", {
                     model: "nvidia/nemotron-3-nano-30b-a3b:free",
                     messages: [{ role: "user", content: prompt }],
-                    temperature: 0.4,
+                    temperature: 0.6,
                     max_tokens: 300
                 });
 

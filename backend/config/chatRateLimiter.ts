@@ -1,4 +1,4 @@
-export const RATE_LIMIT_WINDOW_MS = 2 * 60 * 1000; // 2 minutes
+export const RATE_LIMIT_WINDOW_MS = 2 * 60 * 1000;
 export const MAX_REQUESTS = 3;
 
 export const rateLimitMessages = [

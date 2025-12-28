@@ -8,7 +8,7 @@ export function detectDashboardBotIntent(message: string): DashboardBotIntent {
     if (GREETING_KEYWORDS.includes(text)) return DashboardBotIntent.GREETING;
 
     // 🤖 Identity
-    if (["who are you", "your name", "what are you"].includes(text)) {
+    if (["who are you", "your name", "what are you", "my identify"].includes(text)) {
         return DashboardBotIntent.IDENTITY;
     }
 

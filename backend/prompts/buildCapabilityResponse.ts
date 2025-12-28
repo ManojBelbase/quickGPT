@@ -1,4 +1,3 @@
-// helpers/buildCapabilityResponse.ts
 export function buildCapabilityResponse(name: string) {
     return `
 Hi ${name}! 👋  
