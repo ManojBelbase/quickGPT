@@ -1,4 +1,19 @@
 export const GREETING_KEYWORDS = [
-    "hi", "hello", "hey", "greetings", "good morning", "good afternoon",
-    "good evening", "how's it going", "sup", "yo", "thank", "bye", "goodbye"
+    "hi",
+    "hey",
+    "hello",
+    "good morning",
+    "good afternoon",
+    "good evening"
 ];
+
+export enum DashboardBotIntent {
+    GREETING = "GREETING",
+    IDENTITY = "IDENTITY",
+    USER_INFO = "USER_INFO",
+    THANKS = "THANKS",
+    CAPABILITY = "CAPABILITY",
+    STATS = "STATS",
+    CONTENT = "CONTENT",
+    UNKNOWN = "UNKNOWN"
+}

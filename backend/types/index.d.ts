@@ -65,3 +65,9 @@ export interface DashboardBotPromptOptions {
     fullName: string
 
 }
+
+export interface Creation {
+    content: string;
+    type: string;
+    embedding: number[] | string | null;
+}

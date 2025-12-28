@@ -1,21 +1,47 @@
-// helpers/dashboardBotHelpers.ts
 import { GREETING_KEYWORDS } from "../const/conts";
 
-export const generateGreetingResponse = (message: string, displayName: string): string | null => {
-    const lowerMessage = message.toLowerCase().trim();
+export const generateGreetingResponse = (
+    message: string,
+    displayName: string
+): string | null => {
 
-    const isGreeting = GREETING_KEYWORDS.some(k => lowerMessage.includes(k));
-    const isIdentityQuery = lowerMessage.includes("your name") || lowerMessage.includes("who are you");
-    const isUserQuery = lowerMessage.includes("my name") || lowerMessage.includes("who am i");
+    const lower = message.toLowerCase().trim();
 
-    if (isGreeting || isIdentityQuery || isUserQuery || lowerMessage.length < 10) {
-        if (isUserQuery) return `Your name is ${displayName}! 😊`;
-        if (isIdentityQuery) return "I'm your Dashboard AI Assistant! I analyze your creations to give you insights.";
-        if (lowerMessage.includes("thank")) return `You're very welcome, ${displayName}!`;
+    /* ------------------ Explicit queries ------------------ */
+    const isIdentityQuery =
+        lower === "who are you" ||
+        lower === "your name" ||
+        lower === "what are you";
 
-        // default greeting
-        return `Hey ${displayName}! How can I help you today?`;
+    const isUserQuery =
+        lower === "my name" ||
+        lower === "who am i";
+
+    const isThanks =
+        lower === "thanks" ||
+        lower === "thank you" ||
+        lower === "thx";
+
+    /* ------------------ Greeting detection ------------------ */
+    const isGreeting =
+        GREETING_KEYWORDS.includes(lower);
+
+    /* ------------------ RESPONSES ------------------ */
+    if (isUserQuery) {
+        return `Your name is ${displayName}! 😊`;
     }
 
-    return null; // not a greeting
+    if (isIdentityQuery) {
+        return "I'm your Dashboard AI Assistant. I help you analyze, summarize, and explore your creations.";
+    }
+
+    if (isThanks) {
+        return `You're very welcome, ${displayName}! 🙌`;
+    }
+
+    if (isGreeting) {
+        return `Hey ${displayName}! 👋 How can I help you today?`;
+    }
+
+    return null; // ✅ NOT a greeting
 };
