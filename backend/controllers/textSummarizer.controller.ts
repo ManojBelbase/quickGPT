@@ -4,6 +4,7 @@ import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
 import { buildTextSummarizerPrompt } from "../prompts/textSummarizerPrompt";
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 
 export const generateSummary = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -36,15 +37,17 @@ export const generateSummary = async (req: Request, res: Response): Promise<void
 
         const content: string = aiResponse.data.choices?.[0]?.message?.content ?? "";
 
+
         if (!content.trim()) {
             response(res, 500, "Failed to generate summary");
             return;
         }
 
+        const embedding = await generateGeminiEmbedding(content);
         // Save to database
         await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
-      VALUES (${userId}, ${text}, ${content}, 'text-summary')
+      INSERT INTO creations (user_id, prompt, content, type, embedding)
+      VALUES (${userId}, ${text}, ${content}, 'text-summary', ${embedding})
     `;
 
         // Increment free usage counter if not premium

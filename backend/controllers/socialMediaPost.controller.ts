@@ -7,6 +7,7 @@ import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { cloudinary } from "../config/cloudinary";
 import dotenv from "dotenv";
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 dotenv.config();
 const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
 
@@ -77,16 +78,21 @@ export const generateSocialPost = async (
             } catch (imgError) {
                 console.error("Image generation failed:", imgError);
             }
+
         }
+
+        const embedding = await generateGeminiEmbedding(prompt);
+
 
         // Save creation to DB
         await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
+      INSERT INTO creations (user_id, prompt, content, type, embedding)
       VALUES (
         ${userId},
         ${prompt},
         ${content},
         'social-post'
+        ${embedding}
       )
     `;
 

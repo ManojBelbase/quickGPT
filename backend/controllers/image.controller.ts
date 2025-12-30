@@ -4,6 +4,7 @@ import { response } from "../utils/responseHandler";
 import axios from "axios";
 import { cloudinary } from "../config/cloudinary";
 import dotenv from 'dotenv';
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 dotenv.config();
 
 const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
@@ -44,10 +45,13 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
             folder: "quickGPT/generated_images"
         });
 
+        const embedding = await generateGeminiEmbedding(prompt);
+
+
         // 5. Save record to your database
         await sql`
-            INSERT INTO creations (user_id, prompt, content, type, publish)
-            VALUES (${userId}, ${prompt}, ${uploadResult.secure_url}, 'image', ${publish ?? false})
+            INSERT INTO creations (user_id, prompt, content, type, publish, embedding)
+            VALUES (${userId}, ${prompt}, ${uploadResult.secure_url}, 'image', ${publish ?? false}, ${embedding})
         `;
 
         // 6. Send success response

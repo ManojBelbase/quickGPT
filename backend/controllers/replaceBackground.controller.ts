@@ -3,6 +3,7 @@ import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import axios from "axios";
 import { cloudinary } from "../config/cloudinary";
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 
 const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
 
@@ -62,10 +63,13 @@ export const ReplaceBackgroundFromImage = async (req: Request, res: Response): P
             folder: "quickGPT/remove-object"
         });
 
+
+        const embedding = await generateGeminiEmbedding(prompt);
+
         // Save to DB
         await sql`
-            INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${prompt}, ${`Remove ${uploadResult.secure_url} from image`}, 'remove-object')
+            INSERT INTO creations (user_id, prompt, content, type, embedding)
+            VALUES (${userId}, ${prompt}, ${`Remove ${uploadResult.secure_url} from image`}, 'remove-object', ${embedding})
         `;
 
         response(res, 200, "Background replaced successfully", {
