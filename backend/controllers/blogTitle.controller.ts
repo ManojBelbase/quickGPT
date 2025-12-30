@@ -5,6 +5,7 @@ import { response } from "../utils/responseHandler";
 import { clerkClient } from "@clerk/express";
 import { buildBlogTitlePrompt } from "../prompts/blogTitlePrompt";
 import { generateEmbeddingInBackground } from "../utils/generateEmbeddingInBackground";
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 
 export const generateBlogTitle = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -22,6 +23,7 @@ export const generateBlogTitle = async (req: Request, res: Response): Promise<vo
         const formattedPrompt = buildBlogTitlePrompt({ prompt });
 
         // 🔥 OpenRouter AI call
+
         const aiResponse = await openRouter.post("/chat/completions", {
             model: "meta-llama/llama-3.3-70b-instruct:free",
             messages: [{ role: "user", content: formattedPrompt }],
@@ -32,9 +34,11 @@ export const generateBlogTitle = async (req: Request, res: Response): Promise<vo
         const content: string = aiResponse.data.choices?.[0]?.message?.content ?? "";
 
         // Save immediately without embedding
+        const embedding = await generateGeminiEmbedding(content);
+
         const creation = await sql`
-            INSERT INTO creations (user_id, prompt, content, type)
-            VALUES (${userId}, ${prompt}, ${content}, 'blog-title')
+            INSERT INTO creations (user_id, prompt, content, type,embedding)
+            VALUES (${userId}, ${prompt}, ${content}, 'blog-title', ${embedding})
             RETURNING id
         `;
 

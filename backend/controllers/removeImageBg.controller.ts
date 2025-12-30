@@ -4,6 +4,7 @@ import sql from "../config/db";
 import { response } from "../utils/responseHandler";
 import axios from "axios";
 import { cloudinary } from "../config/cloudinary";
+import { generateGeminiEmbedding } from "../utils/geminiEmbedding";
 
 const CLIPDROP_API_KEY = process.env.CLIPDROP_API_KEY;
 
@@ -60,6 +61,7 @@ export const removeImageBackground = async (req: Request, res: Response): Promis
         const uploadResult = await cloudinary.uploader.upload(dataUri, {
             folder: "quickGPT/background-removed"
         });
+
 
         // 5. Save to database
         await sql`

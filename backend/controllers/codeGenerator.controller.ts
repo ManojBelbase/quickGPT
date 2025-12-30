@@ -4,6 +4,7 @@ import sql from '../config/db';
 import { response } from '../utils/responseHandler';
 import { clerkClient } from '@clerk/express';
 import { buildCodeGeneratorPrompt } from '../prompts/codeGeneratorPrompt';
+import { generateGeminiEmbedding } from '../utils/geminiEmbedding';
 
 export const generateCode = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -29,11 +30,12 @@ export const generateCode = async (req: Request, res: Response): Promise<void> =
         });
 
         const content: string = aiResponse.data.choices?.[0]?.message?.content ?? '';
+        const embedding = await generateGeminiEmbedding(content);
 
         // Save to database
         await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
-      VALUES (${userId}, ${prompt}, ${content}, 'code-generation')
+      INSERT INTO creations (user_id, prompt, content, type, embedding)
+      VALUES (${userId}, ${prompt}, ${content}, 'code-generation',${embedding})
     `;
 
         // Increment free usage counter if not premium
