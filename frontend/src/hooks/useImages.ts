@@ -23,7 +23,7 @@ export const useGenerateImage = () => {
                 publish,
             });
             if (data.status !== "success") {
-                throw new Error(data.message || "Failed to generate image");
+                throw new Error(data.message || "Failed to generate Image");
             }
             return data.data.content;
         },

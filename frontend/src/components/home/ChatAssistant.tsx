@@ -47,7 +47,7 @@ const ChatAssistant: React.FC = () => {
             )}
 
 
-            <div className="fixed bottom-2 right-4  md:bottom-4 md:right-6 z-9999 flex flex-col items-end">
+            <div className="fixed bottom-2 right-4 md:bottom-4 md:right-6 z-9999 flex flex-col items-end animate-in slide-in-from-right-10 duration-700 delay-500 fill-mode-backwards">
 
                 {/* CHAT WINDOW */}
                 {isOpen && (
@@ -207,7 +207,7 @@ const ChatAssistant: React.FC = () => {
                             {messages.map((msg, i) => (
                                 <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                                     <div className={`
-                                    max-w-[85%] px-3.5 py-2 text-sm shadow-sm
+                                    max-w-[85%] px-3.5 py-2 text-sm 
                                     ${msg.role === "user"
                                             ? "bg-purple-600 text-white rounded-2xl rounded-tr-none"
                                             : "  border text-black border-gray-200 rounded-2xl rounded-tl-none"
@@ -262,19 +262,33 @@ const ChatAssistant: React.FC = () => {
                 )}
 
                 {/* FLOATING ACTION BUTTON */}
+                {/* Inside the fixed div, above the Chat Window logic */}
+                {!isOpen && (
+                    <div className="mb-4 mr-2 bg-white px-4 py-2 rounded-2xl rounded-br-none shadow-xl border border-slate-100 animate-bounce transition-all duration-1000">
+                        <p className="text-xs font-medium text-black">Hey! Need any help? 👋</p>
+                    </div>
+                )}
+                {/* Replace the current FAB button content with this */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={`
-                    flex items-center cursor-pointer justify-center h-12 w-12 sm:w-14 sm:h-14 rounded-full shadow-2xl transition-all duration-500 transform 
-                    ${isOpen ? "bg-slate-900 rotate-360deg scale-90" : "bg-purple-600 hover:bg-purple-700 hover:scale-110 active:scale-95"}
-                `}
+    relative flex items-center cursor-pointer justify-center h-12 w-12 sm:w-14 sm:h-14 rounded-full shadow-2xl transition-all duration-500 transform 
+    ${isOpen ? "bg-slate-900 rotate-180" : "bg-purple-600 hover:bg-purple-700 hover:scale-110 active:scale-95"}
+`}
                 >
+                    {/* Sonar Pulse Effect (Only visible when closed) */}
+                    {!isOpen && (
+                        <>
+                            <span className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-75"></span>
+                            <span className="absolute inset-0 rounded-full bg-purple-600"></span>
+                        </>
+                    )}
+
                     {isOpen ? (
-                        <X className="w-6 h-6 text-white" />
+                        <X className="relative w-6 h-6 text-white" />
                     ) : (
                         <div className="relative">
-                            <Bot className="sm:w-8 sm:h-8 h-7 w-7 text-white text-xl" />
-                            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
+                            <Bot className="sm:w-8 sm:h-8 h-7 w-7 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />                            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-white"></span>
                         </div>
                     )}
                 </button>
