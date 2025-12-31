@@ -82,7 +82,7 @@ export const removeImageBackground = async (req: Request, res: Response): Promis
             const errorData = error.response.data instanceof Buffer
                 ? error.response.data.toString()
                 : error.response.data;
-            response(res, error.response.status, "Clipdrop API Error", errorData);
+            response(res, error.response.status, errorData, "Clipdrop API Error");
         } else if (error.request) {
             response(res, 503, "Service Unavailable", "No response from Clipdrop API.");
         } else {

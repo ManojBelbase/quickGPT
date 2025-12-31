@@ -83,7 +83,7 @@ export const ReplaceBackgroundFromImage = async (req: Request, res: Response): P
             const errorData = error.response.data instanceof Buffer
                 ? error.response.data.toString()
                 : error.response.data;
-            response(res, error.response.status, "Clipdrop API Error", errorData);
+            response(res, error.response.status, errorData, "Image processing failed. Please try again.",);
         } else {
             response(res, 500, "Internal Server Error", error.message);
         }

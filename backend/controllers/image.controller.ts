@@ -66,7 +66,7 @@ export const generateImage = async (req: Request, res: Response): Promise<void> 
                 ? error.response.data.toString()
                 : error.response.data;
 
-            response(res, error.response.status, "Clipdrop API Error", errorData);
+            response(res, error.response.status, errorData, "Clipdrop API Error",);
         } else if (error.request) {
             // Request was made but no response received
             response(res, 503, "Service Unavailable", "No response received from Clipdrop API.");
